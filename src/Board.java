@@ -1,7 +1,7 @@
 import java.util.Arrays;
 
 public class Board {
-    private Piece[][] board;
+    private final Piece[][] board;
 
     Board(){
         board = new Piece[8][8]; // instantiating the board
