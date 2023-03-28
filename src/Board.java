@@ -46,33 +46,8 @@ public class Board {
     }
 
     public Piece[][] getBoard() { return board; }
-    public String toString()
-    {
-        StringBuilder value = new StringBuilder();
-        value.append("------------------------------------------------------------------------");
-        value.append("\n");
 
-        // Loop through all rows
-        for (Piece[] row : board) {
-            value.append("|");
-            // Loop through all columns of current row
-            for (Piece x : row) {
-                if(x != null) {
-                    value.append(x).append(" | ");
-                } else {
-                    value.append("      ").append(" | ");
-                }
-            }
-            value.append("\n");
-            value.append("------------------------------------------------------------------------");
-            value.append("\n");
-        }
-
-        return value.toString();
-    }
-
-    public String toStringReversed()
-    {
+    public String toString() {
         StringBuilder value = new StringBuilder();
         value.append("----------------------------------------------------------------------------------------");
         value.append("\n");

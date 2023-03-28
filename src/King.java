@@ -43,5 +43,5 @@ public class King implements Piece{
     @Override
     public String getColor() { return this.color; }
     @Override
-    public String toString(){ return " King " + UniversalMethods.changeCord(xPos) + yPos; }
+    public String toString(){ return UniversalMethods.changeColor(this.color) + " King " + UniversalMethods.changeCord(xPos) + yPos + "\u001B[0m"; }
 }

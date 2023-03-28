@@ -20,4 +20,8 @@ public class UniversalMethods {
             throw new IllegalArgumentException("Wrong X-Coordinate");
         }
     }
+    public static String changeColor(String color){
+        if(color.equals("Black")) return "\u001B[47m" + "\u001B[30m";
+        return "\u001B[47m";
+    }
 }

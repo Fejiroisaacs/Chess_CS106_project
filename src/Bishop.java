@@ -40,5 +40,5 @@ public class Bishop implements Piece{
     @Override
     public String getColor() { return this.color; }
     @Override
-    public String toString(){ return "Bishp " + UniversalMethods.changeCord(xPos) + yPos; }
+    public String toString(){ return UniversalMethods.changeColor(this.color) + "Bishp " + UniversalMethods.changeCord(xPos) + yPos + "\u001B[0m"; }
 }

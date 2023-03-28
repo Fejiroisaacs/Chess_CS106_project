@@ -40,5 +40,5 @@ public class Rook implements Piece {
     @Override
     public String getColor() { return this.color; }
     @Override
-    public String toString(){ return " Rook " + UniversalMethods.changeCord(xPos) + yPos; }
+    public String toString(){ return UniversalMethods.changeColor(this.color) + " Rook " + UniversalMethods.changeCord(xPos) + yPos + "\u001B[0m"; }
 }
