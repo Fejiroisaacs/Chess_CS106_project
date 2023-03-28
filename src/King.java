@@ -1,24 +1,31 @@
-public class Pawn implements Piece{
+public class King implements Piece{
     private int xPos;
     private int yPos;
     private final String color;
 
-    Pawn(int xPos, int yPos, String color){
-        this.color = color;
+    public King(int xPos, int yPos, String color) {
         this.xPos = xPos;
         this.yPos = yPos;
+        this.color = color;
     }
-    @Override
-    public int getXPos() { return this.xPos; }
 
     @Override
-    public int getYPos() { return this.yPos; }
+    public int getXPos() {
+        return 0;
+    }
+
+    @Override
+    public int getYPos() {
+        return 0;
+    }
 
     @Override
     public boolean canMove(int xPos, int yPos, Board board) {
         return false;
     }
-    public void move(int xPos, int yPos){
+
+    @Override
+    public void move(int xPos, int yPos) {
         this.yPos = yPos;
         this.xPos = xPos;
     }
@@ -29,9 +36,12 @@ public class Pawn implements Piece{
     }
 
     @Override
-    public boolean isAttacked() { return false; }
+    public boolean isAttacked() {
+        return false;
+    }
 
     @Override
-    public String getColor(){ return this.color; }
-
+    public String getColor() {
+        return null;
+    }
 }
