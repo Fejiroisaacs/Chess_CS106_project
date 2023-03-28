@@ -18,7 +18,8 @@ public class Pawn implements Piece{
     public boolean canMove(int xPos, int yPos, Board board) {
         return false;
     }
-    public void move(int xPos, int yPos){
+    public void move(int xPos, int yPos, Board board){
+        board.editBoard(this, this.xPos, this.yPos, xPos, yPos);
         this.yPos = yPos;
         this.xPos = xPos;
     }
@@ -34,6 +35,7 @@ public class Pawn implements Piece{
     @Override
     public String getColor(){ return this.color; }
     @Override
-    public String toString(){ return "Pawn"; }
+    public String toString(){ return " Pawn " + UniversalMethods.changeCord(xPos) + yPos; }
+
 
 }

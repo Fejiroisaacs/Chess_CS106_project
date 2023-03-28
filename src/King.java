@@ -21,7 +21,8 @@ public class King implements Piece{
     }
 
     @Override
-    public void move(int xPos, int yPos) {
+    public void move(int xPos, int yPos, Board board) {
+        board.editBoard(this, this.xPos, this.yPos, xPos, yPos);
         this.yPos = yPos;
         this.xPos = xPos;
     }
@@ -42,5 +43,5 @@ public class King implements Piece{
     @Override
     public String getColor() { return this.color; }
     @Override
-    public String toString(){ return "King"; }
+    public String toString(){ return " King " + UniversalMethods.changeCord(xPos) + yPos; }
 }

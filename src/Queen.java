@@ -21,7 +21,7 @@ public class Queen implements Piece{
     }
 
     @Override
-    public void move(int xPos, int yPos) {
+    public void move(int xPos, int yPos, Board board) {
         this.yPos = yPos;
         this.xPos = xPos;
     }
@@ -38,4 +38,6 @@ public class Queen implements Piece{
 
     @Override
     public String getColor() { return this.color; }
+    @Override
+    public String toString(){ return "Queen " + UniversalMethods.changeCord(xPos) + yPos; }
 }

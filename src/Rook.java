@@ -1,4 +1,4 @@
-public class Rook implements Piece{
+public class Rook implements Piece {
     private int xPos;
     private int yPos;
     private final String color;
@@ -21,8 +21,10 @@ public class Rook implements Piece{
     }
 
     @Override
-    public void move(int xPos, int yPos) {
-
+    public void move(int xPos, int yPos, Board board){
+        board.editBoard(this, this.xPos, this.yPos, xPos, yPos);
+        this.yPos = yPos;
+        this.xPos = xPos;
     }
 
     @Override
@@ -38,5 +40,5 @@ public class Rook implements Piece{
     @Override
     public String getColor() { return this.color; }
     @Override
-    public String toString(){ return "Rook"; }
+    public String toString(){ return " Rook " + UniversalMethods.changeCord(xPos) + yPos; }
 }

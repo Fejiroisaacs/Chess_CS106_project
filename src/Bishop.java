@@ -21,7 +21,8 @@ public class Bishop implements Piece{
     }
 
     @Override
-    public void move(int xPos, int yPos) {
+    public void move(int xPos, int yPos, Board board) {
+        board.editBoard(this, this.xPos, this.yPos, xPos, yPos);
         this.yPos = yPos;
         this.xPos = xPos;
     }
@@ -39,5 +40,5 @@ public class Bishop implements Piece{
     @Override
     public String getColor() { return this.color; }
     @Override
-    public String toString(){ return "Bishop"; }
+    public String toString(){ return "Bishp " + UniversalMethods.changeCord(xPos) + yPos; }
 }
