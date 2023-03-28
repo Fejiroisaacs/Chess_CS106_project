@@ -10,14 +10,10 @@ public class Bishop implements Piece{
     }
 
     @Override
-    public int getXPos() {
-        return 0;
-    }
+    public int getXPos() { return this.xPos; }
 
     @Override
-    public int getYPos() {
-        return 0;
-    }
+    public int getYPos() { return this.yPos; }
 
     @Override
     public boolean canMove(int xPos, int yPos, Board board) {
@@ -41,7 +37,5 @@ public class Bishop implements Piece{
     }
 
     @Override
-    public String getColor() {
-        return null;
-    }
+    public String getColor() { return this.color; }
 }
