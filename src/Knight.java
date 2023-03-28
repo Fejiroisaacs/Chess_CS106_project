@@ -38,4 +38,6 @@ public class Knight implements Piece{
 
     @Override
     public String getColor() { return this.color; }
+    @Override
+    public String toString(){ return "Knight"; }
 }

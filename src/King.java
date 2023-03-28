@@ -35,7 +35,12 @@ public class King implements Piece{
     public boolean isAttacked() {
         return false;
     }
+    public boolean isInCheck(){
+        return false;
+    }
 
     @Override
     public String getColor() { return this.color; }
+    @Override
+    public String toString(){ return "King"; }
 }

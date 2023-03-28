@@ -6,4 +6,6 @@ public interface Piece {
     boolean canCapture(int xPos, int yPos, Board board);
     boolean isAttacked();
     String getColor();
+    @Override
+    String toString();
 }
