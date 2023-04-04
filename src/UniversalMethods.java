@@ -1,3 +1,5 @@
+import java.lang.reflect.Array;
+
 public class UniversalMethods {
     public static String changeCord(int xPos){
         switch (xPos){
@@ -35,5 +37,24 @@ public class UniversalMethods {
 
     public static boolean validCapture(Board board, Piece piece, int x_cord, int y_cord){
         return board.getBoard()[x_cord][y_cord] != null;
+    }
+
+    public static void getMove(String move){
+
+    }
+    public static String getPiece(String move){
+        String pieceCord = move.substring(0,1).toLowerCase();
+        switch (pieceCord){
+            case "q": return "queen";
+            case "k": return "king";
+            case "b": return "bishop";
+            case "n": return "knight";
+            default: return "pawn";
+        }
+    }
+    public static int[] getCord(String move){
+        String cord = move.substring(move.length() - 2);
+        String[] piece = cord.split("");
+        return new int[]{changeLetCord(piece[0]), Integer.parseInt(piece[1])};
     }
 }
