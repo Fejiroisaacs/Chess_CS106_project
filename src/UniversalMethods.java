@@ -29,4 +29,11 @@ public class UniversalMethods {
         }
         throw new IllegalArgumentException("the coordinate entered is invalid must be between a-h");
     }
+    public static boolean validMove(Board board, Piece piece, int x_cord, int y_cord){
+        return board.getBoard()[x_cord][y_cord] == null;
+    }
+
+    public static boolean validCapture(Board board, Piece piece, int x_cord, int y_cord){
+        return board.getBoard()[x_cord][y_cord] != null;
+    }
 }
