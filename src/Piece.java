@@ -4,7 +4,7 @@ public interface Piece {
     boolean canMove(int xPos, int yPos, Board board);
     void move(int xPos, int yPos, Board board);
     boolean canCapture(int xPos, int yPos, Board board);
-    boolean isAttacked();
+    boolean isAttacked(Piece piece);
     String getColor();
     @Override
     String toString();

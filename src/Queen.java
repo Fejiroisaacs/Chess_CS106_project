@@ -32,9 +32,7 @@ public class Queen implements Piece{
     }
 
     @Override
-    public boolean isAttacked() {
-        return false;
-    }
+    public boolean isAttacked(Piece piece) {return false;}
 
     @Override
     public String getColor() { return this.color; }

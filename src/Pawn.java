@@ -2,6 +2,7 @@ public class Pawn implements Piece{
     private int xPos;
     private int yPos;
     private final String color;
+    private boolean firstMove = true;
 
     Pawn(int xPos, int yPos, String color){
         this.color = color;
@@ -16,21 +17,29 @@ public class Pawn implements Piece{
 
     @Override
     public boolean canMove(int xPos, int yPos, Board board) {
-        return false;
+        return yPos - this.yPos == 2 && this.firstMove || yPos - this.yPos == 1;
     }
-    public void move(int xPos, int yPos, Board board){
-        board.editBoard(this, this.xPos, this.yPos, xPos, yPos);
-        this.yPos = yPos;
-        this.xPos = xPos;
+
+    @Override
+    public void move(int xPos, int yPos, Board board) {
+        if(canMove(xPos, yPos, board)) pawnMove(board);
+        else throw new IllegalArgumentException("Can't move there");
+
+    }
+
+    public void pawnMove(Board board){
+        this.yPos += 1;
+        board.editBoard(this, this.xPos, this.yPos, this.xPos, this.yPos);
     }
 
     @Override
     public boolean canCapture(int xPos, int yPos, Board board) {
+
         return false;
     }
 
     @Override
-    public boolean isAttacked() { return false; }
+    public boolean isAttacked(Piece piece) { return false; }
 
     @Override
     public String getColor(){ return this.color; }

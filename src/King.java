@@ -33,12 +33,11 @@ public class King implements Piece{
     }
 
     @Override
-    public boolean isAttacked() {
+    public boolean isAttacked(Piece piece) {
         return false;
     }
-    public boolean isInCheck(){
-        return false;
-    }
+    public static boolean checkmated(King king, Board board){return false;}
+
 
     @Override
     public String getColor() { return this.color; }

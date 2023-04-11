@@ -33,7 +33,7 @@ public class Rook implements Piece {
     }
 
     @Override
-    public boolean isAttacked() {
+    public boolean isAttacked(Piece piece) {
         return false;
     }
 
