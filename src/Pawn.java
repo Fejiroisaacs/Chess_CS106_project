@@ -17,25 +17,35 @@ public class Pawn implements Piece{
 
     @Override
     public boolean canMove(int xPos, int yPos, Board board) {
-        return yPos - this.yPos == 2 && this.firstMove || yPos - this.yPos == 1;
+        return ((Math.abs(yPos - this.yPos) == 2 && this.firstMove) || (Math.abs(yPos - this.yPos) == 1)) && board.getBoard()[yPos-1][xPos-1] == null;
     }
 
     @Override
     public void move(int xPos, int yPos, Board board) {
-        if(canMove(xPos, yPos, board)) pawnMove(board);
-        else throw new IllegalArgumentException("Can't move there");
+        int val = yPos - this.yPos;
+        if(canMove(xPos, yPos, board)){
+            if(this.firstMove && Math.abs(val) == 2) this.firstMove = false;
+            board.editBoard(this, this.xPos, this.yPos, this.xPos, yPos );
+            this.yPos = yPos;
+            this.xPos = xPos;
+        } else System.out.println("Can't move there");
+        //throw new IllegalArgumentException("Can't move there");
 
-    }
-
-    public void pawnMove(Board board){
-        this.yPos += 1;
-        board.editBoard(this, this.xPos, this.yPos, this.xPos, this.yPos);
     }
 
     @Override
     public boolean canCapture(int xPos, int yPos, Board board) {
-
-        return false;
+        try{
+            assert Math.abs(this.xPos - xPos) == 1 && Math.abs(this.yPos - yPos) == 1;
+            assert board.getBoard()[yPos-1][xPos-1] != null;
+            board.editBoard(this, this.xPos, this.yPos, xPos, yPos);
+            this.yPos = yPos;
+            this.xPos = xPos;
+        } catch (AssertionError error){
+            System.out.println("Invalid capture");
+            return false;
+        }
+        return true;
     }
 
     @Override

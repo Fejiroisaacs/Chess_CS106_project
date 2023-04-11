@@ -7,7 +7,7 @@ public class Board {
         board = new Piece[8][8]; // instantiating the board
         //adding the black and white pawns
         for (int j = 0; j < 8; j++) {
-            board[1][j] = new Pawn(j+1, 1, "White");
+            board[1][j] = new Pawn(j+1, 2, "White");
             board[6][j] = new Pawn(j+1, 7, "Black");
         }
 
@@ -41,8 +41,8 @@ public class Board {
     }
 
     public void editBoard(Piece piece, int initX, int initY, int finalX, int finalY){
-        board[initX-1][initY-1] = null;
-        board[finalX+1][finalY+1] = piece;
+        board[initY-1][initX-1] = null;
+        board[finalY-1][finalX-1] = piece;
     }
 
     public Piece[][] getBoard() { return board; }
@@ -58,7 +58,7 @@ public class Board {
                 if(hold != null) {
                     value.append(hold).append(" | ");
                 } else {
-                    value.append("   ").append(UniversalMethods.changeCord(i + 1)).append(j).append("   ").append(" | ");
+                    value.append("   ").append(UniversalMethods.changeCord(j + 1)).append(i+1).append("   ").append(" | ");
                 }
             }
             value.append("\n");
