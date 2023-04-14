@@ -17,18 +17,70 @@ public class Bishop implements Piece{
 
     @Override
     public boolean canMove(int xPos, int yPos, Board board) {
-        return false;
+
+        // pre-conditions
+        assert  (Math.abs(this.xPos - xPos) > 0 && Math.abs(this.yPos - yPos) > 0);
+        assert  (Math.abs(this.xPos - xPos) < 8 && Math.abs(this.yPos - yPos) < 8);
+        if(Math.abs(this.xPos - xPos) - Math.abs(this.yPos - yPos) != 0) return false;
+        if(xPos < 0 || yPos < 0) return false;
+        // end of pre-conditions
+
+        int holdX = this.xPos;
+        int holdY = this.yPos;
+        int moveDiff = Math.abs(this.xPos - xPos);
+        if(xPos > this.xPos && yPos > this.yPos){
+            while(moveDiff > 1){
+                holdX++;
+                holdY++;
+                if(board.getBoard()[holdY-1][holdX-1] != null) return false;
+                moveDiff--;
+            }
+        } else if(xPos < this.xPos && yPos < this.yPos){
+            while(moveDiff > 1){
+                holdX--;
+                holdY--;
+                if(board.getBoard()[holdY-1][holdX-1] != null) return false;
+                moveDiff--;
+            }
+        } else if(xPos < this.xPos && yPos > this.yPos){
+            while(moveDiff > 1){
+                holdX--;
+                holdY++;
+                if(board.getBoard()[holdY-1][holdX-1] != null) return false;
+                moveDiff--;
+            }
+        }else if(xPos > this.xPos && yPos < this.yPos){
+            while(moveDiff > 1){
+                holdX++;
+                holdY--;
+                if(board.getBoard()[holdY-1][holdX-1] != null) return false;
+                moveDiff--;
+            }
+        }
+        System.out.println("this was true");
+        return true;
     }
 
     @Override
     public void move(int xPos, int yPos, Board board) {
-        board.editBoard(this, this.xPos, this.yPos, xPos, yPos);
-        this.yPos = yPos;
-        this.xPos = xPos;
+        if(canMove(xPos, yPos, board) && board.getBoard()[yPos-1][xPos-1] == null) {
+            board.editBoard(this, this.xPos, this.yPos, xPos, yPos);
+            this.yPos = yPos;
+            this.xPos = xPos;
+        } else System.out.println("Can't move there");
+        //throw new IllegalArgumentException("Can't move there")
     }
 
     @Override
     public boolean canCapture(int xPos, int yPos, Board board) {
+        Piece currPiece = board.getBoard()[yPos-1][xPos-1];
+        if(canMove(xPos,yPos,board)  && currPiece != null && !currPiece.getColor().equals(this.color)){
+            board.editBoard(this, this.xPos, this.yPos, xPos, yPos);
+            this.yPos = yPos;
+            this.xPos = xPos;
+            return true;
+        } else System.out.println("Can't capture there");
+        //throw new IllegalArgumentException("Can't capture there");
         return false;
     }
 

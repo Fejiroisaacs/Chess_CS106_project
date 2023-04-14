@@ -23,6 +23,12 @@ public class Main {
 
         thePawn.move(1,5, chessBoard);
         System.out.println(chessBoard);
+
+        Piece cPawn = chessBoard.getBoard()[1][1];
+        System.out.println(cPawn);
+        System.out.println(cPawn.getXPos() + " " + cPawn.getYPos());
+        cPawn.move(2,4, chessBoard);
+        System.out.println(chessBoard);
         // end of pawn tests
 
         //rook move tests
@@ -78,6 +84,49 @@ public class Main {
         thisRook.canCapture(2,8, chessBoard);
         System.out.println(chessBoard);
         // end of rook tests
+
+        // bishop tests
+        Piece thisBishop = chessBoard.getBoard()[0][2];
+        System.out.println(thisBishop);
+        System.out.println(thisBishop.getXPos() + " " + thisBishop.getYPos());
+
+        // up left
+        thisBishop.move(2,2, chessBoard);
+        System.out.println(chessBoard);
+
+        // up right
+        thisBishop.move(4,4, chessBoard);
+        System.out.println(chessBoard);
+
+        // down right
+        thisBishop.move(5,3, chessBoard);
+        System.out.println(chessBoard);
+
+        // up right
+        thisBishop.move(1,7, chessBoard);
+        System.out.println(chessBoard);
+
+        // down right
+        thisBishop.move(4,4, chessBoard);
+        System.out.println(chessBoard);
+
+        // down left
+        thisBishop.move(1,1, chessBoard);
+        System.out.println(chessBoard);
+
+        thisBishop.canCapture(7,7, chessBoard);
+        System.out.println(chessBoard);
+
+        thisBishop.canCapture(6,8, chessBoard);
+        System.out.println(chessBoard);
+
+        thisBishop.canCapture(5,7, chessBoard);
+        System.out.println(chessBoard);
+
+        thisBishop.canCapture(7,7, chessBoard);
+        System.out.println(chessBoard);
+        // end of bishop tests bishop on h8
+
     }
 }
 

@@ -18,8 +18,12 @@ public class Rook implements Piece {
 
     @Override
     public boolean canMove(int xPos, int yPos, Board board) {
+        // pre-conditions
         assert (Math.abs(this.xPos - xPos) > 0 || Math.abs(this.yPos - yPos) > 0) ;
         assert (Math.abs(this.xPos - xPos) < 8 && Math.abs(this.yPos - yPos) < 8);
+        if(xPos < 0 || yPos < 0) return false;
+        // end of pre-conditions
+
         int hold = this.xPos;
 
         if (xPos > this.xPos) {
@@ -28,7 +32,6 @@ public class Rook implements Piece {
                 if(board.getBoard()[this.yPos-1][hold-1] != null) return false;
             }
         } else if (xPos < this.xPos) {
-            System.out.println("i got here");
             while(hold > xPos+1){
                 hold--;
                 if(board.getBoard()[this.yPos-1][hold-1] != null) return false;
