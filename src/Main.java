@@ -127,6 +127,36 @@ public class Main {
         System.out.println(chessBoard);
         // end of bishop tests bishop on h8
 
+        // knight tests
+        Piece thisKnight = chessBoard.getBoard()[0][1];
+        System.out.println(thisKnight);
+        System.out.println(thisKnight.getXPos() + " " + thisKnight.getYPos());
+
+        thisKnight.move(3,3, chessBoard);
+        System.out.println(chessBoard);
+
+        thisKnight.move(5,4, chessBoard);
+        System.out.println(chessBoard);
+
+        thisKnight.move(6,6, chessBoard);
+        System.out.println(chessBoard);
+
+        thisKnight.canCapture(7,8, chessBoard);
+        System.out.println(chessBoard);
+
+        //invalid move test
+        thisKnight.canCapture(8,7, chessBoard);
+        System.out.println(chessBoard);
+
+        thisKnight.move(8,6, chessBoard);
+        System.out.println(chessBoard);
+
+        //valid capture
+        thisKnight.canCapture(6,7, chessBoard);
+        System.out.println(chessBoard);
+
+        //end of knight tests
+
     }
 }
 

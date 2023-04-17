@@ -1,8 +1,10 @@
+import java.util.Arrays;
+
 public class Knight implements Piece{
     private int xPos;
     private int yPos;
     private final String color;
-    private String[] knightMoves = new String[8];
+    private final String[] knightMoves = new String[8];
 
     public Knight(int xPos, int yPos, String color) {
         this.xPos = xPos;
@@ -20,24 +22,32 @@ public class Knight implements Piece{
         int[] hold = new int[8];
 
         // corner cases here dealt with in enhanced for-loop below
-        hold[0] = (this.xPos + 2) * 10 + (this.yPos + 1);
-        hold[1] = (this.xPos + 1) * 10 + (this.yPos + 2);
-        hold[2] = (this.xPos - 2) * 10 + (this.yPos + 1);
-        hold[3] = (this.xPos - 1) * 10 + (this.yPos + 2);
+        if(this.yPos <=7 ) {
+
+            hold[0] = ((this.xPos + 2) * 10) + (this.yPos + 1);
+            hold[2] = ((this.xPos - 2) * 10) + (this.yPos + 1);
+        }
+        if(this.yPos <= 6) {
+            hold[1] = ((this.xPos + 1) * 10) + (this.yPos + 2);
+            hold[3] = ((this.xPos - 1) * 10) + (this.yPos + 2);
+        }
         if(this.yPos >= 1) { //corner case 1
-            hold[4] = (this.xPos + 2) * 10 + (this.yPos - 1);
-            hold[6] = (this.xPos - 2) * 10 + (this.yPos - 1);
+            hold[4] = ((this.xPos + 2) * 10) + (this.yPos - 1);
+            hold[6] = ((this.xPos - 2) * 10) + (this.yPos - 1);
         }
         if(this.yPos >= 2) { // corner case 2
-            hold[5] = (this.xPos + 1) * 10 + (this.yPos - 2);
-            hold[7] = (this.xPos - 1) * 10 + (this.yPos - 2);
+            System.out.println(this.xPos);
+            hold[5] = ((this.xPos + 1) * 10) + (this.yPos - 2);
+            hold[7] = ((this.xPos - 1) * 10) + (this.yPos - 2);
         }
 
         int counter = 0;
         for(int cord: hold){ // don't want to add invalid moves to the move list
-            if(cord > 0 && cord%10 <= 8 && cord/100 <= 8)  this.knightMoves[counter] = String.valueOf(cord);
+            if(cord > 0 && cord%10 <= 8 && cord/10 <= 8)  this.knightMoves[counter] = String.valueOf(cord);
+            else this.knightMoves[counter] = null;
             counter++;
         }
+        System.out.println(Arrays.toString(knightMoves));
 
     }
     @Override
@@ -46,13 +56,15 @@ public class Knight implements Piece{
         setKnightMoves();
         int tryMove = (xPos * 10) + yPos;
         for(String moves : this.knightMoves){
-            if(String.valueOf(tryMove).equals(moves)) return true;
+            if(String.valueOf(tryMove).equals(moves)){
+                System.out.println(Arrays.toString(knightMoves));
+                return true;
+            }
         }
         return false;
     }
     @Override
     public void move(int xPos, int yPos, Board board){
-
         if(board.getBoard()[yPos-1][xPos-1] == null && canMove(xPos, yPos, board)) {
             board.editBoard(this, this.xPos, this.yPos, xPos, yPos);
             this.yPos = yPos;
