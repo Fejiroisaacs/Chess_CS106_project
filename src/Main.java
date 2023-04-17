@@ -157,6 +157,20 @@ public class Main {
 
         //end of knight tests
 
+        //queen tests
+        Piece thisQueen = chessBoard.getBoard()[0][3];
+        System.out.println(thisQueen);
+        System.out.println(thisQueen.getXPos() + " " + thisQueen.getYPos());
+
+        thisQueen.move(1,1, chessBoard);
+        System.out.println(chessBoard);
+
+        thisQueen.canCapture(8,8, chessBoard);
+        System.out.println(chessBoard);
+
+        thisQueen.canCapture(23,8, chessBoard);
+        System.out.println(chessBoard);
+
     }
 }
 

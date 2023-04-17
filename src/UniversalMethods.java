@@ -57,4 +57,83 @@ public class UniversalMethods {
         String[] piece = cord.split("");
         return new int[]{changeLetCord(piece[0]), Integer.parseInt(piece[1])};
     }
+
+    public static boolean canMoveRook(int thisxPos, int thisyPos, int xPos, int yPos, Board board){
+        // pre-conditions
+        assert (Math.abs(thisxPos - xPos) > 0 || Math.abs(thisyPos - yPos) > 0) ;
+        assert (Math.abs(thisxPos - xPos) < 8 && Math.abs(thisyPos - yPos) < 8);
+        if(xPos < 0 || yPos < 0) return false;
+        // end of pre-conditions
+
+        int hold = thisxPos;
+
+        if (xPos > thisxPos) {
+            while(hold < xPos-1){
+                hold++;
+                if(board.getBoard()[thisyPos-1][hold-1] != null) return false;
+            }
+        } else if (xPos < thisxPos) {
+            while(hold > xPos+1){
+                hold--;
+                if(board.getBoard()[thisyPos-1][hold-1] != null) return false;
+            }
+        } else if (yPos > thisyPos) {
+            hold = thisyPos;
+            while(hold < yPos-1){
+                hold++;
+                if(board.getBoard()[hold-1][thisxPos-1] != null) return false;
+            }
+        } else if (yPos < thisyPos) {
+            hold = thisyPos;
+            while(hold > yPos+1){
+                hold--;
+                if(board.getBoard()[hold-1][thisxPos-1] != null) return false;
+            }
+        }
+        return true;
+    }
+
+    public static boolean canMoveBishop(int thisxPos, int thisyPos, int xPos, int yPos, Board board){
+        // pre-conditions
+        assert  (Math.abs(thisxPos - xPos) > 0 && Math.abs(thisyPos - yPos) > 0);
+        assert  (Math.abs(thisxPos - xPos) < 8 && Math.abs(thisyPos - yPos) < 8);
+        if(Math.abs(thisxPos - xPos) - Math.abs(thisyPos - yPos) != 0) return false;
+        if(xPos < 0 || yPos < 0 || yPos > 8 || xPos > 8) return false;
+        // end of pre-conditions
+
+        int holdX = thisxPos;
+        int holdY = thisyPos;
+        int moveDiff = Math.abs(thisxPos - xPos);
+        if(xPos > thisxPos && yPos > thisyPos){
+            while(moveDiff > 1){
+                holdX++;
+                holdY++;
+                if(board.getBoard()[holdY-1][holdX-1] != null) return false;
+                moveDiff--;
+            }
+        } else if(xPos < thisxPos && yPos < thisyPos){
+            while(moveDiff > 1){
+                holdX--;
+                holdY--;
+                if(board.getBoard()[holdY-1][holdX-1] != null) return false;
+                moveDiff--;
+            }
+        } else if(xPos < thisxPos && yPos > thisyPos){
+            while(moveDiff > 1){
+                holdX--;
+                holdY++;
+                if(board.getBoard()[holdY-1][holdX-1] != null) return false;
+                moveDiff--;
+            }
+        }else if(xPos > thisxPos && yPos < thisyPos){
+            while(moveDiff > 1){
+                holdX++;
+                holdY--;
+                if(board.getBoard()[holdY-1][holdX-1] != null) return false;
+                moveDiff--;
+            }
+        }
+        System.out.println("this was true");
+        return true;
+    }
 }

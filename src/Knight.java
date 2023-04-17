@@ -47,7 +47,6 @@ public class Knight implements Piece{
             else this.knightMoves[counter] = null;
             counter++;
         }
-        System.out.println(Arrays.toString(knightMoves));
 
     }
     @Override
@@ -56,10 +55,8 @@ public class Knight implements Piece{
         setKnightMoves();
         int tryMove = (xPos * 10) + yPos;
         for(String moves : this.knightMoves){
-            if(String.valueOf(tryMove).equals(moves)){
-                System.out.println(Arrays.toString(knightMoves));
-                return true;
-            }
+            if(String.valueOf(tryMove).equals(moves)) return true;
+
         }
         return false;
     }
@@ -76,6 +73,10 @@ public class Knight implements Piece{
 
     @Override
     public boolean canCapture(int xPos, int yPos, Board board) {
+        if(xPos < 0 || yPos < 0 || yPos > 8 || xPos > 8){
+            System.out.println("Can't capture there");
+            return false;
+        }
         Piece currPiece = board.getBoard()[yPos-1][xPos-1];
         if(canMove(xPos,yPos,board)  && currPiece != null && !currPiece.getColor().equals(this.color)){
             board.editBoard(this, this.xPos, this.yPos, xPos, yPos);
