@@ -2,7 +2,14 @@
 public class Main {
     public static void main(String[] args) {
 
+
         System.out.println("This is the start of the chess app");
+
+        test();
+
+
+    }
+    public static void test(){
         Board chessBoard = new Board();
         Player white = new Player("White", chessBoard);
         Player black = new Player("Black", chessBoard);
@@ -170,7 +177,6 @@ public class Main {
 
         thisQueen.canCapture(23,8, chessBoard);
         System.out.println(chessBoard);
-
     }
 }
 
