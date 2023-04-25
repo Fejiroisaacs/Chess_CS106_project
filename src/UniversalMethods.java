@@ -32,11 +32,11 @@ public class UniversalMethods {
         throw new IllegalArgumentException("the coordinate entered is invalid must be between a-h");
     }
     public static boolean validMove(Board board, Piece piece, int x_cord, int y_cord){
-        return board.getBoard()[x_cord][y_cord] == null;
+        return piece.canMove(x_cord, y_cord, board) && board.getBoard()[y_cord][x_cord] == null;
     }
 
     public static boolean validCapture(Board board, Piece piece, int x_cord, int y_cord){
-        return board.getBoard()[x_cord][y_cord] != null;
+        return piece.canCapture(x_cord, y_cord, board);
     }
 
     public static void getMove(String move){
