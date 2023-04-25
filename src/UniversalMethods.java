@@ -135,7 +135,7 @@ public class UniversalMethods {
         }
         return true;
     }
-    public static boolean isAttackingForMate(Piece piece, Board board, int xPos, int yPos){
+    public static boolean isAttackingSquare(Piece piece, Board board, int xPos, int yPos){
         return piece.canMove(xPos, yPos, board);
     }
 }
