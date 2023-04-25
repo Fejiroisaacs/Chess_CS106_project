@@ -28,15 +28,15 @@ public class Player {
         }
     }
     public boolean isCheckmated(Piece piece){
-        Piece king = null;
+        King king = null;
         for(Piece currPiece: myPieces){
             if(currPiece instanceof King){
-                king = currPiece;
+                king = (King) currPiece;
                 break;
             }
         }
         assert king != null;
-        return king.isAttacked(piece) && King.checkmated((King)king, board);
+        return piece.isAttacking(king, board) && king.checkmated(board);
 
     }
     public String getColor() {
