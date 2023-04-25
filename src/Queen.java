@@ -51,7 +51,7 @@ public class Queen implements Piece{
     }
 
     @Override
-    public boolean isAttacked(Piece piece) {return false;}
+    public boolean isAttacking(Piece piece, Board board) {return this.canMove(piece.getXPos(), piece.getYPos(), board);}
 
     @Override
     public String getColor() { return this.color; }

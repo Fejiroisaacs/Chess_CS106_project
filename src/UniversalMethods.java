@@ -133,7 +133,9 @@ public class UniversalMethods {
                 moveDiff--;
             }
         }
-        System.out.println("this was true");
         return true;
+    }
+    public static boolean isAttackingForMate(Piece piece, Board board, int xPos, int yPos){
+        return piece.canMove(xPos, yPos, board);
     }
 }

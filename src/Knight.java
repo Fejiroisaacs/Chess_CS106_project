@@ -36,7 +36,6 @@ public class Knight implements Piece{
             hold[6] = ((this.xPos - 2) * 10) + (this.yPos - 1);
         }
         if(this.yPos >= 2) { // corner case 2
-            System.out.println(this.xPos);
             hold[5] = ((this.xPos + 1) * 10) + (this.yPos - 2);
             hold[7] = ((this.xPos - 1) * 10) + (this.yPos - 2);
         }
@@ -89,8 +88,8 @@ public class Knight implements Piece{
     }
 
     @Override
-    public boolean isAttacked(Piece piece) {
-        return false;
+    public boolean isAttacking(Piece piece, Board board) {
+        return this.canMove(piece.getXPos(), piece.getYPos(), board);
     }
 
     @Override
