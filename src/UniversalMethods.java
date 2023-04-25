@@ -1,4 +1,4 @@
-import java.lang.reflect.Array;
+
 
 public class UniversalMethods {
     public static String changeCord(int xPos){
@@ -60,9 +60,8 @@ public class UniversalMethods {
 
     public static boolean canMoveRook(int thisxPos, int thisyPos, int xPos, int yPos, Board board){
         // pre-conditions
-        assert (Math.abs(thisxPos - xPos) > 0 || Math.abs(thisyPos - yPos) > 0) ;
-        assert (Math.abs(thisxPos - xPos) < 8 && Math.abs(thisyPos - yPos) < 8);
-        if(xPos < 0 || yPos < 0) return false;
+        if (Math.abs(thisxPos - xPos) > 0 && Math.abs(thisyPos - yPos) > 0) return false ; // both x and y positions cannot change
+        if(xPos < 0 || yPos < 0 || yPos > 8 || xPos > 8) return false;
         // end of pre-conditions
 
         int hold = thisxPos;

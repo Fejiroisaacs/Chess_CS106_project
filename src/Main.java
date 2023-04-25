@@ -178,6 +178,38 @@ public class Main {
 
         thisQueen.canCapture(23,8, chessBoard);
         System.out.println(chessBoard);
+
+        King thisKing = (King) chessBoard.getBoard()[7][4];
+        System.out.println(thisKing);
+
+        thisKing.move(6,8,chessBoard);
+        System.out.println(chessBoard);
+
+        thisKing.canCapture(5,7,chessBoard);
+        System.out.println(chessBoard);
+
+        System.out.println(thisKing.checkmated(chessBoard));
+
+        thisQueen.move(5,7, chessBoard);
+        System.out.println(chessBoard);
+
+        thisKing.move(6,8, chessBoard);
+        System.out.println(chessBoard);
+
+        thisKing.move(4,6, chessBoard);
+        System.out.println(chessBoard);
+
+        thisKing.canCapture(6,7, chessBoard);
+        System.out.println(chessBoard);
+
+        thisKing.move(7,8, chessBoard);
+        System.out.println(chessBoard);
+
+        thisQueen.move(6,6, chessBoard);
+        System.out.println(chessBoard);
+
+        thisKing.canCapture(6,6, chessBoard);
+        System.out.println(chessBoard);
     }
 }
 

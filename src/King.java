@@ -139,9 +139,16 @@ public class King implements Piece{
      * @param moveY the 1-8 position of the square the king wants to move to / capture on.
      * @param board the board where the pieces are.
      */
-    private boolean squareProtected(Board board, int moveX, int moveY){
+    public boolean squareProtected(Board board, int moveX, int moveY){
+        opponentsPieces(board);
+        Piece pieceOnSquare = board.getBoard()[moveY-1][moveX-1];
+        if(pieceOnSquare != null) this.allOtherPieces.remove(pieceOnSquare);
         for(Piece piece: this.allOtherPieces){
-            if(UniversalMethods.isAttackingSquare(piece, board, moveX, moveY)) return true;
+            if(UniversalMethods.isAttackingSquare(piece, board, moveX, moveY)){
+                System.out.println("uh oh");
+                System.out.println(piece);
+                return true;
+            }
         }
         return false;
     }
@@ -167,7 +174,7 @@ public class King implements Piece{
         this.allOtherPieces.clear();
         for(Piece[] row: board.getBoard()){ // adds all the opponents pieces to the allOtherPieces arrayList
             for(Piece piece: row){
-                if(!piece.getColor().equals(this.color)) this.allOtherPieces.add(piece);
+                if(piece != null && !piece.getColor().equals(this.color)) this.allOtherPieces.add(piece);
             }
         }
     }
@@ -193,13 +200,18 @@ public class King implements Piece{
         opponentsPieces(board); // updates opponents pieces
         boolean [] squareAttacked = new boolean[8]; // mapped with kingMoves
 
+        int counter = 0;
         // extended check for kings valid move
         for(String moves: this.kingMoves){
-            int moveX = Integer.parseInt(moves) / 10;
-            int moveY = Integer.parseInt(moves) % 10;
-            int counter = 0;
-            for(Piece piece: allOtherPieces){ // checks if any piece attacks a particular square the king can move to
-                if(UniversalMethods.isAttackingSquare(piece, board, moveX, moveY)) squareAttacked[counter] = true;
+            if(moves != null) {
+                int moveX = Integer.parseInt(moves) / 10;
+                int moveY = Integer.parseInt(moves) % 10;
+                for (Piece piece : allOtherPieces) { // checks if any piece attacks a particular square the king can move to
+                    if (UniversalMethods.isAttackingSquare(piece, board, moveX, moveY)) {
+                        squareAttacked[counter] = true;
+                        break;
+                    }
+                }
                 counter++;
             }
         }
