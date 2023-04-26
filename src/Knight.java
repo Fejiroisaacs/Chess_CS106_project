@@ -1,4 +1,3 @@
-import java.util.Arrays;
 
 public class Knight implements Piece{
     private int xPos;
@@ -121,8 +120,8 @@ public class Knight implements Piece{
         }
         Piece currPiece = board.getBoard()[yPos-1][xPos-1];
 
-        // checks if there's a piece where the king wants to capture
-        // checks if the piece on that square is not the same color as the king ( cannot capture your own pieces )
+        // checks if there's a piece where the knight wants to capture
+        // checks if the piece on that square is not the same color as the knight ( cannot capture your own pieces )
         if(canMove(xPos,yPos,board)  && currPiece != null && !currPiece.getColor().equals(this.color)){
             board.editBoard(this, this.xPos, this.yPos, xPos, yPos);
             this.yPos = yPos;
@@ -146,14 +145,14 @@ public class Knight implements Piece{
 
     /**
      *
-     * @return the color of the king "Black" or "White"
+     * @return the color of the knight "Black" or "White"
      */
     @Override
     public String getColor() { return this.color; }
 
     /**
      *
-     * @return a unique display of the king with its color and its position
+     * @return a unique display of the knight with its color and its position
      */
     @Override
     public String toString(){ return UniversalMethods.changeColor(this.color) + "Knigt " + UniversalMethods.changeCord(xPos) + yPos + "\u001B[0m"; }
