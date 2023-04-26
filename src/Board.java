@@ -40,15 +40,31 @@ public class Board {
         board[0][3] = new Queen(4, 1, "White");
     }
 
+    /**
+     *
+     * @param piece the piece we want to move
+     * @param initX the initial a-h coordinate of the piece
+     * @param initY the initial 1-8 coordinate of the piece
+     * @param finalX the final a-h coordinate of the piece
+     * @param finalY the initial 1-8 coordinate of the piece
+     */
     public void editBoard(Piece piece, int initX, int initY, int finalX, int finalY){
-        board[initY-1][initX-1] = null;
-        board[finalY-1][finalX-1] = piece;
+        board[initY-1][initX-1] = null; // set the current position of the piece to null ( empty )
+        board[finalY-1][finalX-1] = piece; // updates the position of the piece
     }
 
+    /**
+     *
+     * @return the chessboard
+     */
     public Piece[][] getBoard() { return board; }
 
+    /**
+     *
+     * @return a unique representation of the chessboard
+     */
     public String toString() {
-        StringBuilder value = new StringBuilder();
+        StringBuilder value = new StringBuilder(); // initializing a StringBuilder
         value.append("----------------------------------------------------------------------------------------");
         value.append("\n");
         for(int i = 7; i >= 0; i--){
@@ -56,8 +72,10 @@ public class Board {
             for(int j = 0; j < 8; j++){
                 Piece hold = board[i][j];
                 if(hold != null) {
+                    // if nul, display the piece using its toString method
                     value.append(hold).append(" | ");
                 } else {
+                    // if null, display the coordinate of the board
                     value.append("   ").append(UniversalMethods.changeCord(j + 1)).append(i+1).append("   ").append(" | ");
                 }
             }
