@@ -108,14 +108,14 @@ public class King implements Piece{
 
     /**
      *
-     * @param xPos the a-h position the king wants to move to
-     * @param yPos the 1-8 position the king wants to move to
+     * @param xPos the a-h position the king wants to move to and capture
+     * @param yPos the 1-8 position the king wants to move to and capture
      * @param board the board where the king is
      */
     @Override
     public boolean canCapture(int xPos, int yPos, Board board) {
         if(xPos < 0 || yPos < 0 || yPos > 8 || xPos > 8){ // king cannot capture off the board
-            System.out.println("Can't capture there");
+            System.out.println("Can't capture off the board");
             return false;
         }
         Piece currPiece = board.getBoard()[yPos-1][xPos-1];
@@ -128,7 +128,7 @@ public class King implements Piece{
             this.yPos = yPos;
             this.xPos = xPos;
             return true;
-        } else System.out.println("Can't capture there");
+        } else System.out.println("Can't capture. No piece there or square protected or piece is not a threat.");
         //throw new IllegalArgumentException("Can't capture there");
         return false;
     }

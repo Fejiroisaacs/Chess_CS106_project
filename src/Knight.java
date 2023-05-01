@@ -108,8 +108,8 @@ public class Knight implements Piece{
 
     /**
      *
-     * @param xPos the a-h position the knight wants to move to
-     * @param yPos the 1-8 position the knight wants to move to
+     * @param xPos the a-h position the knight wants to move to and capture
+     * @param yPos the 1-8 position the knight wants to move to and capture
      * @param board the chessboard
      */
     @Override

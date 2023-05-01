@@ -29,6 +29,13 @@ public class Bishop implements Piece{
     @Override
     public int getYPos() { return this.yPos; }
 
+    /**
+     *
+     * @param xPos the a-h position the bishop wants to move to
+     * @param yPos the 1-8 position the bishop wants to move to
+     * @param board the chessboard
+     * @return if the bishop can move to the entered coordinate or not
+     */
     @Override
     public boolean canMove(int xPos, int yPos, Board board) {
         return UniversalMethods.canMoveBishop(this.xPos, this.yPos, xPos, yPos, board);
@@ -56,15 +63,14 @@ public class Bishop implements Piece{
 
     /**
      *
-     * @param xPos the a-h position the bishop wants to move to
-     * @param yPos the 1-8 position the bishop wants to move to
+     * @param xPos the a-h position the bishop wants to move to and capture
+     * @param yPos the 1-8 position the bishop wants to move to and capture
      * @param board the chessboard
-     * @return if the bishop can move to the entered coordinate or not
      */
     @Override
     public boolean canCapture(int xPos, int yPos, Board board) {
         if(xPos < 0 || yPos < 0 || yPos > 8 || xPos > 8){
-            System.out.println("Can't capture there");
+            System.out.println("Can't capture off the board");
             return false;
         }
         Piece currPiece = board.getBoard()[yPos-1][xPos-1];
@@ -76,7 +82,7 @@ public class Bishop implements Piece{
             this.yPos = yPos;
             this.xPos = xPos;
             return true;
-        } else System.out.println("Can't capture there");
+        } else System.out.println("Can't capture there. No piece on square or piece is not a threat");
         //throw new IllegalArgumentException("Can't capture there");
         return false;
     }

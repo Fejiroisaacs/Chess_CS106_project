@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Player {
     private final String color;
-    private boolean myTurn;
+    private boolean myTurn=false;
     private final Board board;
     private final ArrayList<Piece> myPieces = new ArrayList<>();
 
