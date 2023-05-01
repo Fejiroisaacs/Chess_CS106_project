@@ -32,8 +32,8 @@ public class Rook implements Piece {
 
     /**
      *
-     * @param xPos the a-h position the knight wants to move to
-     * @param yPos the 1-8 position the knight wants to move to
+     * @param xPos the a-h position the rook wants to move to
+     * @param yPos the 1-8 position the rook wants to move to
      * @param board the chessboard
      * @return if the rook can move to the entered coordinate or not
      */

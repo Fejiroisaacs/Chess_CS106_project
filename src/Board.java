@@ -3,6 +3,9 @@ import java.util.Arrays;
 public class Board {
     private final Piece[][] board;
 
+    /**
+     * this method creates a chessBoard object
+     */
     Board(){
         board = new Piece[8][8]; // instantiating the board
         //adding the black and white pawns
