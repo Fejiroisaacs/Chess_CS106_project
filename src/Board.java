@@ -1,7 +1,9 @@
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class Board {
     private final Piece[][] board;
+    private ArrayList<Object[]> previousMoves = new ArrayList<>();
 
     /**
      * this method creates a chessBoard object
@@ -56,6 +58,13 @@ public class Board {
         board[finalY-1][finalX-1] = piece; // updates the position of the piece
     }
 
+    /**
+     *
+     * @return the Arraylist of objects of pieces + previous moves, in order.
+     */
+    public ArrayList<Object[]> getPreviousMoves(){
+        return this.previousMoves;
+    }
     /**
      *
      * @return the chessboard
