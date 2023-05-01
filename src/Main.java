@@ -210,6 +210,13 @@ public class Main {
 
         thisKing.canCapture(6,6, chessBoard);
         System.out.println(chessBoard);
+
+        Piece oPawn = chessBoard.getBoard()[1][5];
+        oPawn.move(6,4, chessBoard);
+        System.out.println(chessBoard);
+
+        oPawn.move(6,5, chessBoard);
+        System.out.println(chessBoard);
     }
 }
 
