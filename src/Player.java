@@ -6,10 +6,18 @@ public class Player {
     private final Board board;
     private final ArrayList<Piece> myPieces = new ArrayList<>();
 
+    private boolean isMated;
+
     public Player(String color, Board board) {
         this.color = color;
         this.board = board;
         if(color.equals("White")) myTurn = true;
+    }
+    public boolean getIsMated(){
+        return isMated;
+    }
+    public void setMated(){
+        this.isMated = true;
     }
     public void setMyTurn(boolean myTurn){
         this.myTurn = myTurn;
@@ -27,7 +35,7 @@ public class Player {
             }
         }
     }
-    public boolean isCheckmated(Piece piece){
+    public King getMyking(){
         King king = null;
         for(Piece currPiece: myPieces){
             if(currPiece instanceof King){
@@ -36,8 +44,17 @@ public class Player {
             }
         }
         assert king != null;
+        return king;
+    }
+
+    public boolean isCheckmated(Piece piece){
+        King king = getMyking();
         return piece.isAttacking(king, board) && king.checkmated(board);
 
+    }
+
+    public boolean isChecked(Piece piece){
+        return piece.isAttacking(getMyking(), board);
     }
     public String getColor() {
         return this.color;
