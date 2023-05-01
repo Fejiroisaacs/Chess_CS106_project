@@ -38,6 +38,7 @@ public class Bishop implements Piece{
      */
     @Override
     public boolean canMove(int xPos, int yPos, Board board) {
+        // uses a universal method because queen also moves like a bishop
         return UniversalMethods.canMoveBishop(this.xPos, this.yPos, xPos, yPos, board);
 
     }
