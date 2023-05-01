@@ -3,6 +3,12 @@ public class Bishop implements Piece{
     private int yPos;
     private final String color;
 
+    /**
+     *
+     * @param xPos the rooks position on  a-f scale
+     * @param yPos the rooks position on the 1-8 scale
+     * @param color the rooks color
+     */
     public Bishop(int xPos, int yPos, String color) {
         this.xPos = xPos;
         this.yPos = yPos;
@@ -19,47 +25,6 @@ public class Bishop implements Piece{
     public boolean canMove(int xPos, int yPos, Board board) {
         return UniversalMethods.canMoveBishop(this.xPos, this.yPos, xPos, yPos, board);
 
-//        // pre-conditions
-//        assert  (Math.abs(this.xPos - xPos) > 0 && Math.abs(this.yPos - yPos) > 0);
-//        assert  (Math.abs(this.xPos - xPos) < 8 && Math.abs(this.yPos - yPos) < 8);
-//        if(Math.abs(this.xPos - xPos) - Math.abs(this.yPos - yPos) != 0) return false;
-//        if(xPos < 0 || yPos < 0) return false;
-//        // end of pre-conditions
-//
-//        int holdX = this.xPos;
-//        int holdY = this.yPos;
-//        int moveDiff = Math.abs(this.xPos - xPos);
-//        if(xPos > this.xPos && yPos > this.yPos){
-//            while(moveDiff > 1){
-//                holdX++;
-//                holdY++;
-//                if(board.getBoard()[holdY-1][holdX-1] != null) return false;
-//                moveDiff--;
-//            }
-//        } else if(xPos < this.xPos && yPos < this.yPos){
-//            while(moveDiff > 1){
-//                holdX--;
-//                holdY--;
-//                if(board.getBoard()[holdY-1][holdX-1] != null) return false;
-//                moveDiff--;
-//            }
-//        } else if(xPos < this.xPos && yPos > this.yPos){
-//            while(moveDiff > 1){
-//                holdX--;
-//                holdY++;
-//                if(board.getBoard()[holdY-1][holdX-1] != null) return false;
-//                moveDiff--;
-//            }
-//        }else if(xPos > this.xPos && yPos < this.yPos){
-//            while(moveDiff > 1){
-//                holdX++;
-//                holdY--;
-//                if(board.getBoard()[holdY-1][holdX-1] != null) return false;
-//                moveDiff--;
-//            }
-//        }
-//        System.out.println("this was true");
-//        return true;
     }
 
     @Override

@@ -72,7 +72,7 @@ public class Board {
             for(int j = 0; j < 8; j++){
                 Piece hold = board[i][j];
                 if(hold != null) {
-                    // if nul, display the piece using its toString method
+                    // if null, display the piece using its toString method
                     value.append(hold).append(" | ");
                 } else {
                     // if null, display the coordinate of the board
@@ -84,7 +84,7 @@ public class Board {
             value.append("\n");
         }
 
-        return value.toString();
+        return value.toString(); // returns our unique representation of the chessboard
     }
 
 }

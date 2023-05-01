@@ -42,39 +42,7 @@ public class Rook implements Piece {
         // uses a universal method because queen also moves like a rook
         return UniversalMethods.canMoveRook(this.xPos, this.yPos, xPos, yPos, board);
     }
-        // pre-conditions
-//        assert (Math.abs(this.xPos - xPos) > 0 || Math.abs(this.yPos - yPos) > 0) ;
-//        assert (Math.abs(this.xPos - xPos) < 8 && Math.abs(this.yPos - yPos) < 8);
-//        if(xPos < 0 || yPos < 0) return false;
-//        // end of pre-conditions
-//
-//        int hold = this.xPos;
-//
-//        if (xPos > this.xPos) {
-//            while(hold < xPos-1){
-//                hold++;
-//                if(board.getBoard()[this.yPos-1][hold-1] != null) return false;
-//            }
-//        } else if (xPos < this.xPos) {
-//            while(hold > xPos+1){
-//                hold--;
-//                if(board.getBoard()[this.yPos-1][hold-1] != null) return false;
-//            }
-//        } else if (yPos > this.yPos) {
-//            hold = this.yPos;
-//            while(hold < yPos-1){
-//                hold++;
-//                if(board.getBoard()[hold-1][this.xPos-1] != null) return false;
-//            }
-//        } else if (yPos < this.yPos) {
-//            hold = this.yPos;
-//            while(hold > yPos+1){
-//                hold--;
-//                if(board.getBoard()[hold-1][this.xPos-1] != null) return false;
-//            }
-//        }
-//        return true;
-//    }
+
 
     /**
      *
