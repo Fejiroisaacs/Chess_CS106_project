@@ -29,7 +29,7 @@ This interface defines the methods that should be implemented by any class that 
 
 The UniversalMethods class contains a set of static methods that can be used across different classes of the Chess game. These methods provide utility functions for different purposes, such as converting between chessboard coordinates and integer positions, getting the name of the piece being moved, or checking whether a move is valid.
 
-#### Methods
+### Methods
 
 The following methods are available in the **UniversalMethods** class:
 
