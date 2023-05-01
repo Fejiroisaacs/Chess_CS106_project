@@ -15,7 +15,7 @@ The UniversalMethods class contains a set of static methods that can be used acr
 
 The following methods are available in the **UniversalMethods** class:
 
-- **changeCord(int xPos)**: This method takes an integer value between 1-8 inclusive and returns the corresponding string value of the alphabet (a-h) as a chessboard coordinate.
+- **`changeCord(int xPos)`**: This method takes an integer value between 1-8 inclusive and returns the corresponding string value of the alphabet (a-h) as a chessboard coordinate.
 
 - **`changeColor(String color)`**: This method takes a string value of a chess piece color (either "Black" or "White") and returns the color code for the color.
 
