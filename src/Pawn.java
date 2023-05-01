@@ -22,17 +22,21 @@ public class Pawn implements Piece{
 
     @Override
     public void move(int xPos, int yPos, Board board) {
-        int val = yPos - this.yPos;
         if(canMove(xPos, yPos, board)){
-            if(this.firstMove && Math.abs(val) == 2) this.firstMove = false;
+            this.firstMove = false;
             board.editBoard(this, this.xPos, this.yPos, this.xPos, yPos );
             this.yPos = yPos;
             this.xPos = xPos;
-        } else System.out.println("Can't move there");
+        } else System.out.println("Can't move there, invalid move");
         //throw new IllegalArgumentException("Can't move there");
 
     }
 
+    public boolean enPassant(int xPos, int yPos, Board board){
+        Object[] previousMove = board.getPreviousMoves().get(board.getPreviousMoves().size() - 1);
+        if(previousMove[0] instanceof Pawn) return true;
+        return false;
+    }
     @Override
     public boolean canCapture(int xPos, int yPos, Board board) {
         try{
