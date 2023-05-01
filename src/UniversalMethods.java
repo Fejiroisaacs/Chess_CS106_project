@@ -90,12 +90,44 @@ public class UniversalMethods {
 
 
     /**
-     * ??????????
+     *
+     * @param player
+     * @param board
      * @param move
      */
-    public static void getMove(String move){
+    public static void move(Player player, Board board, String move){
+        assert move.length() < 10 && move.length() > 4 ;
+        assert board != null;
+        boolean isCapture = false;
+        move = move.toLowerCase();
 
+        if(move.contains("x")){
+            isCapture = true;
+            move = move.replace("x","");
+        }
+
+        String specialValue = move.substring(move.length()-1);
+        if(specialValue.equals("+") || specialValue.equals("#")) move = move.replace(specialValue, "");
+        if(move.length() == 5) {
+            Object[][] pieceMove = getMoveSequence(move);
+            Piece thisPiece = board.getBoard()[(int) pieceMove[1][0]][(int) pieceMove[1][1]];
+
+            if (isCapture) thisPiece.canCapture((int) pieceMove[2][0], (int) pieceMove[2][1], board);
+            else thisPiece.move((int) pieceMove[2][0], (int) pieceMove[2][1], board);
+
+
+            if (specialValue.equals("+")) {
+                if (player.isChecked(thisPiece)) System.out.println("King in check");
+                else System.out.println("king is not in check");
+            } else if (specialValue.equals("#")) {
+                if (player.isCheckmated(thisPiece)) player.setMated();
+                else System.out.println("king is not checkmated");
+            }
+
+        } else System.out.println("Move sequence entered is invalid. Contains illegal characters or too many characters");
     }
+
+
 
 
     /**
@@ -109,25 +141,31 @@ public class UniversalMethods {
     public static String getPiece(String move){
         String pieceCord = move.substring(0,1).toLowerCase();
         switch (pieceCord){
-            case "q": return "queen";
-            case "k": return "king";
-            case "b": return "bishop";
-            case "n": return "knight";
-            default: return "pawn";
+            case "q": return "Queen";
+            case "k": return "King";
+            case "b": return "Bishop";
+            case "n": return "Knight";
+            default: return "Pawn";
         }
     }
 
 
     /**
-     * This method takes a string value of a move and returns the x and y coordinates of
-     * the destination position
+     *
      * @param move a string value of a move
      * @return the x and y coordinates of the destination position
      */
-    public static int[] getCord(String move){
-        String cord = move.substring(move.length() - 2);
-        String[] piece = cord.split("");
-        return new int[]{changeLetCord(piece[0]), Integer.parseInt(piece[1])};
+    public static Object[][] getMoveSequence(String move){
+
+        String pieceType = getPiece(move.substring(0,1));
+
+        String initCord = move.substring(move.length() - 4, move.length() - 2);
+        Object[] initialMoveArr = {changeLetCord(initCord.substring(0,1)), Integer.parseInt(initCord.substring(1,2))};
+
+        String finalCord = move.substring(move.length() - 2);
+        Object[] finalMoveArr = {changeLetCord(finalCord.substring(0,1)), Integer.parseInt(finalCord.substring(1,2))};
+
+        return new Object[][] {{pieceType}, initialMoveArr, finalMoveArr};
     }
 
 
