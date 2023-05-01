@@ -2,7 +2,7 @@
 
 
 
-# Interface: Pieces 
+## Interface: Pieces 
 
 This interface defines the methods that should be implemented by any class that represents a piece on a board game. The methods are as follows:
 
@@ -25,11 +25,11 @@ This interface defines the methods that should be implemented by any class that 
 
 
 
-# UniversalMethods
+## UniversalMethods
 
 The UniversalMethods class contains a set of static methods that can be used across different classes of the Chess game. These methods provide utility functions for different purposes, such as converting between chessboard coordinates and integer positions, getting the name of the piece being moved, or checking whether a move is valid.
 
-### Methods
+#### Methods
 
 The following methods are available in the **UniversalMethods** class:
 
@@ -51,11 +51,11 @@ The following methods are available in the **UniversalMethods** class:
 ....
 
 
-# Class Board: 
+## Class Board: 
 Creates the chess board and displays it in the Console log. All pieces use this method. All board edits are done using this class.
 
-# Class Player: 
+## Class Player: 
 Creates the Black and White players, has some other methods. 
 
-# Class Main: 
+## Class Main: 
 Creates the game, and brings all methods together. 
