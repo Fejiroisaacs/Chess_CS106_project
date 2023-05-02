@@ -73,14 +73,18 @@ The following methods are available in the **UniversalMethods** class:
 - **`getCord(String move)`**: This method takes a string value of a move and returns the x and y coordinates of the destination position.
 
 
+
+
+
+
+
+
+
+....
 ....
 
 
-## Class Board: 
-Creates the chess board and displays it in the Console log. All pieces use this method. All board edits are done using this class.
 
-## Class Player: 
-Creates the Black and White players, has some other methods. 
 
 ## Class Main: 
 Creates the game, and brings all methods together. 
