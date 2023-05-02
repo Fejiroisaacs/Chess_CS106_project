@@ -211,11 +211,12 @@ public class Main {
         thisKing.canCapture(6,6, chessBoard);
         System.out.println(chessBoard);
 
-        Piece oPawn = chessBoard.getBoard()[1][5];
-        oPawn.move(6,4, chessBoard);
+
+
+        UniversalMethods.move(white, chessBoard, "pf2f4");
         System.out.println(chessBoard);
 
-        oPawn.move(6,5, chessBoard);
+        UniversalMethods.move(white, chessBoard, "rb8xc8");
         System.out.println(chessBoard);
     }
 }

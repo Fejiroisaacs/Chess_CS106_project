@@ -20,11 +20,11 @@ public class Board {
         board[7][0] = new Rook(1, 8, "Black");
         board[7][7] = new Rook(8, 8, "Black");
         //adding the black knights
-        board[7][1] = new Knight(7, 8, "Black");
-        board[7][6] = new Knight(2, 8, "Black");
+        board[7][1] = new Knight(2, 8, "Black");
+        board[7][6] = new Knight(7, 8, "Black");
         //adding the black Bishops
-        board[7][2] = new Bishop(6, 8, "Black");
-        board[7][5] = new Bishop(3, 8, "Black");
+        board[7][2] = new Bishop(3, 8, "Black");
+        board[7][5] = new Bishop(6, 8, "Black");
         //adding the black queen
         board[7][4] = new King(5, 8, "Black");
         //Adding the black queen

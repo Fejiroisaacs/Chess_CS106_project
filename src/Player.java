@@ -22,7 +22,7 @@ public class Player {
     public void setMyTurn(boolean myTurn){
         this.myTurn = myTurn;
     }
-    public boolean getMove(){
+    public boolean getTurn(){
         return this.myTurn;
     }
     public void updatePieces() {
@@ -36,6 +36,7 @@ public class Player {
         }
     }
     public King getMyking(){
+        updatePieces();
         King king = null;
         for(Piece currPiece: myPieces){
             if(currPiece instanceof King){

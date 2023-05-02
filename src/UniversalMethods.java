@@ -110,7 +110,7 @@ public class UniversalMethods {
         if(specialValue.equals("+") || specialValue.equals("#")) move = move.replace(specialValue, "");
         if(move.length() == 5) {
             Object[][] pieceMove = getMoveSequence(move);
-            Piece thisPiece = board.getBoard()[(int) pieceMove[1][0]][(int) pieceMove[1][1]];
+            Piece thisPiece = board.getBoard()[(int) pieceMove[1][1]-1][(int) pieceMove[1][0]-1];
 
             if (isCapture) thisPiece.canCapture((int) pieceMove[2][0], (int) pieceMove[2][1], board);
             else thisPiece.move((int) pieceMove[2][0], (int) pieceMove[2][1], board);
