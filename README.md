@@ -30,11 +30,11 @@ This interface defines the methods that should be implemented by any class that 
 
 The Board class represents a chess board with the ability to add and move pieces, and keep track of previous moves.
 
-## Constructor
+### Constructor
 
 **`Board()`**: Creates a 2D 8x8 chess board and adds the initial pieces to their respective positions.
 
-## Methods
+### Methods
 
 - **`editBoard(Piece piece, int initX, int initY, int finalX, int finalY)`**: Updates the chess board to reflect a piece's move from its initial position to its final position.
 
