@@ -90,10 +90,12 @@ public class UniversalMethods {
 
 
     /**
-     *
-     * @param player
-     * @param board
-     * @param move
+     * This method takes a Player object, a Board object, and a string representation
+     * of a chess move, and executes the move on the board if it is valid. If the move is not
+     * valid, the method prints an error message.
+     * @param player a Player object representing the player making the move
+     * @param board a Board object representing the current state of the game board
+     * @param move a string representation of the move to be executed
      */
     public static void move(Player player, Board board, String move){
         assert move.length() < 10 && move.length() > 4 ;
@@ -158,9 +160,11 @@ public class UniversalMethods {
 
 
     /**
-     *
-     * @param move a string value of a move
-     * @return the x and y coordinates of the destination position
+     * This method takes a string representation of a chess move and returns a 2D array containing
+     * the sequence of moves to be made. The 2D array contains information on the start position,
+     * the end position, and the piece type.
+     * @param move a string representation of a chess move
+     * @return a 2D array containing the sequence of moves to be made
      */
     public static Object[][] getMoveSequence(String move){
 
@@ -293,5 +297,6 @@ public class UniversalMethods {
 
 
 }
+
 
 
