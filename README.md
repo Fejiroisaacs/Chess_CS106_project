@@ -9,13 +9,13 @@ This interface defines the methods that should be implemented by any class that 
 
 - **`getXPos()`**: This method returns the X position of the piece on the board, represented as a number between 1 and 8.
 
-- **`int getYPos()`**: This method returns the Y position of the piece on the board, represented as a number between 1 and 8.
+- **`getYPos()`**: This method returns the Y position of the piece on the board, represented as a number between 1 and 8.
 
 - **`canMove(int xPos, int yPos, Board board)`**: This method checks if the piece can move to the specified position on the board. The xPos and yPos parameters represent the position that the piece is trying to move to, and the board parameter represents the board we are playing with. This method returns true if the move is valid, false otherwise.
 
 - **`move(int xPos, int yPos, Board board)`**: This method moves the piece to the specified position on the board. The xPos and yPos parameters represent the position that the piece is moving to, and the board parameter represents the board we are playing with.
 
-- **`boolean canCapture(int xPos, int yPos, Board board)`**: This method checks if the piece can capture a piece at the specified position on the board. The xPos and yPos parameters represent the position of the piece to capture, and the board parameter represents the board we are playing with. This method returns true if the capture is valid, false otherwise.
+- **`canCapture(int xPos, int yPos, Board board)`**: This method checks if the piece can capture a piece at the specified position on the board. The xPos and yPos parameters represent the position of the piece to capture, and the board parameter represents the board we are playing with. This method returns true if the capture is valid, false otherwise.
 
 - **`isAttacking(Piece piece, Board board)`**: This method checks if the piece is attacking another piece on the board. The piece parameter represents the other piece that is being attacked, and the board parameter represents the board we are playing with. This method returns true if the piece is attacking the other piece, false otherwise.
 
