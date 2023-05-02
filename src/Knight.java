@@ -149,7 +149,7 @@ public class Knight implements Piece{
 
     /**
      * This method return the color of the Knight
-     * @return the color of the king "Black" or "White"
+     * @return the color of the knight "Black" or "White"
      */
     @Override
     public String getColor() { return this.color; }
