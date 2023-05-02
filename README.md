@@ -123,6 +123,41 @@ The following methods are available in the **UniversalMethods** class:
 
 
 
+
+
+## Bishop Class
+
+The Bishop class is an implementation of the Piece interface, representing a Bishop chess piece.
+
+
+### Constructors
+
+**`Bishop(int xPos, int yPos, String color)`**: This is a constructor to create a Bishop with the specified x-position, y-position, and color.
+
+
+### Methods
+
+- **`getXPos():`** This method returns the x-position of the Bishop.
+
+- **`getYPos()`**: This method returns the y-position of the Bishop.
+
+- **`canMove(int xPos, int yPos, Board board)`**: This method checks if the Bishop can move to the specified coordinates on the board.
+
+- **`move(int xPos, int yPos, Board board)`**: This method moves the Bishop to the specified coordinates on the board.
+
+- **`canCapture(int xPos, int yPos, Board board)`**: This method checks if the Bishop can capture a piece at the specified coordinates on the board.
+
+- **`isAttacking(Piece piece, Board board)`**: This method determines if this Bishop is attacking a given piece on the given chessboard.
+
+- **`getColor()`**: This method returns the color of the Bishop.
+
+- **`toString()`**: This method returns a unique display of this Bishop, including its color and position on the board.
+
+
+
+
+
+
 ....
 ....
 
