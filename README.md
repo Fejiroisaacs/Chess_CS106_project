@@ -1,7 +1,6 @@
 # Chess_CS106_project
 
 <br/>
-<br/>
 
 ## Interface: Piece
 
