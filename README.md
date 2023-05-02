@@ -1,6 +1,7 @@
 # Chess_CS106_project
 
-
+<br/>
+<br/>
 
 ## Interface: Piece
 
@@ -23,7 +24,8 @@ This interface defines the methods that should be implemented by any class that 
 - **`toString()`**: This method returns a unique display of the piece, including its color and position on the board. 
 
 
-
+<br/>
+<br/>
 
 
 ## Board Class
@@ -46,6 +48,10 @@ The Board class represents a chess board with the ability to add and move pieces
 
 - **`toString()`**: Overrides the built-in toString() method and returns a unique String representation of the chess board for display purposes.
 
+
+
+<br/>
+<br/>
 
 
 
@@ -80,7 +86,8 @@ This Java class represents a chess player in a game and includes methods for upd
 
 
 
-
+<br/>
+<br/>
 
 
 
@@ -109,6 +116,9 @@ The following methods are available in the **UniversalMethods** class:
 
 
 
+
+<br/>
+<br/>
 
 
 
