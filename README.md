@@ -158,6 +158,62 @@ The Bishop class is an implementation of the Piece interface, representing a Bis
 
 
 
+
+<br/>
+<br/>
+
+
+
+
+
+
+## King Class
+
+The King class class implements the Piece interface and represents a king in a chess game.
+
+### Constructor
+
+**`King(int xPos, int yPos, String color)`**: a constructor to create a King object with a specified xPos, yPos, and color.
+Methods
+
+### Methods
+
+- **`setKingMoves()`**: This method that sets all possible moves for the king based on its current position.
+
+- **`getXPos()`**: This method that returns the xPos of the king on a-f scale.
+
+- **`getYPos()`**: This method that returns the yPos of the king on 1-8 scale.
+
+- **`canMove(int xPos, int yPos, Board board)`**: This method that determines if the king can move to the specified position on the board.
+
+- **`move(int xPos, int yPos, Board board)`**: This method that moves the king to the specified coordinates on the board.
+
+- **`canCapture(int xPos, int yPos, Board board)`**: This method that checks if the king can capture a piece at the specified coordinates on the board.
+
+- **`setKingMoves()`**: This method sets all possible moves for the king based on its current position.
+
+- **`getXPos()`**: This method returns the xPos of the king on a-f scale.
+
+- **`getYPos()`**: This method returns the yPos of the king on 1-8 scale.
+
+- **`canMove(int xPos, int yPos, Board board)`**: This method determines if the king can move to the specified position on the board. 
+
+- **`move(int xPos, int yPos, Board board)`**: This method moves the king to the specified coordinates on the board. 
+
+- **`canCapture(int xPos, int yPos, Board board)`**: This method checks if the king can capture a piece at the specified coordinates on the board. 
+
+
+
+
+
+<br/>
+<br/>
+
+
+
+
+
+
 ....
 ....
 
