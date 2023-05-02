@@ -58,7 +58,7 @@ The Board class represents a chess board with the ability to add and move pieces
 
 ## Player Class
 
-This Java class represents a chess player in a game and includes methods for updating the player's list of owned pieces, determining whether the player is checkmated or in check, and getting and setting the player's turn.
+The Player class represents a chess player in a game and includes methods for updating the player's list of owned pieces, determining whether the player is checkmated or in check, and getting and setting the player's turn.
 
 ### Constructors
 **`Player(String color, Board board)`**: A constructor for creating a new player with the given color and board.
@@ -93,7 +93,7 @@ This Java class represents a chess player in a game and includes methods for upd
 
 ## UniversalMethods
 
-The UniversalMethods class contains a set of static methods that can be used across different classes of the Chess game. These methods provide utility functions for different purposes, such as converting between chessboard coordinates and integer positions, getting the name of the piece being moved, or checking whether a move is valid.
+The UniversalMethods class contains a set of methods that can be used across different classes of the Chess game. These methods provide utility functions for different purposes, such as converting between chessboard coordinates and integer positions, getting the name of the piece being moved, or checking whether a move is valid.
 
 ### Methods
 
