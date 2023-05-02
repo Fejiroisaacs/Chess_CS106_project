@@ -5,11 +5,12 @@ public class Knight implements Piece{
     private final String color;
     private final String[] knightMoves = new String[8];
 
+
     /**
-     *
-     * @param xPos the knights position on  a-f scale
-     * @param yPos the knights position on the 1-8 scale
-     * @param color the knights color
+     * This is a constructor to create a Knight object with a specified x-position, y-position, and color
+     * @param xPos The x-position of the Knight on a-f scale
+     * @param yPos the y-position of the Knight on 1-8 scale
+     * @param color the color of the Knight
      */
     public Knight(int xPos, int yPos, String color) {
         this.xPos = xPos;
@@ -17,41 +18,40 @@ public class Knight implements Piece{
         this.color = color;
     }
 
+
     /**
-     *
-     * @return the a-h position of the knight ( in coordinate form )
+     * This method returns the x-position of the Knight on a-f scale
+     * @return the x-position of the Knight on a-f scale
      */
     @Override
     public int getXPos() { return this.xPos; }
 
+
     /**
-     *
-     * @return the 1-8 position of the knight
+     * This method returns the y-position of the Knight on 1-8 scale
+     * @return the y-position of the Knight on 1-8 scale
      */
     @Override
     public int getYPos() { return this.yPos; }
 
+
     /**
-     *  this method sets all the possible moves for the knight
+     *  This method sets all possible moves for the Knight based on its current position
      */
     public void setKnightMoves(){
         int[] hold = new int[8];
 
         // corner cases here dealt with in enhanced for-loop below
-        if(this.yPos <=7 ) {
-
+        if (this.yPos <=7 ) {
             hold[0] = ((this.xPos + 2) * 10) + (this.yPos + 1);
             hold[2] = ((this.xPos - 2) * 10) + (this.yPos + 1);
-        }
-        if(this.yPos <= 6) {
+        } if (this.yPos <= 6) {
             hold[1] = ((this.xPos + 1) * 10) + (this.yPos + 2);
             hold[3] = ((this.xPos - 1) * 10) + (this.yPos + 2);
-        }
-        if(this.yPos >= 1) { //corner case 1
+        } if (this.yPos >= 1) {                                 //corner case 1
             hold[4] = ((this.xPos + 2) * 10) + (this.yPos - 1);
             hold[6] = ((this.xPos - 2) * 10) + (this.yPos - 1);
-        }
-        if(this.yPos >= 2) { // corner case 2
+        } if (this.yPos >= 2) {                                 // corner case 2
             hold[5] = ((this.xPos + 1) * 10) + (this.yPos - 2);
             hold[7] = ((this.xPos - 1) * 10) + (this.yPos - 2);
         }
@@ -62,15 +62,15 @@ public class Knight implements Piece{
             else this.knightMoves[counter] = null;
             counter++;
         }
-
     }
 
+
     /**
-     *
-     * @param xPos the a-h position the knight wants to move to
-     * @param yPos the 1-8 position the knight wants to move to
-     * @param board the chessboard
-     * @return if the knight can move to the entered coordinate or not
+     * This method determines if the Knight can move to the specified position on the board
+     * @param xPos the a-h position the Knight wants to move to
+     * @param yPos the 1-8 position the Knight wants to move to
+     * @param board the board where the Knight is
+     * @return true if the Knight can move to the entered coordinate, false otherwise
      */
     @Override
     public boolean canMove(int xPos, int yPos, Board board) {
@@ -86,11 +86,12 @@ public class Knight implements Piece{
         return false; // move not found, return false
     }
 
+
     /**
-     *
-     * @param xPos the a-h position the knight wants to move to
-     * @param yPos the 1-8 position the knight wants to move to
-     * @param board the chessboard
+     * This method moves the Knight to the specified coordinates on the board
+     * @param xPos the a-h position the Knight wants to move to
+     * @param yPos the 1-8 position the Knight wants to move to
+     * @param board the board where the Knight is
      */
     @Override
     public void move(int xPos, int yPos, Board board){
@@ -103,18 +104,19 @@ public class Knight implements Piece{
         } else System.out.println("Can't move there");
         // won't throw this exception unless program would crash, unless we use try, catch... but no need for that
         //throw new IllegalArgumentException("Can't move there");
-
     }
 
+
     /**
-     *
-     * @param xPos the a-h position the knight wants to move to and capture
-     * @param yPos the 1-8 position the knight wants to move to and capture
-     * @param board the chessboard
+     * This method checks if the Knight can capture a piece at the specified coordinates on the board
+     * @param xPos the a-h position the Knight wants to move to and capture
+     * @param yPos the 1-8 position the Knight wants to move to and capture
+     * @param board the board where the Knight is
+     * @return true if Knight can capture the given coordinates, false otherwise
      */
-    @Override
+     @Override
     public boolean canCapture(int xPos, int yPos, Board board) {
-        if(xPos < 0 || yPos < 0 || yPos > 8 || xPos > 8){
+        if (xPos < 0 || yPos < 0 || yPos > 8 || xPos > 8){
             System.out.println("Can't capture off the board");
             return false;
         }
@@ -132,28 +134,38 @@ public class Knight implements Piece{
         return false;
     }
 
+
     /**
-     *
+     * This method determines if this Knight is attacking a given piece on the given chessboard
      * @param piece the piece we might be attacking
      * @param board the chessboard
-     * @return if this(the knight) is attacking that piece or not
+     * @return if we're attacking that piece or not
      */
     @Override
     public boolean isAttacking(Piece piece, Board board) {
         return this.canMove(piece.getXPos(), piece.getYPos(), board);
     }
 
+
     /**
-     *
-     * @return the color of the knight "Black" or "White"
+     * This method return the color of the Knight
+     * @return the color of the king "Black" or "White"
      */
     @Override
     public String getColor() { return this.color; }
 
+
     /**
-     *
-     * @return a unique display of the knight with its color and its position
+     * This method returns a unique display of this Knight, including its color
+     * and position on the board
+     * @return a unique display of the Knight with its color and its position
      */
     @Override
-    public String toString(){ return UniversalMethods.changeColor(this.color) + "Knigt " + UniversalMethods.changeCord(xPos) + yPos + "\u001B[0m"; }
+    public String toString() {
+        return UniversalMethods.changeColor(this.color) +
+            "Knigt " +
+            UniversalMethods.changeCord(xPos) + yPos + "\u001B[0m";
+    }
+
 }
+

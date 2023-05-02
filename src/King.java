@@ -69,7 +69,7 @@ public class King implements Piece{
      * @param xPos the a-h position the king wants to move to
      * @param yPos the 1-8 position the king wants to move to
      * @param board the board where the king is
-     * @return if the king can move to the entered coordinate or not
+     * @return true if the king can move to the entered coordinate, false otherwise
      */
     @Override
     public boolean canMove(int xPos, int yPos, Board board) {
@@ -110,6 +110,7 @@ public class King implements Piece{
      * @param xPos the a-h position the king wants to move to and capture
      * @param yPos the 1-8 position the king wants to move to and capture
      * @param board the board where the king is
+     * @return true if king can capture the given coordinates, false otherwise
      */
     @Override
     public boolean canCapture(int xPos, int yPos, Board board) {
