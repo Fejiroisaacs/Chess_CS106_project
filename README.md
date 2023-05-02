@@ -220,7 +220,9 @@ The Knight implements the Piece interface and represents a knight on a chess boa
 ### Contructor
 
 **`Knight(int xPos, int yPos, String color)`**: This is a constructor to create a Knight object with a specified x-position, y-position, and color.
-Methods
+
+
+### Methods
 
 - **`getXPos()`**: This method returns the x-position of the knight on a-f scale.
 
