@@ -1,6 +1,6 @@
 public interface Piece {
     int getXPos();                                          // a-h position of the piece
-    int getYPos(); //  1-8 position of the piece
+    int getYPos();                                          //  1-8 position of the piece
     boolean canMove(int xPos, int yPos, Board board);       // checks if a piece can move to a coordinate
     void move(int xPos, int yPos, Board board);             // moves the piece
     boolean canCapture(int xPos, int yPos, Board board);    // checks if a piece can capture at a position
