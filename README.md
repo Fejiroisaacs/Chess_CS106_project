@@ -25,6 +25,31 @@ This interface defines the methods that should be implemented by any class that 
 
 
 
+
+## Board Class
+
+The Board class represents a chess board with the ability to add and move pieces, and keep track of previous moves.
+
+## Constructor
+
+**`Board()`**: Creates a 2D 8x8 chess board and adds the initial pieces to their respective positions.
+
+## Methods
+
+- **`editBoard(Piece piece, int initX, int initY, int finalX, int finalY)`**: Updates the chess board to reflect a piece's move from its initial position to its final position.
+
+- **`getPreviousMoves()`**: Returns the ArrayList of Object arrays representing previous moves made on the board.
+
+- **`setPreviousMoves(Object[] prevMove)`**: Adds an Object array to the ArrayList of previous moves representing a new move made on the board.
+
+- **`getBoard()`**: Returns the 2D array representing the chess board.
+
+- **`toString()`**: Overrides the built-in toString() method and returns a unique String representation of the chess board for display purposes.
+
+
+
+
+
 ## UniversalMethods
 
 The UniversalMethods class contains a set of static methods that can be used across different classes of the Chess game. These methods provide utility functions for different purposes, such as converting between chessboard coordinates and integer positions, getting the name of the piece being moved, or checking whether a move is valid.
