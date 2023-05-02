@@ -65,6 +65,14 @@ public class Board {
     public ArrayList<Object[]> getPreviousMoves(){
         return this.previousMoves;
     }
+
+    /**
+     *
+     * @param prevMove an array of the piece and previous move sequence
+     */
+    public void setPreviousMoves(Object[] prevMove){
+        this.previousMoves.add(prevMove);
+    }
     /**
      *
      * @return the chessboard

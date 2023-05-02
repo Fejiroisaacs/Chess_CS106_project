@@ -112,6 +112,11 @@ public class UniversalMethods {
             Object[][] pieceMove = getMoveSequence(move);
             Piece thisPiece = board.getBoard()[(int) pieceMove[1][1]-1][(int) pieceMove[1][0]-1];
 
+            if(!thisPiece.getColor().equals(player.getColor())) {
+                System.out.println("Can't move " + thisPiece.getColor() +"'s pieces");
+                return;
+            }
+
             if (isCapture) thisPiece.canCapture((int) pieceMove[2][0], (int) pieceMove[2][1], board);
             else thisPiece.move((int) pieceMove[2][0], (int) pieceMove[2][1], board);
 
@@ -123,6 +128,8 @@ public class UniversalMethods {
                 if (player.isCheckmated(thisPiece)) player.setMated();
                 else System.out.println("king is not checkmated");
             }
+
+            board.setPreviousMoves(new Object[]{thisPiece, move});
 
         } else System.out.println("Move sequence entered is invalid. Contains illegal characters or too many characters");
     }
