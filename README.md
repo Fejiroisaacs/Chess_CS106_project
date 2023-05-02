@@ -213,6 +213,48 @@ Methods
 
 
 
+## Knight Class
+
+The Knight implements the Piece interface and represents a knight on a chess board and includes methods for determining the possible moves of the knight, checking if the knight can move to a specified position, and moving the knight to a specified position on the board.
+
+### Contructor
+
+**`Knight(int xPos, int yPos, String color)`**: This is a constructor to create a Knight object with a specified x-position, y-position, and color.
+Methods
+
+- **`getXPos()`**: This method returns the x-position of the knight on a-f scale.
+
+- **`getYPos()`**: This method returns the y-position of the knight on 1-8 scale.
+
+- **`setKnightMoves()`**: This method sets all possible moves for the knight based on its current position.
+
+- **`canMove(int xPos, int yPos, Board board)`**: This method determines if the knight can move to the specified position on the board.
+
+- **`move(int xPos, int yPos, Board board)`**: This method moves the knight to the specified coordinates on the board.
+
+- **`canCapture(int xPos, int yPos, Board board)`**: This method checks if the knight can capture a piece at the specified coordinates on the board.
+
+
+
+
+
+
+<br/>
+<br/>
+
+
+
+
+
+...
+
+
+
+<br/>
+<br/>
+
+
+
 
 ....
 ....
