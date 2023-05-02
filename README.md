@@ -2,7 +2,7 @@
 
 
 
-## Interface: Pieces 
+## Interface: Piece
 
 This interface defines the methods that should be implemented by any class that represents a piece on a board game. The methods are as follows:
 
