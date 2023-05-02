@@ -5,14 +5,14 @@ public class King implements Piece{
     private int yPos;
     private final String color;
     private final String[] kingMoves = new String[8];
-
     private final ArrayList<Piece> allOtherPieces = new ArrayList<>();
 
+
     /**
-     *
-     * @param xPos the kings position on  a - f scale
-     * @param yPos the kings position on the 1 - 8 scale
-     * @param color the kings color
+     * This is a constructor to create a King object with a specified x-position, y-position, and color
+     * @param xPos The x-position of the king on a-f scale
+     * @param yPos the y-position of the king on 1-8 scale
+     * @param color the color of the king
      */
     public King(int xPos, int yPos, String color) {
         this.xPos = xPos;
@@ -20,17 +20,15 @@ public class King implements Piece{
         this.color = color;
     }
 
+
     /**
-     *  this method sets all the possible moves for the king
+     *  This method sets all possible moves for the king based on its current position
      */
     public void setKingMoves(){
         int[] hold = new int[8];
 
-
-
         hold[0] = ((this.xPos) * 10) + (this.yPos + 1); // up
         hold[1] = ((this.xPos) * 10) + (this.yPos - 1); // down
-
 
         hold[2] = ((this.xPos + 1) * 10) + (this.yPos + 1); // up right
         hold[3] = ((this.xPos - 1) * 10) + (this.yPos + 1); // up left
@@ -38,10 +36,8 @@ public class King implements Piece{
         hold[4] = ((this.xPos + 1) * 10) + (this.yPos); // right
         hold[5] = ((this.xPos - 1) * 10) + (this.yPos); // left
 
-
         hold[6] = ((this.xPos + 1) * 10) + (this.yPos - 1); // down right
         hold[7] = ((this.xPos - 1) * 10) + (this.yPos - 1); // down left
-
 
         int counter = 0;
         for(int cord: hold){ // don't want to add invalid moves to the move list
@@ -49,25 +45,27 @@ public class King implements Piece{
             else kingMoves[counter] = null;
             counter++;
         }
-
     }
 
+
     /**
-     *
-     * @return the a-h position of the king ( in coordinate form )
+     * This method returns the x-position of the king on a-f scale
+     * @return the x-position of the king on a-f scale
      */
     @Override
     public int getXPos() { return this.xPos; }
 
+
     /**
-     *
-     * @return the 1-8 position of the king
+     * This method returns the y-position of the king on 1-8 scale
+     * @return the y-position of the king on 1-8 scale
      */
     @Override
     public int getYPos() { return this.yPos; }
 
+
     /**
-     *
+     * This method determines if the king can move to the specified position on the board
      * @param xPos the a-h position the king wants to move to
      * @param yPos the 1-8 position the king wants to move to
      * @param board the board where the king is
@@ -75,25 +73,25 @@ public class King implements Piece{
      */
     @Override
     public boolean canMove(int xPos, int yPos, Board board) {
-        if(xPos > 8 || xPos < 0 || yPos > 8 || yPos < 0) return false; // king cannot move off the board
+        if(xPos > 8 || xPos < 0 || yPos > 8 || yPos < 0) return false;      // king cannot move off the board
         setKingMoves();
-        int tryMove = (xPos * 10) + yPos; // converts the entered coordinate to the form which kingsMoves are saved
-        for(String moves : this.kingMoves){ // checks if the entered coordinate matches any of the possible king moves
+        int tryMove = (xPos * 10) + yPos;       // converts the entered coordinate to the form which kingsMoves are saved
+        for(String moves : this.kingMoves){     // checks if the entered coordinate matches any of the possible king moves
             if(String.valueOf(tryMove).equals(moves)) return true;
-
         }
         return false;
     }
 
+
     /**
-     *
+     * This method moves the King to the specified coordinates on the board
      * @param xPos the a-h position the king wants to move to
      * @param yPos the 1-8 position the king wants to move to
      * @param board the board where the king is
      */
     @Override
     public void move(int xPos, int yPos, Board board) {
-        // checks if the coordinate the king wants to move to has a piece there
+        // checks if coordinate the king wants to move to has a piece there
         // checks if the king can move to that position
         // checks if the square is attacked (king can't move to protected square)
         if(board.getBoard()[yPos-1][xPos-1] == null && canMove(xPos, yPos, board)
@@ -106,8 +104,9 @@ public class King implements Piece{
         //throw new IllegalArgumentException("Can't move there");
     }
 
+
     /**
-     *
+     * This method checks if the King can capture a piece at the specified coordinates on the board
      * @param xPos the a-h position the king wants to move to and capture
      * @param yPos the 1-8 position the king wants to move to and capture
      * @param board the board where the king is
@@ -133,8 +132,9 @@ public class King implements Piece{
         return false;
     }
 
+
     /**
-     *
+     * This method checks if a given square is protected by an opponent's piece
      * @param moveX the a-h position of the square the king wants to move to / capture on.
      * @param moveY the 1-8 position of the square the king wants to move to / capture on.
      * @param board the board where the pieces are.
@@ -153,8 +153,9 @@ public class King implements Piece{
         return false;
     }
 
+
     /**
-     *
+     * This method determines if this King is attacking a given piece on the given chessboard
      * @param piece the piece we might be attacking
      * @param board the chessboard
      * @return if we're attacking that piece or not
@@ -163,6 +164,7 @@ public class King implements Piece{
     public boolean isAttacking(Piece piece, Board board) {
         return this.canMove(piece.getXPos(), piece.getYPos(), board); // if we can move to where the piece is or not
     }
+
 
     /**
      * this method updates all the opponents pieces, so we can check if those pieces are attacking the king / attacking
@@ -179,8 +181,9 @@ public class King implements Piece{
         }
     }
 
+
     /**
-     *
+     * This method determines if the given piece can move to the square occupied by the king on the board
      * @param board the chessboard
      * @param piece the piece that might be checking the king
      * @return if the king is checked or not
@@ -189,8 +192,9 @@ public class King implements Piece{
         return piece.canMove(this.xPos, this.yPos, board);
     }
 
+
     /**
-     *
+     * This method checks if the king is checkmated on the given chessboard
      * @param board the chessboard
      * @return if the king is checkmated or not
      */
@@ -227,16 +231,24 @@ public class King implements Piece{
 
 
     /**
-     *
+     * This method return the color of the King
      * @return the color of the king "Black" or "White"
      */
     @Override
     public String getColor() { return this.color; }
 
+
     /**
-     *
+     * This method returns a unique display of this King, including its color
+     * and position on the board
      * @return a unique display of the king with its color and its position
      */
     @Override
-    public String toString(){ return UniversalMethods.changeColor(this.color) + " King " + UniversalMethods.changeCord(xPos) + yPos + "\u001B[0m"; }
+    public String toString() {
+        return UniversalMethods.changeColor(this.color) +
+                " King " +
+                UniversalMethods.changeCord(xPos) + yPos + "\u001B[0m";
+    }
+
 }
+
