@@ -260,9 +260,9 @@ The Pawn class represents a pawn piece in a chess board and includes methods for
 
 ### Methods 
 
-- **`int getXPos()`**: A method that returns the x-position of the Pawn on a-f scale.
+- **`getXPos()`**: A method that returns the x-position of the Pawn on a-f scale.
 
-- **`int getYPos()`**: A method that returns the y-position of the Pawn on a-f scale.
+- **`getYPos()`**: A method that returns the y-position of the Pawn on a-f scale.
 
 - **`canMove(int xPos, int yPos, Board board)`**: A method that determines if the Pawn can move to the specified position on the board.
 
