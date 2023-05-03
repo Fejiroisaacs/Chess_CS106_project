@@ -330,9 +330,33 @@ The Queen class implements the Piece interface and represents a Queen piece in a
 
 
 
-....
-....
+## Rook Class
 
+The Rook class implements the Piece interface, representing the Rook chess piece. This class contains methods to move, capture, and check if the Rook can attack a certain square.
+
+
+### Contructor
+
+**`Rook(int xPos, int yPos, String color)`**: This is a constructor that creates a new Rook object with a specified x-position, y-position, and color.
+
+
+### Method
+
+- **`getXPos()`**: Returns the x-coordinate of the Rook on a-f scale.
+
+- **`getYPos()`**: Returns the y-coordinate of the Rook on 1-8 scale.
+
+- **`canMove(int xPos, int yPos, Board board)`**: Determines if the Rook can move to the specified position on the board.
+
+- **`move(int xPos, int yPos, Board board)`**: Moves the Rook to the specified coordinates on the board.
+
+- **`canCapture(int xPos, int yPos, Board board)`**: Checks if the Rook can capture a piece at the specified coordinates on the board.
+
+- **`isAttacking(Piece piece, Board board)`**: Determines if this Rook is attacking a given piece on the given chessboard.
+
+- **`getColor()`**: Returns the color of the Rook, either "Black" or "White".
+
+- **`toString()`**: Returns a unique display of this Rook, including its color and position on the board.
 
 
 
