@@ -4,7 +4,7 @@
 
 ## Interface: Piece
 
-This interface defines the methods that should be implemented by any class that represents a piece on a board game. The methods are as follows:
+This interface defines the methods that should be implemented by any class that represents a piece on the chessboard game. The methods are as follows:
 
 - **`getXPos()`**: This method returns the X position of the piece on the board, represented as a number between 1 and 8.
 
@@ -39,9 +39,9 @@ The Board class represents a chess board with the ability to add and move pieces
 
 - **`editBoard(Piece piece, int initX, int initY, int finalX, int finalY)`**: Updates the chess board to reflect a piece's move from its initial position to its final position.
 
-- **`getPreviousMoves()`**: Returns the ArrayList of Object arrays representing previous moves made on the board.
+- **`getPreviousMoves()`**: Returns the ArrayList of Object arrays containing a piece and its previous moves made on the board.
 
-- **`setPreviousMoves(Object[] prevMove)`**: Adds an Object array to the ArrayList of previous moves representing a new move made on the board.
+- **`setPreviousMoves(Object[] prevMove)`**: Adds an Object array to the ArrayList of a piece and its previous moves made on the board.
 
 - **`getBoard()`**: Returns the 2D array representing the chess board.
 
@@ -64,8 +64,7 @@ The Player class represents a chess player in a game and includes methods for up
 
 ### Methods
 
-- **`getIsMated()`**: Returns whether the player is checkmated or not
-
+- **`getIsMated()`**: Returns if the player is checkmated or not
 
 - **`setMated()`**: Sets the player's checkmated boolean to true
 
@@ -79,9 +78,9 @@ The Player class represents a chess player in a game and includes methods for up
 
 - **`isCheckmated(Piece piece)`**: Returns whether the player is checkmated by the given attacking piece or not
 
-- **`isChecked(Piece piece)`**: Determines whether the player is in check or not
+- **`isChecked(Piece piece)`**: Determines whether a player's king is in check or not
 
-- **`getColor()`**: Returns the color of the player
+- **`getColor()`**: Returns the color of the player "Black" or "White"
 
 
 
@@ -112,7 +111,15 @@ The following methods are available in the **UniversalMethods** class:
 
 - **`getCord(String move)`**: This method takes a string value of a move and returns the x and y coordinates of the destination position.
 
+- **`isAttackingSquare(Piece piece, Board board, int xPos, int yPos)`**: 
 
+- **`canMoveBishop(int thisxPos, int thisyPos, int xPos, int yPos, Board board)`**:
+
+- **`canMoveRook(int thisxPos, int thisyPos, int xPos, int yPos, Board board)`**:
+
+- **`getMoveSequence(String move)`**:
+
+- **`move(Player player, Board board, String move)`**:
 
 
 
@@ -169,7 +176,7 @@ The Bishop class is an implementation of the Piece interface, representing a Bis
 
 ## King Class
 
-The King class class implements the Piece interface and represents a king in a chess game.
+The King class implements the Piece interface and represents a king in a chess game.
 
 ### Constructor
 
@@ -202,7 +209,9 @@ Methods
 
 - **`canCapture(int xPos, int yPos, Board board)`**: This method checks if the king can capture a piece at the specified coordinates on the board. 
 
+- **`isChecked(Board board, Piece piece)`**:
 
+- **`checkmated(Board board)`**:
 
 
 
@@ -217,7 +226,7 @@ Methods
 
 The Knight implements the Piece interface and represents a knight on a chess board and includes methods for determining the possible moves of the knight, checking if the knight can move to a specified position, and moving the knight to a specified position on the board.
 
-### Contructor
+### Constructor
 
 **`Knight(int xPos, int yPos, String color)`**: This is a constructor to create a Knight object with a specified x-position, y-position, and color.
 
@@ -335,7 +344,7 @@ The Queen class implements the Piece interface and represents a Queen piece in a
 The Rook class implements the Piece interface, representing the Rook chess piece. This class contains methods to move, capture, and check if the Rook can attack a certain square.
 
 
-### Contructor
+### Constructor
 
 **`Rook(int xPos, int yPos, String color)`**: This is a constructor that creates a new Rook object with a specified x-position, y-position, and color.
 
