@@ -2,7 +2,9 @@ public class Pawn implements Piece{
     private int xPos;
     private int yPos;
     private final String color;
-    private boolean firstMove = true;
+    private boolean firstMove=true;
+
+    private boolean enPassantMove= false;
 
 
     /**
@@ -43,9 +45,16 @@ public class Pawn implements Piece{
      */
     @Override
     public boolean canMove(int xPos, int yPos, Board board) {
-        return ((Math.abs(yPos - this.yPos) == 2 && this.firstMove) || (Math.abs(yPos - this.yPos) == 1)) && board.getBoard()[yPos-1][xPos-1] == null;
+        // condition for basic move
+        return (Math.abs(yPos - this.yPos) == 2 && this.firstMove) || (Math.abs(yPos - this.yPos) == 1)
+                && board.getBoard()[yPos-1][xPos-1] == null;
     }
 
+    private void moveHelper(int xPos, int yPos, Board board){
+        board.editBoard(this, this.xPos, this.yPos, xPos, yPos );
+        this.yPos = yPos;
+        this.xPos = xPos;
+    }
 
     /**
      * This method moves the Pawn to the specified coordinates on the board
@@ -55,11 +64,17 @@ public class Pawn implements Piece{
      */
     @Override
     public void move(int xPos, int yPos, Board board) {
+
+        if(this.firstMove && Math.abs(yPos - this.yPos) == 2) this.enPassantMove=true;
+        else if(!this.firstMove) this.enPassantMove=false;
+
+//        if(this.enPassant(xPos, yPos, board)){
+//            int deltaY = this.color.equals("White") ? 1 : -1;
+//            moveHelper(xPos, yPos+deltaY, board);
+//        }
         if(canMove(xPos, yPos, board)){
             this.firstMove = false;
-            board.editBoard(this, this.xPos, this.yPos, this.xPos, yPos );
-            this.yPos = yPos;
-            this.xPos = xPos;
+            moveHelper(xPos, yPos, board);
         } else System.out.println("Can't move there, invalid move");
         //throw new IllegalArgumentException("Can't move there");
     }
@@ -74,8 +89,11 @@ public class Pawn implements Piece{
      * @return true if the en passant move is valid, false otherwise
      */
     public boolean enPassant(int xPos, int yPos, Board board){
+        if(board.getPreviousMoves().size() < 1) return false;
+
         Object[] previousMove = board.getPreviousMoves().get(board.getPreviousMoves().size() - 1);
-        if (previousMove[0] instanceof Pawn) {
+        Piece otherPawn = (Piece) previousMove[0];
+        if (otherPawn instanceof Pawn && ((Pawn) otherPawn).enPassantMove) {
             return true;
         }
         return false;
@@ -91,17 +109,33 @@ public class Pawn implements Piece{
      */
     @Override
     public boolean canCapture(int xPos, int yPos, Board board) {
-        try {
-            assert Math.abs(this.xPos - xPos) == 1 && Math.abs(this.yPos - yPos) == 1;
-            assert board.getBoard()[yPos-1][xPos-1] != null;
-            board.editBoard(this, this.xPos, this.yPos, xPos, yPos);
-            this.yPos = yPos;
-            this.xPos = xPos;
-        } catch (AssertionError error) {
-            System.out.println("Invalid capture");
+        if (xPos < 0 || yPos < 0 || yPos > 8 || xPos > 8){
+            System.out.println("Can't capture off the board");
             return false;
         }
-        return true;
+        boolean captureCondition = Math.abs(this.xPos - xPos) == 1 && Math.abs(this.yPos - yPos) == 1;
+        if(!captureCondition) return false;
+
+        Piece currPiece = board.getBoard()[yPos-1][xPos-1];
+
+        // checks if there's a piece where the pawn wants to capture
+        // checks if the piece on that square is not the same color as the pawn ( cannot capture your own pieces )
+        if(currPiece != null && !currPiece.getColor().equals(this.color)){
+            moveHelper(xPos, yPos, board);
+            return true;
+        } else if(currPiece == null && this.enPassant(xPos,yPos,board) ){
+            int deltaY = this.color.equals("White") ? -1 : 1;
+            currPiece = board.getBoard()[yPos - 1 + deltaY][xPos - 1]; // make tests for this
+            System.out.println(currPiece);
+            if(currPiece != null){
+                moveHelper(xPos, yPos + deltaY, board);
+                System.out.println("I captured");
+                return  true;
+            }
+
+        } else System.out.println("Can't capture there. No piece there or piece is not an opponent");
+        //throw new IllegalArgumentException("Can't capture there");
+        return false;
     }
 
 
