@@ -288,7 +288,34 @@ The Pawn class represents a pawn piece in a chess board and includes methods for
 
 
 
-....
+
+## Queen Class
+
+The Queen class implements the Piece interface and represents a Queen piece in a chess game.
+
+
+### Constructor
+
+**`Queen(int xPos, int yPos, String color)`**: This is a constructor that creates a new Queen object with a specified x-position, y-position, and color.
+
+
+### Methods
+
+- **`getXPos()`**: Returns the x-position of the Queen on a-f scale.
+
+- **`getYPos()`**: Returns the y-position of the Queen on 1-8 scale.
+
+- **`canMove(int xPos, int yPos, Board board)`**: Determines if the Queen can move to the specified position on the board.
+
+- **`move(int xPos, int yPos, Board board)`**: Moves the Queen to the specified coordinates on the board.
+
+- **`canCapture(int xPos, int yPos, Board board)`**: Checks if the Queen can capture a piece at the specified coordinates on the board.
+
+- **`isAttacking(Piece piece, Board board)`**: Determines if this Queen is attacking a given piece on the given chessboard.
+
+- **`getColor()`**: Returns the color of the Queen.
+
+- **`toString()`**: Returns a unique display of this Queen, including its color and position on the board.
 
 
 
@@ -305,6 +332,33 @@ The Pawn class represents a pawn piece in a chess board and includes methods for
 
 ....
 ....
+
+
+
+
+
+
+<br/>
+<br/>
+
+
+
+
+
+....
+....
+
+
+
+
+
+
+<br/>
+<br/>
+
+
+
+
 
 
 
