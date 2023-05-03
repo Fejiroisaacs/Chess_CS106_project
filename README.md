@@ -248,12 +248,57 @@ The Knight implements the Piece interface and represents a knight on a chess boa
 
 
 
-...
+## Pawn Class
+
+The Pawn class represents a pawn piece in a chess board and includes methods for determining the possible moves of the Pawn, checking if the Pawn can move to a specified position, and moving the Pawn to a specified position on the board.
+
+
+### Constructor 
+
+**`Pawn(int xPos, int yPos, String color)`**: This is a constructor that creates a new Pawn object with a specified x-position, y-position, and color.
+
+
+## Methods 
+
+- **`int getXPos()`**: A method that returns the x-position of the Pawn on a-f scale.
+
+- **`int getYPos()`**: A method that returns the y-position of the Pawn on a-f scale.
+
+- **`canMove(int xPos, int yPos, Board board)`**: A method that determines if the Pawn can move to the specified position on the board.
+
+- **`move(int xPos, int yPos, Board board)`**: A method that moves the Pawn to the specified coordinates on the board.
+
+- **`enPassant(int xPos, int yPos, Board board)`**: A method that determines whether the en passant move is valid for the given Pawn piece at the specified position on the board.
+
+- **`canCapture(int xPos, int yPos, Board board)`**: A method that checks if the Pawn can capture a piece at the specified coordinates on the board.
+
+- **`isAttacking(Piece piece, Board board)`**: A method that determines if this Pawn is attacking a given piece on the given chessboard.
+
+- **`getColor()`**: A method that returns the color of the Pawn.
+
+- **`toString()`**: A method that returns a unique display of this Pawn, including its color and position on the board.
+
+
 
 
 
 <br/>
 <br/>
+
+
+
+
+....
+
+
+
+
+
+
+
+<br/>
+<br/>
+
 
 
 
