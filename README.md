@@ -258,7 +258,7 @@ The Pawn class represents a pawn piece in a chess board and includes methods for
 **`Pawn(int xPos, int yPos, String color)`**: This is a constructor that creates a new Pawn object with a specified x-position, y-position, and color.
 
 
-## Methods 
+### Methods 
 
 - **`int getXPos()`**: A method that returns the x-position of the Pawn on a-f scale.
 
