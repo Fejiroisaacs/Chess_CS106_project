@@ -231,9 +231,11 @@ public class Main {
 //
 //        UniversalMethods.move(white, chessBoard, "pg5xh6");
 //        System.out.println(chessBoard);
+//
+//        UniversalMethods.move(white, chessBoard, "ph6h5");
+//        System.out.println(chessBoard);
 
         //enPassant tests for black
-        // doesn't quite work
         UniversalMethods.move(black, chessBoard, "ph7h5");
         System.out.println(chessBoard);
 
@@ -244,6 +246,9 @@ public class Main {
         System.out.println(chessBoard);
 
         UniversalMethods.move(black, chessBoard, "ph4xg3");
+        System.out.println(chessBoard);
+
+        UniversalMethods.move(black, chessBoard, "pg3g4");
         System.out.println(chessBoard);
 
 

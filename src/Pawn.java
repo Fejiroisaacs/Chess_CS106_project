@@ -4,7 +4,7 @@ public class Pawn implements Piece{
     private final String color;
     private boolean firstMove=true;
 
-    private boolean enPassantMove= false;
+    private boolean enPassantMove=false;
 
 
     /**
@@ -45,11 +45,24 @@ public class Pawn implements Piece{
      */
     @Override
     public boolean canMove(int xPos, int yPos, Board board) {
+
+        // pawns cannot move backwards
+        boolean conditionWhite = this.color.equals("White") && this.yPos < yPos;
+        boolean conditionBlack = this.color.equals("Black") && this.yPos > yPos;
+
         // condition for basic move
-        return (Math.abs(yPos - this.yPos) == 2 && this.firstMove) || (Math.abs(yPos - this.yPos) == 1)
+        boolean mainCondition = (Math.abs(yPos - this.yPos) == 2 && this.firstMove) || (Math.abs(yPos - this.yPos) == 1)
                 && board.getBoard()[yPos-1][xPos-1] == null;
+
+        return (conditionWhite || conditionBlack) &&  mainCondition;
     }
 
+    /**
+     * this method edits the chess board
+     * @param xPos the a-h position the Pawn wants to move to
+     * @param yPos the 1-8 position the Pawn wants to move to
+     * @param board the board where the Pawn is
+     */
     private void moveHelper(int xPos, int yPos, Board board){
         board.editBoard(this, this.xPos, this.yPos, xPos, yPos );
         this.yPos = yPos;
@@ -65,13 +78,10 @@ public class Pawn implements Piece{
     @Override
     public void move(int xPos, int yPos, Board board) {
 
+        // can only En passant **this** pawn on first move if it moves two squares up
         if(this.firstMove && Math.abs(yPos - this.yPos) == 2) this.enPassantMove=true;
-        else if(!this.firstMove) this.enPassantMove=false;
+        else if(!this.firstMove) this.enPassantMove=false; // can't En passant after the first move
 
-//        if(this.enPassant(xPos, yPos, board)){
-//            int deltaY = this.color.equals("White") ? 1 : -1;
-//            moveHelper(xPos, yPos+deltaY, board);
-//        }
         if(canMove(xPos, yPos, board)){
             this.firstMove = false;
             moveHelper(xPos, yPos, board);
@@ -79,24 +89,24 @@ public class Pawn implements Piece{
         //throw new IllegalArgumentException("Can't move there");
     }
 
+    private void promote(){
+
+    }
 
     /**
-     * This method determines whether the en passant move is valid for the given Pawn
-     * piece at the specified position on the board
-     * @param xPos the x-coordinate of the current pawn's position on the board
-     * @param yPos the y-coordinate of the current pawn's position on the board
+     * This method determines whether the En passant move is valid for **this** pawn
      * @param board the board where the Pawn is
      * @return true if the en passant move is valid, false otherwise
      */
-    public boolean enPassant(int xPos, int yPos, Board board){
-        if(board.getPreviousMoves().size() < 1) return false;
+    public boolean enPassant(Board board){
+        if(board.getPreviousMoves().size() < 4) return false; // can't En passant in 4 moves
 
+        // gets the previous move + piece and checks if it's a pawn, and it played an En passant-able move
         Object[] previousMove = board.getPreviousMoves().get(board.getPreviousMoves().size() - 1);
         Piece otherPawn = (Piece) previousMove[0];
-        if (otherPawn instanceof Pawn && ((Pawn) otherPawn).enPassantMove) {
-            return true;
-        }
-        return false;
+
+        // return if the piece is a pawn, and it made an enPassant move
+        return otherPawn instanceof Pawn && ((Pawn) otherPawn).enPassantMove;
     }
 
 
@@ -113,9 +123,13 @@ public class Pawn implements Piece{
             System.out.println("Can't capture off the board");
             return false;
         }
-        boolean captureCondition = Math.abs(this.xPos - xPos) == 1 && Math.abs(this.yPos - yPos) == 1;
-        if(!captureCondition) return false;
 
+        // pawns can only capture one square diagonally
+        boolean captureCondition = Math.abs(this.xPos - xPos) == 1 && Math.abs(this.yPos - yPos) == 1;
+
+        if(!captureCondition) return false; // invalid capture, terminate
+
+        // gets the piece we want to capture
         Piece currPiece = board.getBoard()[yPos-1][xPos-1];
 
         // checks if there's a piece where the pawn wants to capture
@@ -123,14 +137,20 @@ public class Pawn implements Piece{
         if(currPiece != null && !currPiece.getColor().equals(this.color)){
             moveHelper(xPos, yPos, board);
             return true;
-        } else if(currPiece == null && this.enPassant(xPos,yPos,board) ){
+        }
+        // no piece on basic capturing position because for en passant, the pawn is next to **this** pawn
+        else if(currPiece == null && this.enPassant(board)){
+
+            // if white, the pawn we want to en passant is 1 coordinate behind, if black, it is 1 coordinate ahead
             int deltaY = this.color.equals("White") ? -1 : 1;
-            currPiece = board.getBoard()[yPos - 1 + deltaY][xPos - 1]; // make tests for this
-            System.out.println(currPiece);
-            if(currPiece != null){
-                moveHelper(xPos, yPos + deltaY, board);
-                System.out.println("I captured");
-                return  true;
+            currPiece = board.getBoard()[yPos - 1 + deltaY][xPos - 1];
+
+            // if piece is null, can't en passant
+            if(currPiece != null && !currPiece.getColor().equals(this.color)){
+                board.getBoard()[yPos - 1 + deltaY][xPos - 1] = null; // removes en passant-ed piece
+                moveHelper(xPos, yPos, board); // edit the board
+                System.out.println("Steezy En passant"); // so steezyyyyy
+                return true;
             }
 
         } else System.out.println("Can't capture there. No piece there or piece is not an opponent");
