@@ -108,7 +108,58 @@ public class UniversalMethods {
             move = move.replace("x","");
         }
 
-        String specialValue = move.substring(move.length()-1);
+        String specialValue = "";
+
+        // pawn wants to promote -- incomplete
+        if(move.contains("=")){
+            assert move.startsWith("p");
+
+            if(move.endsWith("+") || move.endsWith("#")){
+                specialValue = move.substring(move.length()-1);
+                move = move.replace(specialValue, "");
+            }
+
+            move = move.replace("=", "");
+
+
+            String pieceName = move.substring(move.length()-1);
+            move = move.replace(pieceName, "");
+            System.out.println(pieceName);
+
+            if(move.length() == 5){
+                Object[][] pieceMove = getMoveSequence(move);
+                Piece thisPiece = board.getBoard()[(int) pieceMove[1][1]-1][(int) pieceMove[1][0]-1];
+                Pawn thisPawn = (Pawn) thisPiece;
+
+                if(!thisPawn.getColor().equals(player.getColor())) {
+                    System.out.println("Can't move " + thisPawn.getColor() +"'s pieces");
+                    return;
+                }
+
+                if(isCapture){
+                    thisPawn.canCapture((int) pieceMove[2][0], (int) pieceMove[2][1], board);
+                } else{
+                    thisPawn.move((int) pieceMove[2][0], (int) pieceMove[2][1], board);
+                }
+
+                if (specialValue.equals("+")) {
+                    if (player.isChecked(thisPiece)) System.out.println("King in check");
+                    else System.out.println("king is not in check");
+                } else if (specialValue.equals("#")) {
+                    if (player.isCheckmated(thisPiece)) player.setMated();
+                    else System.out.println("king is not checkmated");
+                }
+
+                thisPawn.promote(pieceName, (int) pieceMove[2][0], (int) pieceMove[2][1], board);
+                board.setPreviousMoves(new Object[]{thisPawn, move});
+            }
+
+            return;
+        }
+
+
+        specialValue = move.substring(move.length()-1);
+
         if(specialValue.equals("+") || specialValue.equals("#")) move = move.replace(specialValue, "");
         if(move.length() == 5) {
             Object[][] pieceMove = getMoveSequence(move);

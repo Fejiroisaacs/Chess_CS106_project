@@ -251,6 +251,27 @@ public class Main {
         UniversalMethods.move(black, chessBoard, "pg3g4");
         System.out.println(chessBoard);
 
+        // promoting pawn tests
+        UniversalMethods.move(white, chessBoard, "ph2h4");
+        System.out.println(chessBoard);
+        UniversalMethods.move(white, chessBoard, "ph4h5");
+        System.out.println(chessBoard);
+        UniversalMethods.move(white, chessBoard, "ph5h6");
+        System.out.println(chessBoard);
+        UniversalMethods.move(white, chessBoard, "ph6h7");
+        System.out.println(chessBoard);
+        UniversalMethods.move(white, chessBoard, "ph7h8=q");
+        System.out.println(chessBoard);
+
+
+        // promoted piece tests -- default promoting is a queen
+        UniversalMethods.move(white, chessBoard, "qh8xd8");
+        System.out.println(chessBoard);
+
+        // pieces can capture king -- fixed but still having a null pointer exception thrown here, need to fix
+//        UniversalMethods.move(white, chessBoard, "qd8f6+");
+//        System.out.println(chessBoard);
+
 
     }
 }

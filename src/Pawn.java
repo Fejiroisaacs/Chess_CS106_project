@@ -87,10 +87,44 @@ public class Pawn implements Piece{
             moveHelper(xPos, yPos, board);
         } else System.out.println("Can't move there, invalid move");
         //throw new IllegalArgumentException("Can't move there");
+        canPromote(board);
     }
 
-    private void promote(){
+    /**
+     * this method checks if a pawn can be promoted after a move (in case the user doesn't specify a promotion) then
+     * promotes the pawn to a queen
+     * @param board the board where the Pawn is
+     *
+     */
+    private void canPromote(Board board){
+        if(this.yPos == 8) promote("q", this.xPos, this.yPos, board);
+    }
 
+    /**
+     * this method promotes a pawn to a specified piece name -- default promotion is a queen
+     * @param pieceName the name of the piece we want to promote to
+     * @param xPos the a-h position the Pawn wants to move to
+     * @param yPos the 1-8 position the Pawn wants to move to
+     * @param board the board where the Pawn is
+     *
+     */
+    public void promote(String pieceName, int xPos, int yPos, Board board){
+        Piece piece = null;
+
+        switch (pieceName) {
+            case "b":
+                piece = new Bishop(this.xPos, this.yPos, this.color);
+                break;
+            case "r":
+                piece = new Rook(this.xPos, this.yPos, this.color);
+                break;
+            case "n":
+                piece = new Knight(this.xPos, this.yPos, this.color);
+                break;
+            default:
+                piece = new Queen(this.xPos, this.yPos, this.color);
+        }
+        board.getBoard()[yPos-1][xPos-1] = piece;
     }
 
     /**
@@ -134,8 +168,11 @@ public class Pawn implements Piece{
 
         // checks if there's a piece where the pawn wants to capture
         // checks if the piece on that square is not the same color as the pawn ( cannot capture your own pieces )
-        if(currPiece != null && !currPiece.getColor().equals(this.color)){
+        // cannot capture a king
+        if(currPiece != null && !currPiece.getColor().equals(this.color)
+                && !(currPiece instanceof King)){
             moveHelper(xPos, yPos, board);
+            canPromote(board);
             return true;
         }
         // no piece on basic capturing position because for en passant, the pawn is next to **this** pawn
@@ -150,11 +187,15 @@ public class Pawn implements Piece{
                 board.getBoard()[yPos - 1 + deltaY][xPos - 1] = null; // removes en passant-ed piece
                 moveHelper(xPos, yPos, board); // edit the board
                 System.out.println("Steezy En passant"); // so steezyyyyy
+                canPromote(board);
                 return true;
             }
 
         } else System.out.println("Can't capture there. No piece there or piece is not an opponent");
         //throw new IllegalArgumentException("Can't capture there");
+
+        canPromote(board);
+
         return false;
     }
 

@@ -85,7 +85,9 @@ public class Rook implements Piece {
         Piece currPiece = board.getBoard()[yPos-1][xPos-1];
         // checks if there's a piece where the rook wants to capture
         // checks if the piece on that square is not the same color as the rook ( cannot capture your own pieces )
-        if(canMove(xPos,yPos,board)  && currPiece != null && !currPiece.getColor().equals(this.color)){
+        // cannot capture a king
+        if(canMove(xPos,yPos,board)  && currPiece != null && !currPiece.getColor().equals(this.color)
+                && !(currPiece instanceof King)){
             board.editBoard(this, this.xPos, this.yPos, xPos, yPos);
             this.yPos = yPos;
             this.xPos = xPos;

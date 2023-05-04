@@ -120,9 +120,10 @@ public class King implements Piece{
         }
         Piece currPiece = board.getBoard()[yPos-1][xPos-1];
         // checks if there's a piece where the king wants to capture
+        // cannot capture a king
         // checks if the piece on that square is not the same color as the king ( cannot capture your own pieces )
         // checks if the piece is protected ( can't capture protected pieces )
-        if(canMove(xPos,yPos,board)  && currPiece != null
+        if(canMove(xPos,yPos,board)  && currPiece != null && !(currPiece instanceof King)
                 && !currPiece.getColor().equals(this.color)  && !squareProtected(board, xPos, yPos)){
             board.editBoard(this, this.xPos, this.yPos, xPos, yPos);
             this.yPos = yPos;

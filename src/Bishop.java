@@ -84,7 +84,9 @@ public class Bishop implements Piece{
 
         // checks if there's a piece where the bishop wants to capture
         // checks if the piece on that square is not the same color as the bishop ( cannot capture your own pieces )
-        if(canMove(xPos,yPos,board)  && currPiece != null && !currPiece.getColor().equals(this.color)){
+        // cannot capture a king
+        if(canMove(xPos,yPos,board)  && currPiece != null && !currPiece.getColor().equals(this.color)
+                && !(currPiece instanceof King)){
             board.editBoard(this, this.xPos, this.yPos, xPos, yPos);
             this.yPos = yPos;
             this.xPos = xPos;
