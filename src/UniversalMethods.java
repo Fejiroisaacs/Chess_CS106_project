@@ -97,7 +97,7 @@ public class UniversalMethods {
      * @param board a Board object representing the current state of the game board
      * @param move a string representation of the move to be executed
      */
-    public static void move(Player player, Board board, String move){
+    public static void move(Player player, Player otherPlayer, Board board, String move){
         assert move.length() < 10 && move.length() > 4 ;
         assert board != null;
         boolean isCapture = false;
@@ -106,6 +106,10 @@ public class UniversalMethods {
         if(move.contains("x")){
             isCapture = true;
             move = move.replace("x","");
+        }
+
+        if(move.length() < 5){
+            throw new IllegalArgumentException("Invalid move entry");
         }
 
         String specialValue = "";
@@ -129,6 +133,9 @@ public class UniversalMethods {
             if(move.length() == 5){
                 Object[][] pieceMove = getMoveSequence(move);
                 Piece thisPiece = board.getBoard()[(int) pieceMove[1][1]-1][(int) pieceMove[1][0]-1];
+
+                if(thisPiece == null) throw new IllegalArgumentException("No piece on specified coordinate");
+
                 Pawn thisPawn = (Pawn) thisPiece;
 
                 if(!thisPawn.getColor().equals(player.getColor())) {
@@ -136,17 +143,16 @@ public class UniversalMethods {
                     return;
                 }
 
-                if(isCapture){
-                    thisPawn.canCapture((int) pieceMove[2][0], (int) pieceMove[2][1], board);
-                } else{
-                    thisPawn.move((int) pieceMove[2][0], (int) pieceMove[2][1], board);
+                if(!specialValue.equals("#") && !specialValue.equals("+")) {
+                    if (isCapture) thisPiece.canCapture((int) pieceMove[2][0], (int) pieceMove[2][1], board);
+                    else thisPiece.move((int) pieceMove[2][0], (int) pieceMove[2][1], board);
                 }
 
                 if (specialValue.equals("+")) {
-                    if (player.isChecked(thisPiece)) System.out.println("King in check");
+                    if (otherPlayer.isChecked(thisPiece)) System.out.println("King in check");
                     else System.out.println("king is not in check");
                 } else if (specialValue.equals("#")) {
-                    if (player.isCheckmated(thisPiece)) player.setMated();
+                    if (otherPlayer.isCheckmated(thisPiece)) otherPlayer.setMated();
                     else System.out.println("king is not checkmated");
                 }
 
@@ -164,21 +170,22 @@ public class UniversalMethods {
         if(move.length() == 5) {
             Object[][] pieceMove = getMoveSequence(move);
             Piece thisPiece = board.getBoard()[(int) pieceMove[1][1]-1][(int) pieceMove[1][0]-1];
+            if(thisPiece == null) throw new IllegalArgumentException("No piece on specified coordinate");
 
             if(!thisPiece.getColor().equals(player.getColor())) {
                 System.out.println("Can't move " + thisPiece.getColor() +"'s pieces");
                 return;
             }
-
-            if (isCapture) thisPiece.canCapture((int) pieceMove[2][0], (int) pieceMove[2][1], board);
-            else thisPiece.move((int) pieceMove[2][0], (int) pieceMove[2][1], board);
-
+            if(!specialValue.equals("#") && !specialValue.equals("+")) {
+                if (isCapture) thisPiece.canCapture((int) pieceMove[2][0], (int) pieceMove[2][1], board);
+                else thisPiece.move((int) pieceMove[2][0], (int) pieceMove[2][1], board);
+            }
 
             if (specialValue.equals("+")) {
-                if (player.isChecked(thisPiece)) System.out.println("King in check");
+                if (otherPlayer.isChecked(thisPiece)) System.out.println("King in check");
                 else System.out.println("king is not in check");
             } else if (specialValue.equals("#")) {
-                if (player.isCheckmated(thisPiece)) player.setMated();
+                if (otherPlayer.isCheckmated(thisPiece)) otherPlayer.setMated();
                 else System.out.println("king is not checkmated");
             }
 

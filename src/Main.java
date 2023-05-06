@@ -1,4 +1,4 @@
-import java.util.Arrays;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
@@ -6,10 +6,175 @@ public class Main {
 
         System.out.println("This is the start of the chess app");
 
-        test();
+        //test();
 
+        playChess();
 
     }
+
+    public static void playChess(){
+
+        Board chessBoard = new Board();
+        Player white = new Player("White", chessBoard);
+        Player black = new Player("Black", chessBoard);
+
+        Scanner userInput = new Scanner(System.in);
+        String move = "";
+        boolean hasEnded = false;
+        boolean hasMoved;
+
+
+        System.out.println("Chess");
+        System.out.println(chessBoard);
+
+        move = someHelperFunction(white, userInput, chessBoard);
+        while(chessBoard.getPreviousMoves().isEmpty()){
+            try {
+                UniversalMethods.move(white, black , chessBoard, move);
+            } catch (Exception e){
+                System.out.println("some error happened, invalid input?");
+
+                move = someHelperFunction(white, userInput, chessBoard);
+            }
+        }
+        white.setMyTurn(false);
+        black.setMyTurn(true);
+
+        System.out.println(chessBoard);
+
+        while(!hasEnded) {
+            hasMoved = false;
+
+            move = someHelperFunction(white, userInput, chessBoard);
+
+            boolean success = false;
+
+            while(!success) {
+                try {
+
+                    Piece lastMovedPiece = (Piece) chessBoard.getPreviousMoves().get(chessBoard.getPreviousMoves().size()-1)[0];
+                    UniversalMethods.move(white.getTurn() ? white : black, white.getTurn() ? black : white, chessBoard, move);
+
+                    if (lastMovedPiece.getColor().equals(white.getTurn() ? white.getColor() : black.getColor()))
+                        hasMoved = true;
+                    success = true;
+                } catch (Exception exception) {
+                    System.out.println("some error happened, Invalid input?");
+                    move = someHelperFunction(white, userInput, chessBoard);
+                }
+            }
+
+            if(hasMoved) {
+                // setting players turn
+                if (white.getTurn()) {
+                    white.setMyTurn(false);
+                    black.setMyTurn(true);
+                    System.out.println("got here instead");
+                } else {
+                    System.out.println("Should be here");
+                    white.setMyTurn(true);
+                    black.setMyTurn(false);
+                }
+            }
+
+            // checking if either player was mated.
+            if(white.getIsMated()){
+                System.out.println("Black wins");
+                hasEnded = true;
+            } else if(black.getIsMated()){
+                System.out.println("White wins");
+                hasEnded = true;
+            }
+            System.out.println(chessBoard);
+        }
+
+    }
+
+    /**
+     *
+     * @param white first player
+     * @param userInput the Scanner
+     * @param board the chess board
+     * @return the users move
+     */
+    private static String someHelperFunction(Player white, Scanner userInput, Board board){
+
+        // showing whose turn it is
+        if(white.getTurn()) System.out.println("Whites turn, enter your move: ");
+        else System.out.println("Blacks turn, enter your move: ");
+
+        String move = userInput.next();
+        boolean validMove = partialMoveTest(move, board);
+
+        if (!validMove){
+            while(!validMove){
+                System.out.println("Invalid entry");
+                if(white.getTurn()) System.out.println("Whites turn, enter your move: ");
+                else System.out.println("Blacks turn, enter your move: ");
+                move = userInput.next();
+                validMove = partialMoveTest(move, board);
+            }
+        }
+        return move;
+    }
+    /**
+     *
+     * @param move the entered move
+     * @return if a move is valid or not
+     */
+    private static boolean partialMoveTest(String move, Board board){
+        move = move.toLowerCase();
+
+        if(move.length() < 5) return false;
+
+        if(move.contains("x")){
+            if(move.indexOf("x") != 3) return false;
+            move = move.replace("x", "");
+        }
+
+        if(move.contains("+")){
+            if(move.indexOf("+") != move.length()-1) return false;
+            move = move.replace("+", "");
+        }
+
+        if(move.contains("#")){
+            if(move.indexOf("#") != move.length()-1) return false;
+            move = move.replace("#","");
+        }
+
+        if(move.contains("=")){
+            if(move.indexOf("=") != move.length()-2) return false;
+            move = move.substring(0, move.length()-2);
+        }
+
+        if(move.length() != 5) return false;
+
+        boolean validInputSequence =  Character.isLetter(move.charAt(0)) && Character.isLetter(move.charAt(1)) &&
+                Character.isDigit(move.charAt(2)) && Character.isLetter(move.charAt(3)) && Character.isDigit(move.charAt(4));
+
+        if(validInputSequence) return pieceOnSpecifiedPos(move.substring(1,3), board);
+
+        return false;
+    }
+
+    /**
+     *
+     * @param cord the coordinate of the board we want to check if there is a piece on
+     * @param board the chess board
+     * @return if there's a piece on the specified position
+     */
+    public static boolean pieceOnSpecifiedPos(String cord, Board board){
+        if(cord.length() != 2) return false;
+
+        Object[] initialMoveArr = {UniversalMethods.changeLetCord(cord.substring(0,1)), Integer.parseInt(cord.substring(1,2))};
+
+        Piece thisPiece = board.getBoard()[(int) initialMoveArr[1]-1][(int) initialMoveArr[0]-1];
+
+        if(thisPiece == null) System.out.println("No piece on specified input");
+
+        return thisPiece != null;
+    }
+
     public static void test(){
         Board chessBoard = new Board();
         Player white = new Player("White", chessBoard);
@@ -213,10 +378,10 @@ public class Main {
 
 
 
-        UniversalMethods.move(white, chessBoard, "pf2f4");
+        UniversalMethods.move(white, black, chessBoard, "pf2f4");
         System.out.println(chessBoard);
 
-        UniversalMethods.move(white, chessBoard, "rb8xc8");
+        UniversalMethods.move(white, black, chessBoard, "rb8xc8");
         System.out.println(chessBoard);
 
         //enPassant tests for white
@@ -236,41 +401,41 @@ public class Main {
 //        System.out.println(chessBoard);
 
         //enPassant tests for black
-        UniversalMethods.move(black, chessBoard, "ph7h5");
+        UniversalMethods.move(black, white, chessBoard, "ph7h5");
         System.out.println(chessBoard);
 
-        UniversalMethods.move(black, chessBoard, "ph5h4");
+        UniversalMethods.move(black, white, chessBoard, "ph5h4");
         System.out.println(chessBoard);
 
-        UniversalMethods.move(white, chessBoard, "pg2g4");
+        UniversalMethods.move(white, black, chessBoard, "pg2g4");
         System.out.println(chessBoard);
 
-        UniversalMethods.move(black, chessBoard, "ph4xg3");
+        UniversalMethods.move(black, white, chessBoard, "ph4xg3");
         System.out.println(chessBoard);
 
-        UniversalMethods.move(black, chessBoard, "pg3g4");
+        UniversalMethods.move(black, white, chessBoard, "pg3g4");
         System.out.println(chessBoard);
 
         // promoting pawn tests
-        UniversalMethods.move(white, chessBoard, "ph2h4");
+        UniversalMethods.move(white, black, chessBoard, "ph2h4");
         System.out.println(chessBoard);
-        UniversalMethods.move(white, chessBoard, "ph4h5");
+        UniversalMethods.move(white, black, chessBoard, "ph4h5");
         System.out.println(chessBoard);
-        UniversalMethods.move(white, chessBoard, "ph5h6");
+        UniversalMethods.move(white, black, chessBoard, "ph5h6");
         System.out.println(chessBoard);
-        UniversalMethods.move(white, chessBoard, "ph6h7");
+        UniversalMethods.move(white, black, chessBoard, "ph6h7");
         System.out.println(chessBoard);
-        UniversalMethods.move(white, chessBoard, "ph7h8=q");
+        UniversalMethods.move(white, black, chessBoard, "ph7h8=q");
         System.out.println(chessBoard);
 
 
         // promoted piece tests -- default promoting is a queen
-        UniversalMethods.move(white, chessBoard, "qh8xd8");
+        UniversalMethods.move(white, black, chessBoard, "qh8xd8");
         System.out.println(chessBoard);
 
         // pieces can capture king -- fixed but still having a null pointer exception thrown here, need to fix
-//        UniversalMethods.move(white, chessBoard, "qd8f6+");
-//        System.out.println(chessBoard);
+        UniversalMethods.move(white, black, chessBoard, "qd8f6+");
+        System.out.println(chessBoard);
 
 
     }
