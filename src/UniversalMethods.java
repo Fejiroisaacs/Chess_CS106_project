@@ -21,8 +21,7 @@ public class UniversalMethods {
             case 8 : return "h";
         }
         // in case input is not between 1-8 inclusive, throw exception
-        System.out.println("Wrong X-Coordinate, must be between 1-8 inclusive");
-        throw new IllegalArgumentException();
+        throw new IllegalArgumentException("Wrong X-Coordinate, must be between 1-8 inclusive");
     }
 
 
@@ -56,38 +55,7 @@ public class UniversalMethods {
             case "h": return 8;
         }
         // in case input is not between 1-8 inclusive, throw exception
-        System.out.println("the coordinate entered is invalid must be between a-h");
-        throw new IllegalArgumentException();
-    }
-
-
-    /**
-     * This method takes a board object, a piece object, and the x and y coordinates of
-     * the destination position. It returns a boolean value indicating whether the move
-     * is valid or not
-     * @param board a Board object
-     * @param piece a Piece object
-     * @param x_cord x-coordinate
-     * @param y_cord y-coordinate
-     * @return true if move is valid, false if move is not valid
-     */
-    public static boolean validMove(Board board, Piece piece, int x_cord, int y_cord){
-        return piece.canMove(x_cord, y_cord, board) && board.getBoard()[y_cord][x_cord] == null;
-    }
-
-
-    /**
-     * This method takes a board object, a piece object, and the x and y coordinates of
-     * the destination position. It returns a boolean value indicating whether the move
-     * results in a valid capture or not
-     * @param board a Board object
-     * @param piece a Piece object
-     * @param x_cord x-coordinate
-     * @param y_cord y-coordinate
-     * @return true if move is a valid capture, false if move is not a valid capture
-     */
-    public static boolean validCapture(Board board, Piece piece, int x_cord, int y_cord){
-        return piece.canCapture(x_cord, y_cord, board);
+        throw new IllegalArgumentException("The coordinate entered is invalid must be between a-h");
     }
 
 
@@ -130,7 +98,6 @@ public class UniversalMethods {
 
             String pieceName = move.substring(move.length()-1);
             move = move.replace(pieceName, "");
-            System.out.println(pieceName);
 
             if(move.length() == 5){
                 Object[][] pieceMove = getMoveSequence(move);
@@ -141,8 +108,7 @@ public class UniversalMethods {
                 Pawn thisPawn = (Pawn) thisPiece;
 
                 if(!thisPawn.getColor().equals(player.getColor())) {
-                    System.out.println("Can't move " + thisPawn.getColor() + "'s pieces");
-                    throw new IllegalArgumentException();
+                    throw new IllegalArgumentException("Can't move " + thisPawn.getColor() + "'s pieces");
                 }
 
                 if(!specialValue.equals("#") && !specialValue.equals("+")) {
@@ -175,8 +141,7 @@ public class UniversalMethods {
             if(thisPiece == null) throw new IllegalArgumentException("No piece on specified coordinate");
 
             if(!thisPiece.getColor().equals(player.getColor())) {
-                System.out.println("Can't move " + thisPiece.getColor() + "'s pieces");
-                throw new IllegalArgumentException();
+                throw new IllegalArgumentException("Can't move " + thisPiece.getColor() + "'s pieces");
             }
 
             if (isCapture) thisPiece.canCapture((int) pieceMove[2][0], (int) pieceMove[2][1], board);
@@ -193,7 +158,9 @@ public class UniversalMethods {
 
             board.setPreviousMoves(new Object[]{thisPiece, move});
 
-        } else System.out.println("Move sequence entered is invalid. Contains illegal characters or too many characters");
+        } else {
+            throw new IllegalArgumentException("Move sequence entered is invalid. Contains illegal characters or too many characters");
+        }
     }
 
 

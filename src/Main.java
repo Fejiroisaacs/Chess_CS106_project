@@ -35,9 +35,10 @@ public class Main {
                 UniversalMethods.move(white, black , chessBoard, move); // tries to move a piece
             } catch (Exception exception){
 
-                System.out.println("some error happened, invalid input?");
+                String error = exception.toString().substring(36);
+                System.out.println(error);
 
-                move = someHelperFunction(white, chessBoard); // gets
+                move = someHelperFunction(white, chessBoard); // gets the move
             }
         }
 
@@ -75,8 +76,8 @@ public class Main {
                     UniversalMethods.move(white.getTurn() ? white : black, white.getTurn() ? black : white, chessBoard, move);
 
                 } catch (Exception exception) {
-                    System.out.println(exception);
-                    System.out.println("some error happened, Invalid input?");
+                    String error = exception.toString().substring(35);
+                    System.out.println(error);
                 }
 
                 // while loop is only successful if a piece has actually been moved and has been added to the list of
