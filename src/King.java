@@ -99,9 +99,11 @@ public class King implements Piece{
             board.editBoard(this, this.xPos, this.yPos, xPos, yPos);
             this.yPos = yPos;
             this.xPos = xPos;
-        } else System.out.println("Can't move there");
-        // won't throw this exception unless program would crash, unless we use try, catch... but no need for that
-        //throw new IllegalArgumentException("Can't move there");
+        } else{
+            System.out.println("Can't move there, invalid move -- King class");
+            throw new IllegalArgumentException("Can't move there, invalid move -- King class");
+        }
+
     }
 
 

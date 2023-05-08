@@ -85,8 +85,10 @@ public class Pawn implements Piece{
         if(canMove(xPos, yPos, board)){
             this.firstMove = false;
             moveHelper(xPos, yPos, board);
-        } else System.out.println("Can't move there, invalid move");
-        //throw new IllegalArgumentException("Can't move there");
+        } else{
+            System.out.println("Can't move there, invalid move");
+            throw new IllegalArgumentException("Can't move there, invalid move");
+        }
         canPromote(board);
     }
 
@@ -109,7 +111,7 @@ public class Pawn implements Piece{
      *
      */
     public void promote(String pieceName, int xPos, int yPos, Board board){
-        Piece piece = null;
+        Piece piece;
 
         switch (pieceName) {
             case "b":
@@ -173,6 +175,7 @@ public class Pawn implements Piece{
                 && !(currPiece instanceof King)){
             moveHelper(xPos, yPos, board);
             canPromote(board);
+            this.firstMove = false;
             return true;
         }
         // no piece on basic capturing position because for en passant, the pawn is next to **this** pawn
@@ -187,12 +190,14 @@ public class Pawn implements Piece{
                 board.getBoard()[yPos - 1 + deltaY][xPos - 1] = null; // removes en passant-ed piece
                 moveHelper(xPos, yPos, board); // edit the board
                 System.out.println("Steezy En passant"); // so steezyyyyy
-                canPromote(board);
+                canPromote(board); // checks if the piece can promote then it promotes it to a queen automatically
                 return true;
             }
 
-        } else System.out.println("Can't capture there. No piece there or piece is not an opponent");
-        //throw new IllegalArgumentException("Can't capture there");
+        } else{
+            System.out.println("Can't capture there. No piece there or piece is not an opponent");
+            throw new IllegalArgumentException("Can't capture there");
+        }
 
         canPromote(board);
 

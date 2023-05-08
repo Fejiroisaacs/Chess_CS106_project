@@ -2,6 +2,7 @@ public class Rook implements Piece {
     private int xPos;
     private int yPos;
     private final String color;
+    private boolean hasMoved=false;
 
 
     /**
@@ -32,6 +33,11 @@ public class Rook implements Piece {
     @Override
     public int getYPos() { return this.yPos; }
 
+    /**
+     *
+     * @return if this rook has moved or not
+     */
+    public boolean getHasMoved() { return this.hasMoved; }
 
     /**
      * This method determines if the Rook can move to the specified position on the board
@@ -61,11 +67,11 @@ public class Rook implements Piece {
             board.editBoard(this, this.xPos, this.yPos, xPos, yPos);
             this.yPos = yPos;
             this.xPos = xPos;
+            this.hasMoved = true;
         } else {
-            System.out.println("Can't move there");
+            System.out.println("Can't move there, invalid move");
+            throw new IllegalArgumentException("Can't move there, invalid move");
         }
-        // won't throw this exception unless program would crash, unless we use try, catch... but no need for that
-        //throw new IllegalArgumentException("Can't move there");
     }
 
 
