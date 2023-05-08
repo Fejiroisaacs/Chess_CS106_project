@@ -24,7 +24,7 @@ public class King implements Piece{
     /**
      *  This method sets all possible moves for the king based on its current position
      */
-    public void setKingMoves(){
+    public void setKingMoves(Board board){
         int[] hold = new int[8];
 
         hold[0] = ((this.xPos) * 10) + (this.yPos + 1); // up
@@ -41,12 +41,23 @@ public class King implements Piece{
 
         int counter = 0;
         for(int cord: hold){ // don't want to add invalid moves to the move list
-            if(cord > 0 && cord%10 <= 8 && cord/10 <= 8)  kingMoves[counter] = String.valueOf(cord);
+            if(cord > 0 && cord%10 <= 8 && cord/10 <= 8){
+                if (pieceNotOnSquare(cord/10, cord%10, board)) kingMoves[counter] = String.valueOf(cord);
+                else kingMoves[counter] = null;
+            }
             else kingMoves[counter] = null;
             counter++;
         }
     }
 
+    private boolean pieceNotOnSquare(int xPos, int yPos, Board board){
+        Piece piece = null;
+        try {
+            piece = board.getBoard()[yPos - 1][xPos - 1];
+        } catch (Exception ignored){ }
+
+        return piece == null;
+    }
 
     /**
      * This method returns the x-position of the king on a-f scale
@@ -74,7 +85,7 @@ public class King implements Piece{
     @Override
     public boolean canMove(int xPos, int yPos, Board board) {
         if(xPos > 8 || xPos < 0 || yPos > 8 || yPos < 0) return false;      // king cannot move off the board
-        setKingMoves();
+        setKingMoves(board);
         int tryMove = (xPos * 10) + yPos;       // converts the entered coordinate to the form which kingsMoves are saved
         for(String moves : this.kingMoves){     // checks if the entered coordinate matches any of the possible king moves
             if(String.valueOf(tryMove).equals(moves)) return true;
@@ -100,7 +111,6 @@ public class King implements Piece{
             this.yPos = yPos;
             this.xPos = xPos;
         } else{
-            System.out.println("Can't move there, invalid move -- King class");
             throw new IllegalArgumentException("Can't move there, invalid move -- King class");
         }
 
@@ -117,8 +127,7 @@ public class King implements Piece{
     @Override
     public boolean canCapture(int xPos, int yPos, Board board) {
         if(xPos < 0 || yPos < 0 || yPos > 8 || xPos > 8){ // king cannot capture off the board
-            System.out.println("Can't capture off the board");
-            return false;
+            throw new IllegalArgumentException("Can't capture off the board");
         }
         Piece currPiece = board.getBoard()[yPos-1][xPos-1];
         // checks if there's a piece where the king wants to capture
@@ -131,9 +140,10 @@ public class King implements Piece{
             this.yPos = yPos;
             this.xPos = xPos;
             return true;
-        } else System.out.println("Can't capture. No piece there or square protected or piece is not a threat.");
-        //throw new IllegalArgumentException("Can't capture there");
-        return false;
+        } else {
+            throw new IllegalArgumentException("Can't capture. No piece there or square protected or piece is not a threat.");
+        }
+
     }
 
 
@@ -149,8 +159,6 @@ public class King implements Piece{
         if(pieceOnSquare != null) this.allOtherPieces.remove(pieceOnSquare);
         for(Piece piece: this.allOtherPieces){
             if(UniversalMethods.isAttackingSquare(piece, board, moveX, moveY)){
-                System.out.println("uh oh");
-                System.out.println(piece);
                 return true;
             }
         }
@@ -204,7 +212,7 @@ public class King implements Piece{
      */
     public boolean checkmated(Board board){
 
-        setKingMoves(); // update king moves
+        setKingMoves(board); // update king moves
         opponentsPieces(board); // updates opponents pieces
         boolean [] squareAttacked = new boolean[8]; // mapped with kingMoves
 
@@ -220,8 +228,8 @@ public class King implements Piece{
                         break;
                     }
                 }
-                counter++;
             }
+            counter++;
         }
 
         for(int i = 0; i < this.kingMoves.length; i++){ // checks if there's a square that is not attacked

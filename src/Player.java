@@ -4,7 +4,7 @@ public class Player {
     private final String color;             // color of player, either "White" or "Black"
     private boolean myTurn = false;         // boolean indicating whether it is currently the player's turn
     private final Board board;              // the chess board associated with the player
-    private final ArrayList<Piece> myPieces = new ArrayList<>();        // the pieces owned by the player
+    private final ArrayList<Piece> myPieces = new ArrayList<>();        // the pieces owned by this player
     private boolean isMated;                // boolean indicating whether the player is checkmated
 
     private boolean isChecked;
@@ -57,14 +57,14 @@ public class Player {
 
 
     /**
-     * This method updates the player's list of owned pieces based on the current state of the board
+     * This method updates the player's list of owned pieces based on the current state of the board.
      */
     public void updatePieces() {
         for (int i = 7; i >= 0; i--) {
             for (int j = 0; j < 8; j++) {
-                Piece currPiece = board.getBoard()[i][j];
+                Piece currPiece = board.getBoard()[i][j]; // gets a piece on a square
                 if (currPiece != null && currPiece.getColor().equals(this.color)) {
-                    myPieces.add(currPiece);
+                    myPieces.add(currPiece); // updates my pieces
                 }
             }
         }
@@ -76,17 +76,17 @@ public class Player {
      * @return the king owned by the player
      */
     public King getMyking() {
-        updatePieces();
+        updatePieces(); // updates the players pieces
         King king = null;
         for(Piece currPiece: myPieces){
-            if(currPiece instanceof King){
+            if(currPiece instanceof King){ // finds players king
                 king = (King) currPiece;
-                break;
+                break; // ends loop after finding king ( only one king )
             }
         }
 
-        assert king != null;
-        return king;
+        assert king != null; // there must be a king on the board
+        return king; // returns my king
     }
 
 
@@ -96,8 +96,22 @@ public class Player {
      * @return true if the player is checkmated, false otherwise
      */
     public boolean isCheckmated(Piece piece) {
-        King king = getMyking();
-        return piece.isAttacking(king, board) && king.checkmated(board);
+        King king = getMyking(); // gets my king
+        return piece.isAttacking(king, board) && king.checkmated(board) && cantCaptureAttackingPiece(piece);
+    }
+
+    /**
+     *
+     * @param piece the piece we are trying to capture
+     * @return if we can capture a piece that is threatening to mate or not
+     */
+    public boolean cantCaptureAttackingPiece(Piece piece){
+        for(Piece myPiece: this.myPieces){
+            try {
+                if (myPiece.canCapture(piece.getYPos(), piece.getXPos(), board)) return true;
+            } catch (Exception ignored){ }
+        }
+        return false;
     }
 
 
