@@ -201,9 +201,23 @@ public class King implements Piece{
      * @return if the king is checked or not
      */
     public boolean isChecked(Board board, Piece piece){
-        return piece.canMove(this.xPos, this.yPos, board);
+        return piece.canMove(this.xPos, this.yPos, board) || discoveryCheck(board);
     }
 
+    /**
+     * this method checks if the player made a discovery check
+     * @return if there's a discovery check or not
+     */
+    public boolean discoveryCheck(Board board){
+
+        for(Piece opponentsPiece: this.allOtherPieces){ // loops through opponents pieces
+            try {
+                // if any piece is attacking our king, it is a discovery check
+                if (opponentsPiece.isAttacking(this, board)) return true;
+            } catch (Exception ignored){ }
+        }
+        return false;
+    }
 
     /**
      * This method checks if the king is checkmated on the given chessboard

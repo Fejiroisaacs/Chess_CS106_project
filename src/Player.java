@@ -121,10 +121,10 @@ public class Player {
      * @return true if the player is in check, false otherwise
      */
     public boolean isChecked(Piece piece){
-        this.isChecked = piece.isAttacking(getMyking(), board);
-        return this.isChecked;
-    }
 
+        return getMyking().isChecked(board, piece); // checks if our king is in check
+
+    }
 
     public void notChecked() {
         this.isChecked = false;
