@@ -21,7 +21,8 @@ public class UniversalMethods {
             case 8 : return "h";
         }
         // in case input is not between 1-8 inclusive, throw exception
-        throw new IllegalArgumentException("Wrong X-Coordinate, must be between 1-8 inclusive");
+        System.out.println("Wrong X-Coordinate, must be between 1-8 inclusive");
+        throw new IllegalArgumentException();
     }
 
 
@@ -55,7 +56,8 @@ public class UniversalMethods {
             case "h": return 8;
         }
         // in case input is not between 1-8 inclusive, throw exception
-        throw new IllegalArgumentException("the coordinate entered is invalid must be between a-h");
+        System.out.println("the coordinate entered is invalid must be between a-h");
+        throw new IllegalArgumentException();
     }
 
 
@@ -139,8 +141,8 @@ public class UniversalMethods {
                 Pawn thisPawn = (Pawn) thisPiece;
 
                 if(!thisPawn.getColor().equals(player.getColor())) {
-                    System.out.println("Can't move " + thisPawn.getColor() +"'s pieces");
-                    return;
+                    System.out.println("Can't move " + thisPawn.getColor() + "'s pieces");
+                    throw new IllegalArgumentException();
                 }
 
                 if(!specialValue.equals("#") && !specialValue.equals("+")) {
@@ -173,9 +175,10 @@ public class UniversalMethods {
             if(thisPiece == null) throw new IllegalArgumentException("No piece on specified coordinate");
 
             if(!thisPiece.getColor().equals(player.getColor())) {
-                System.out.println("Can't move " + thisPiece.getColor() +"'s pieces");
-                return;
+                System.out.println("Can't move " + thisPiece.getColor() + "'s pieces");
+                throw new IllegalArgumentException();
             }
+
             if(!specialValue.equals("#") && !specialValue.equals("+")) {
                 if (isCapture) thisPiece.canCapture((int) pieceMove[2][0], (int) pieceMove[2][1], board);
                 else thisPiece.move((int) pieceMove[2][0], (int) pieceMove[2][1], board);
@@ -185,6 +188,7 @@ public class UniversalMethods {
                 if (otherPlayer.isChecked(thisPiece)) System.out.println("King in check");
                 else System.out.println("king is not in check");
             } else if (specialValue.equals("#")) {
+                System.out.println(otherPlayer.isCheckmated(thisPiece));
                 if (otherPlayer.isCheckmated(thisPiece)) otherPlayer.setMated();
                 else System.out.println("king is not checkmated");
             }

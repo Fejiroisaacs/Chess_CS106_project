@@ -12,69 +12,96 @@ public class Main {
 
     }
 
+    /**
+     * this method creates the chessboard, both players, and starts the game
+     */
     public static void playChess(){
 
-        Board chessBoard = new Board();
-        Player white = new Player("White", chessBoard);
-        Player black = new Player("Black", chessBoard);
+        Board chessBoard = new Board(); // the chessboard
+        Player white = new Player("White", chessBoard); // white player
+        Player black = new Player("Black", chessBoard); // black player
 
-        Scanner userInput = new Scanner(System.in);
-        String move = "";
-        boolean hasEnded = false;
-        boolean hasMoved;
 
 
         System.out.println("Chess");
-        System.out.println(chessBoard);
+        System.out.println(chessBoard); // prints the chessboard
 
-        move = someHelperFunction(white, userInput, chessBoard);
-        while(chessBoard.getPreviousMoves().isEmpty()){
+        // here, we get the first move, white's move. we do this here because of our implementation of switching
+        // player moves in the gameInProgress method
+        String move = someHelperFunction(white, chessBoard); // gets the users move and checks valid moves
+
+        while(chessBoard.getPreviousMoves().isEmpty()){ // loop until chessboard
             try {
-                UniversalMethods.move(white, black , chessBoard, move);
-            } catch (Exception e){
+                UniversalMethods.move(white, black , chessBoard, move); // tries to move a piece
+            } catch (Exception exception){
+
                 System.out.println("some error happened, invalid input?");
 
-                move = someHelperFunction(white, userInput, chessBoard);
+                move = someHelperFunction(white, chessBoard); // gets
             }
         }
+
+        // switches the turn to black
         white.setMyTurn(false);
         black.setMyTurn(true);
 
         System.out.println(chessBoard);
 
+        gameInProgress(chessBoard, white, black);
+
+
+    }
+
+    /**
+     *  this method keeps the game playing
+     * @param chessBoard the chessboard we are playing on
+     * @param white the first player
+     * @param black the second player
+     */
+    public static void gameInProgress(Board chessBoard, Player white, Player black){
+        boolean hasEnded = false;
+        // loop until game ends. Game ends after either player has been checkmated
         while(!hasEnded) {
-            hasMoved = false;
 
-            move = someHelperFunction(white, userInput, chessBoard);
-
-            boolean success = false;
+            boolean success = false; // condition for success explained below
 
             while(!success) {
-                try {
+                Piece lastMovedPiece = (Piece) chessBoard.getPreviousMoves().get(chessBoard.getPreviousMoves().size()-1)[0];
+                int currentSize = chessBoard.getPreviousMoves().size(); // getting the initial size of the previous
 
-                    Piece lastMovedPiece = (Piece) chessBoard.getPreviousMoves().get(chessBoard.getPreviousMoves().size()-1)[0];
+                try {
+                    String move = someHelperFunction(white, chessBoard);
+
                     UniversalMethods.move(white.getTurn() ? white : black, white.getTurn() ? black : white, chessBoard, move);
 
-                    if (lastMovedPiece.getColor().equals(white.getTurn() ? white.getColor() : black.getColor()))
-                        hasMoved = true;
-                    success = true;
                 } catch (Exception exception) {
+                    System.out.println(exception);
                     System.out.println("some error happened, Invalid input?");
-                    move = someHelperFunction(white, userInput, chessBoard);
                 }
+
+                // while loop is only successful if a piece has actually been moved and has been added to the list of
+                // previous moves
+                // the second condition checks if the previous moves list was updated since the loop started.
+                // if it was, then the board changed and either user made a valid move.
+                if (lastMovedPiece.getColor().equals(white.getTurn() ? white.getColor() : black.getColor())
+                        || chessBoard.getPreviousMoves().size() > currentSize ){
+
+                    success = true;
+
+                }
+
+                System.out.println(chessBoard); // display the chessboard after moving
             }
 
-            if(hasMoved) {
-                // setting players turn
-                if (white.getTurn()) {
-                    white.setMyTurn(false);
-                    black.setMyTurn(true);
-                    System.out.println("got here instead");
-                } else {
-                    System.out.println("Should be here");
-                    white.setMyTurn(true);
-                    black.setMyTurn(false);
-                }
+            // setting players turn
+            if (white.getTurn()) {
+                // its whites turn so we switch to blacks turn
+                white.setMyTurn(false);
+                black.setMyTurn(true);
+            } else {
+                // its blacks turn so we switch back to whites turn
+                white.setMyTurn(true);
+                black.setMyTurn(false);
             }
 
             // checking if either player was mated.
@@ -85,96 +112,118 @@ public class Main {
                 System.out.println("White wins");
                 hasEnded = true;
             }
-            System.out.println(chessBoard);
-        }
 
+        }
     }
 
     /**
-     *
+     * this method gets the users move returns if it is a valid move. uses another method to determine
+     * validity of the move
      * @param white first player
-     * @param userInput the Scanner
      * @param board the chess board
      * @return the users move
      */
-    private static String someHelperFunction(Player white, Scanner userInput, Board board){
+    private static String someHelperFunction(Player white, Board board){
 
-        // showing whose turn it is
+        Scanner userInput = new Scanner(System.in); // the input reader
+
+        // displays whose turn it is
         if(white.getTurn()) System.out.println("Whites turn, enter your move: ");
         else System.out.println("Blacks turn, enter your move: ");
 
-        String move = userInput.next();
-        boolean validMove = partialMoveTest(move, board);
+        String move = userInput.next(); // stores the entered move
+        boolean validMove = validMoveTest(move, board); // checks if the entered move is valid
 
-        if (!validMove){
+        if (!validMove){ // if the first move is invalid we get new moves until we get a valid move
             while(!validMove){
-                System.out.println("Invalid entry");
+                System.out.println("Invalid entry, try again");
+
                 if(white.getTurn()) System.out.println("Whites turn, enter your move: ");
                 else System.out.println("Blacks turn, enter your move: ");
-                move = userInput.next();
-                validMove = partialMoveTest(move, board);
+
+                move = userInput.next(); // gets the new entered move
+                validMove = validMoveTest(move, board); // checks if the new move entered is valid
             }
         }
-        return move;
+        return move; // returns the users move
     }
+
     /**
-     *
+     * this method checks the entered move and determines if it is valid or not
      * @param move the entered move
      * @return if a move is valid or not
      */
-    private static boolean partialMoveTest(String move, Board board){
+    private static boolean validMoveTest(String move, Board board){
         move = move.toLowerCase();
 
-        if(move.length() < 5) return false;
+        if(move.length() < 5 || move.length() > 9) return false;
 
-        if(move.contains("x")){
-            if(move.indexOf("x") != 3) return false;
-            move = move.replace("x", "");
+        if(move.contains("x")){ // captures take precedence
+            if(move.indexOf("x") != 3) return false; // always appears in the 4th position of the string. If not, it's an invalid move
+            move = move.replace("x", ""); // remove the capture symbol
         }
 
-        if(move.contains("+")){
-            if(move.indexOf("+") != move.length()-1) return false;
-            move = move.replace("+", "");
+        if(move.contains("+")){ // checks for checks symbol
+            if(move.indexOf("+") != move.length()-1) return false; // if the check symbol isn't at the end, it's an invalid move
+            move = move.replace("+", ""); // removes the check sign
         }
 
-        if(move.contains("#")){
-            if(move.indexOf("#") != move.length()-1) return false;
-            move = move.replace("#","");
+        if(move.contains("#")){ // checks for the checkmate symbol
+            if(move.indexOf("#") != move.length()-1) return false; // if the checkmate symbol isn't at the end, it's an invalid move
+            move = move.replace("#",""); // removes the checkmate symbol
         }
 
-        if(move.contains("=")){
-            if(move.indexOf("=") != move.length()-2) return false;
-            move = move.substring(0, move.length()-2);
+        if(move.contains("=")){ // checks for the promotes symbol
+            if(move.indexOf("=") != move.length()-2) return false; // if the promotes symbol doesn't precede another character, it's an invalid move
+            move = move.substring(0, move.length()-2); // removes the promotes symbol and the piece we want to promote to.
+            // no need to check if the piece entered is valid because we auto promote to a queen if other pieces aren't specified.
         }
 
-        if(move.length() != 5) return false;
+        if(move.length() != 5) return false; // after filtering the entered move, we check if it has a length of 5. if not, it's an invalid move
+        // why? because we specify the name of the piece i.e. p,1,k,n,b then the position of the piece x,y (letter, number)
+        // then the coordinate the piece is trying to go to, same explanation as earlier.
 
-        boolean validInputSequence =  Character.isLetter(move.charAt(0)) && Character.isLetter(move.charAt(1)) &&
-                Character.isDigit(move.charAt(2)) && Character.isLetter(move.charAt(3)) && Character.isDigit(move.charAt(4));
+        // checks if the first letter is one of the move is a valid piece
+        String firstLetter = move.substring(0,1); // gets the first letter of the move
+        if(!(firstLetter.equals("p") || firstLetter.equals("q") || firstLetter.equals("k")
+         || firstLetter.equals("n") || firstLetter.equals("b") || firstLetter.equals("r"))) return false;
 
+        // now, we check the remaining characters, if the second and fourth coordinate are letters and if the
+        // third and fifth digits are numbers
+        boolean validInputSequence =  Character.isLetter(move.charAt(1)) && Character.isDigit(move.charAt(2))
+                && Character.isLetter(move.charAt(3)) && Character.isDigit(move.charAt(4));
+
+        // checks if there's a piece on a specified position after we've checked if the entered move is valid
         if(validInputSequence) return pieceOnSpecifiedPos(move.substring(1,3), board);
 
-        return false;
+        return false; // returns false if there is no pieceOnSpecifiedPosition
     }
 
     /**
-     *
+     * this method returns if there's a piece on a given coordinate or not
      * @param cord the coordinate of the board we want to check if there is a piece on
      * @param board the chess board
      * @return if there's a piece on the specified position
      */
     public static boolean pieceOnSpecifiedPos(String cord, Board board){
-        if(cord.length() != 2) return false;
+        if(cord.length() != 2) return false; // if the entered coordinate isn't of length 2, returns false
 
-        Object[] initialMoveArr = {UniversalMethods.changeLetCord(cord.substring(0,1)), Integer.parseInt(cord.substring(1,2))};
+        // gets the conversion between
+        int[] initialMoveArr = {UniversalMethods.changeLetCord(cord.substring(0,1)), Integer.parseInt(cord.substring(1,2))};
 
-        Piece thisPiece = board.getBoard()[(int) initialMoveArr[1]-1][(int) initialMoveArr[0]-1];
+        // gets the piece on the specified position
+        Piece thisPiece = board.getBoard()[initialMoveArr[1]-1][initialMoveArr[0]-1];
 
+        // checks if there's a piece on that position
         if(thisPiece == null) System.out.println("No piece on specified input");
 
+        // returns if there's a piece or not
         return thisPiece != null;
     }
 
+    /**
+     * this method runs some tests, used for debugging
+     */
     public static void test(){
         Board chessBoard = new Board();
         Player white = new Player("White", chessBoard);
