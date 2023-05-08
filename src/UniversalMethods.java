@@ -179,10 +179,8 @@ public class UniversalMethods {
                 throw new IllegalArgumentException();
             }
 
-            if(!specialValue.equals("#") && !specialValue.equals("+")) {
-                if (isCapture) thisPiece.canCapture((int) pieceMove[2][0], (int) pieceMove[2][1], board);
-                else thisPiece.move((int) pieceMove[2][0], (int) pieceMove[2][1], board);
-            }
+            if (isCapture) thisPiece.canCapture((int) pieceMove[2][0], (int) pieceMove[2][1], board);
+            else thisPiece.move((int) pieceMove[2][0], (int) pieceMove[2][1], board);
 
             if (specialValue.equals("+")) {
                 if (otherPlayer.isChecked(thisPiece)) System.out.println("King in check");
