@@ -212,7 +212,7 @@ public class Pawn implements Piece{
      * @return if we're attacking that piece or not
      */
     @Override
-    public boolean isAttacking(Piece piece, Board board) { return this.canMove(piece.getXPos(), piece.getYPos(), board); }
+    public boolean isAttacking(Piece piece, Board board) { return this.canMove(piece.getYPos(), piece.getXPos(), board); }
 
 
     /**

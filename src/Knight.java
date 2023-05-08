@@ -145,7 +145,7 @@ public class Knight implements Piece{
      */
     @Override
     public boolean isAttacking(Piece piece, Board board) {
-        return this.canMove(piece.getXPos(), piece.getYPos(), board);
+        return this.canMove(piece.getYPos(), piece.getXPos(), board);
     }
 
 

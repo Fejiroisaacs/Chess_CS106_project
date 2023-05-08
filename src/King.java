@@ -166,7 +166,7 @@ public class King implements Piece{
      */
     @Override
     public boolean isAttacking(Piece piece, Board board) {
-        return this.canMove(piece.getXPos(), piece.getYPos(), board); // if we can move to where the piece is or not
+        return this.canMove(piece.getYPos(), piece.getXPos(), board); // if we can move to where the piece is or not
     }
 
 
