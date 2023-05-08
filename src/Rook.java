@@ -69,8 +69,7 @@ public class Rook implements Piece {
             this.xPos = xPos;
             this.hasMoved = true;
         } else {
-            System.out.println("Can't move there, invalid move");
-            throw new IllegalArgumentException("Can't move there, invalid move");
+            throw new IllegalArgumentException("Can't move there, invalid move -- Knight class");
         }
     }
 
@@ -85,8 +84,7 @@ public class Rook implements Piece {
     @Override
     public boolean canCapture(int xPos, int yPos, Board board) {
         if(xPos < 0 || yPos < 0 || yPos > 8 || xPos > 8){
-            System.out.println("Can't capture off the board");
-            return false;
+            throw new IllegalArgumentException("Can't capture off the board");
         }
         Piece currPiece = board.getBoard()[yPos-1][xPos-1];
         // checks if there's a piece where the rook wants to capture
@@ -98,9 +96,9 @@ public class Rook implements Piece {
             this.yPos = yPos;
             this.xPos = xPos;
             return true;
-        } else System.out.println("Can't capture there. No piece on square or piece is not a threat");
-        //throw new IllegalArgumentException("Can't capture there");
-        return false;
+        } else {
+            throw new IllegalArgumentException("Can't capture. No piece there or square protected or piece is not a threat.");
+        }
     }
 
 

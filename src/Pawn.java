@@ -85,9 +85,8 @@ public class Pawn implements Piece{
         if(canMove(xPos, yPos, board)){
             this.firstMove = false;
             moveHelper(xPos, yPos, board);
-        } else{
-            System.out.println("Can't move there, invalid move");
-            throw new IllegalArgumentException("Can't move there, invalid move");
+        } else {
+            throw new IllegalArgumentException("Can't move there, invalid move -- Pawn class");
         }
         canPromote(board);
     }
@@ -155,9 +154,8 @@ public class Pawn implements Piece{
      */
     @Override
     public boolean canCapture(int xPos, int yPos, Board board) {
-        if (xPos < 0 || yPos < 0 || yPos > 8 || xPos > 8){
-            System.out.println("Can't capture off the board");
-            return false;
+        if(xPos < 0 || yPos < 0 || yPos > 8 || xPos > 8){
+            throw new IllegalArgumentException("Can't capture off the board");
         }
 
         // pawns can only capture one square diagonally
@@ -195,8 +193,7 @@ public class Pawn implements Piece{
             }
 
         } else{
-            System.out.println("Can't capture there. No piece there or piece is not an opponent");
-            throw new IllegalArgumentException("Can't capture there");
+            throw new IllegalArgumentException("Can't capture. No piece there or square protected or piece is not a threat.");
         }
 
         canPromote(board);

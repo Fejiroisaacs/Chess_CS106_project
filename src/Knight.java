@@ -101,9 +101,9 @@ public class Knight implements Piece{
             board.editBoard(this, this.xPos, this.yPos, xPos, yPos);
             this.yPos = yPos;
             this.xPos = xPos;
-        } else System.out.println("Can't move there");
-        // won't throw this exception unless program would crash, unless we use try, catch... but no need for that
-        //throw new IllegalArgumentException("Can't move there");
+        } else {
+            throw new IllegalArgumentException("Can't move there, invalid move -- Knight class");
+        }
     }
 
 
@@ -117,8 +117,7 @@ public class Knight implements Piece{
      @Override
     public boolean canCapture(int xPos, int yPos, Board board) {
         if (xPos < 0 || yPos < 0 || yPos > 8 || xPos > 8){
-            System.out.println("Can't capture off the board");
-            return false;
+            throw new IllegalArgumentException("Can't capture off the board");
         }
         Piece currPiece = board.getBoard()[yPos-1][xPos-1];
 
@@ -131,9 +130,9 @@ public class Knight implements Piece{
             this.yPos = yPos;
             this.xPos = xPos;
             return true;
-        } else System.out.println("Can't capture there. No piece there or piece is not an opponent");
-        //throw new IllegalArgumentException("Can't capture there");
-        return false;
+        } else {
+            throw new IllegalArgumentException("Can't capture. No piece there or square protected or piece is not a threat.");
+        }
     }
 
 
