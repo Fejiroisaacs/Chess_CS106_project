@@ -106,11 +106,15 @@ public class Player {
      * @return if we can capture a piece that is threatening to mate or not
      */
     public boolean canCaptureAttackingPiece(Piece piece){
-        System.out.println(myPieces);
-        System.out.println(myPieces.size());
         for(Piece myPiece: this.myPieces){
             try { // if our piece can capture the piece threatening mate, return true
-                if(myPiece.isAttacking(piece, board)) return true;
+                if(myPiece instanceof King){
+                    // if this piece is our king, we check if we're attacking the attacking piece and
+                    // if the square the piece is on is protected or not
+                    if(myPiece.isAttacking(piece, board) &&
+                     ((King) myPiece).squareNotProtected(board, piece.getXPos(), piece.getYPos())) return true;
+
+                } else if(myPiece.isAttacking(piece, board)) return true; // else we check if our piece is attacking it
             } catch (Exception ignored){ } // ignore any errors thrown
         }
         return false; // no piece can capture attacking piece

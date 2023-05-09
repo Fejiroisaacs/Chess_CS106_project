@@ -60,7 +60,7 @@ public class King implements Piece{
         Piece piece = null;
         try {
             piece = board.getBoard()[yPos - 1][xPos - 1];
-            if(piece.isAttacking(this, board)) return true;
+            if(piece.isAttacking(this, board) && !piece.getColor().equals(this.color)) return true;
         } catch (Exception ignored){ }
 
         return piece == null;
@@ -231,7 +231,7 @@ public class King implements Piece{
      * @return if the king is checked or not
      */
     public boolean isChecked(Board board, Piece piece){
-        return piece.canMove(this.xPos, this.yPos, board) || discoveryCheck(board);
+        return piece.isAttacking(this, board) || discoveryCheck(board);
     }
 
     /**
