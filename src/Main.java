@@ -73,6 +73,11 @@ public class Main {
                 try {
                     String move = someHelperFunction(white, chessBoard); // gets a valid move
 
+                    while(kingInCheck(chessBoard, white, black, move)){
+                        System.out.println("The move you entered keeps your king in check/ is invalid (piece is pinned)");
+                        move = someHelperFunction(white, chessBoard);
+                    }
+
                     // checks if the move is a castle
                     if(move.contains("o-o")){
                         UniversalMethods.castle(chessBoard, white.getTurn() ? white : black, move); // try to castle
@@ -230,6 +235,32 @@ public class Main {
 
         // returns if there's a piece or not
         return thisPiece != null;
+    }
+
+    /**
+     * this method determines if a king is in check or not
+     * @param board the chessboard
+     * @param white the first player
+     * @param black the second player
+     * @param move the move we want to check if removes king from check
+     * @return if the king is in check or not
+     */
+    public static boolean kingInCheck(Board board, Player white, Player black, String move){
+        if(white.getTurn()){ // if either king is not in check, return false
+            if(!white.getMyking().discoveryCheck(board)) return false;
+        } else if(black.getTurn()){
+            if(!black.getMyking().discoveryCheck(board)) return false;
+        }
+
+        Board testBoard = board; // use a helper board because we don't want to change the original board
+
+        UniversalMethods.move(white.getTurn() ? white : black, white.getTurn() ? black : white, testBoard, move);
+
+        if(white.getTurn()){ // after we have edited the fake board, we check if the king is still in check
+            return white.getMyking().discoveryCheck(testBoard);
+        } else if(black.getTurn()){
+            return black.getMyking().discoveryCheck(testBoard);
+        } else return false;
     }
 
     /**

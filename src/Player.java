@@ -7,7 +7,6 @@ public class Player {
     private final ArrayList<Piece> myPieces = new ArrayList<>();        // the pieces owned by this player
     private boolean isMated;                // boolean indicating whether the player is checkmated
 
-    private boolean isChecked;
 
     /**
      * This is a constructs for new player with the given color and board.
@@ -126,9 +125,6 @@ public class Player {
 
     }
 
-    public void notChecked() {
-        this.isChecked = false;
-    }
 
     /**
      * This method returns the color of the player

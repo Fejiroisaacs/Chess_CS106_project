@@ -51,8 +51,7 @@ public class Pawn implements Piece{
         boolean conditionBlack = this.color.equals("Black") && this.yPos > yPos;
 
         // condition for basic move
-        boolean mainCondition = (Math.abs(yPos - this.yPos) == 2 && this.firstMove) || (Math.abs(yPos - this.yPos) == 1)
-                && board.getBoard()[yPos-1][xPos-1] == null;
+        boolean mainCondition = (Math.abs(yPos - this.yPos) == 2 && this.firstMove) || (Math.abs(yPos - this.yPos) == 1);
 
         return (conditionWhite || conditionBlack) &&  mainCondition;
     }
@@ -82,7 +81,7 @@ public class Pawn implements Piece{
         if(this.firstMove && Math.abs(yPos - this.yPos) == 2) this.enPassantMove=true;
         else if(!this.firstMove) this.enPassantMove=false; // can't En passant after the first move
 
-        if(canMove(xPos, yPos, board)){
+        if(canMove(xPos, yPos, board) && board.getBoard()[yPos-1][xPos-1] == null){
             this.firstMove = false;
             moveHelper(xPos, yPos, board);
         } else {
@@ -209,7 +208,7 @@ public class Pawn implements Piece{
      * @return if we're attacking that piece or not
      */
     @Override
-    public boolean isAttacking(Piece piece, Board board) { return this.canMove(piece.getYPos(), piece.getXPos(), board); }
+    public boolean isAttacking(Piece piece, Board board) { return this.canCapture(piece.getYPos(), piece.getXPos(), board); }
 
 
     /**
