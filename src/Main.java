@@ -230,9 +230,6 @@ public class Main {
         // gets the piece on the specified position
         Piece thisPiece = board.getBoard()[initialMoveArr[1]-1][initialMoveArr[0]-1];
 
-        // checks if there's a piece on that position
-        if(thisPiece == null) System.out.println("No piece on specified input");
-
         // returns if there's a piece or not
         return thisPiece != null;
     }

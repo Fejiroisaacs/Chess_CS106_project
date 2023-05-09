@@ -208,7 +208,25 @@ public class Pawn implements Piece{
      * @return if we're attacking that piece or not
      */
     @Override
-    public boolean isAttacking(Piece piece, Board board) { return this.canCapture(piece.getYPos(), piece.getXPos(), board); }
+    public boolean isAttacking(Piece piece, Board board) {
+        if(xPos < 0 || yPos < 0 || yPos > 8 || xPos > 8){
+            throw new IllegalArgumentException("Can't attack off the board");
+        }
+
+        // pawns can only capture one square diagonally
+        boolean captureCondition = Math.abs(this.xPos - piece.getXPos()) == 1 && Math.abs(this.yPos - piece.getYPos()) == 1;
+
+        if(!captureCondition) return false; // invalid capture, terminate
+
+        // gets the piece we want to capture
+        Piece currPiece = board.getBoard()[yPos-1][xPos-1];
+
+        // checks if there's a piece where the pawn wants to capture
+        // checks if the piece on that square is not the same color as the pawn ( cannot capture your own pieces )
+        // cannot capture a king
+        return currPiece != null && !currPiece.getColor().equals(this.color)
+                && !(currPiece instanceof King);
+    }
 
 
     /**

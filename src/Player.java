@@ -59,6 +59,7 @@ public class Player {
      * This method updates the player's list of owned pieces based on the current state of the board.
      */
     public void updatePieces() {
+        myPieces.clear();
         for (int i = 7; i >= 0; i--) {
             for (int j = 0; j < 8; j++) {
                 Piece currPiece = board.getBoard()[i][j]; // gets a piece on a square
@@ -105,11 +106,11 @@ public class Player {
      * @return if we can capture a piece that is threatening to mate or not
      */
     public boolean canCaptureAttackingPiece(Piece piece){
+        System.out.println(myPieces);
+        System.out.println(myPieces.size());
         for(Piece myPiece: this.myPieces){
             try { // if our piece can capture the piece threatening mate, return true
-                if (myPiece.canCapture(piece.getXPos(), piece.getYPos(), board) && !(myPiece instanceof King)){
-                    return true;
-                }
+                if(myPiece.isAttacking(piece, board)) return true;
             } catch (Exception ignored){ } // ignore any errors thrown
         }
         return false; // no piece can capture attacking piece

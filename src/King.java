@@ -60,6 +60,7 @@ public class King implements Piece{
         Piece piece = null;
         try {
             piece = board.getBoard()[yPos - 1][xPos - 1];
+            if(piece.isAttacking(this, board)) return true;
         } catch (Exception ignored){ }
 
         return piece == null;
