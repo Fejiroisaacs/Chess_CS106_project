@@ -81,6 +81,8 @@ public class Pawn implements Piece{
         if(this.firstMove && Math.abs(yPos - this.yPos) == 2) this.enPassantMove=true;
         else if(!this.firstMove) this.enPassantMove=false; // can't En passant after the first move
 
+        if(xPos != this.xPos) throw new IllegalArgumentException("Pawn cannot move diagonally, are you trying to capture?");
+
         if(canMove(xPos, yPos, board) && board.getBoard()[yPos-1][xPos-1] == null){
             this.firstMove = false;
             moveHelper(xPos, yPos, board);

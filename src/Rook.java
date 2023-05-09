@@ -69,7 +69,7 @@ public class Rook implements Piece {
             this.xPos = xPos;
             this.hasMoved = true;
         } else {
-            throw new IllegalArgumentException("Can't move there, invalid move -- Knight class");
+            throw new IllegalArgumentException("Can't move there, invalid move -- Rook class");
         }
     }
 
