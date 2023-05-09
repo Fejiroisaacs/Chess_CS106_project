@@ -4,11 +4,90 @@ public class Main {
     public static void main(String[] args) {
 
 
-        System.out.println("This is the start of the chess app");
+        System.out.println("This is the start of the chess app\n");
 
-        //test();
+        howToUse();
 
         playChess();
+
+        // run tests some errors would happen, ignore them
+        try {
+            test();
+        } catch (Exception ignored){ }
+
+
+
+    }
+
+
+    /**
+     * This method explains how to use this program
+     */
+    public static void howToUse(){
+
+        // start by creating the players and the chessboard
+        Board chessBoard = new Board(); // the chessboard
+        Player white = new Player("White", chessBoard); // white player
+        Player black = new Player("Black", chessBoard); // black player
+
+        System.out.println("This is the chessboard representation");
+
+        System.out.println(chessBoard);
+
+        System.out.println("Getting to know the pieces, input purposes.\n");
+
+        System.out.println("Piece notations");
+        System.out.println("K - King \nQ - Queen \nR - Rook \nB - Bishop \nN - Knight \nP - Pawn\n");
+
+        System.out.println("To move a piece, enter the piece notation, i.e. k or q (case doesn't matter)\n");
+
+        System.out.println("Then, enter the position of the piece, i.e. pd2 (referring to the pawn on d2 at the start of the game)\n");
+
+        System.out.println("Then, enter the square (position) you want to move the piece to, i.e. pd2d4 (The start of the famous london system)\n");
+
+        System.out.println("Results of previous tested move");
+
+        // moving the piece
+        UniversalMethods.move(white, black, chessBoard, "pd2d4");
+
+        System.out.println(chessBoard);
+
+        System.out.println("To capture a piece, enter the piece notation, it's position, the capture symbol (x), and the position we want to capture on");
+        System.out.println("i.e. pd4xe5 \n");
+
+        System.out.println("Now, lets move \n");
+
+        // putting a piece on the square we want to capture on
+        UniversalMethods.move(black, white, chessBoard, "pe7e5");
+        System.out.println(chessBoard);
+
+        // now, lets capture
+        System.out.println("Now, capture");
+        UniversalMethods.move(white, black, chessBoard, "pd4xe5");
+
+        System.out.println(chessBoard);
+
+        System.out.println("To check, enter the move as normal but add a '+' symbol at the end of your move entry");
+        System.out.println("i.e., bf8b4+, here we move blacks bishop to check the king\n");
+
+        UniversalMethods.move(black, white, chessBoard, "bf8b4+");
+
+        System.out.println(chessBoard);
+
+        System.out.println("If you want to checkmate, do the same as above but enter '#' instead of '+'\n");
+
+        System.out.println("To castle, enter the move o-o (king side castle) or o-o-o (queen side castle)\n");
+
+        System.out.println("For promoting, enter your move as usual but add '=' and the name of the piece you want to promote to");
+        System.out.println("i.e. pd7d8=R (promoting the d7 pawn to a rook)");
+        System.out.println("Note: only pawns can promote. You can promote into a check or checkmate i.e pd7d8=R(+/#)");
+        System.out.println("You can also capture into a promotion i.e. pd7xe8=R. Check/checkmate is also allowed. Just add the symbol at the end i.e. pd7xe8=R(+/#)\n");
+
+        System.out.println("Other notes:\n");
+        System.out.println("For general piece moves, ensure you specify a piece then its location(square), then a capture if you are capturing");
+        System.out.println("Then the location (square) you are trying to capture on, then a promotion if you are promoting, and finally a check/checkmate\n");
+
+        System.out.println("Have fun using my chess app :)\n\n\n\n");
 
     }
 
@@ -23,7 +102,7 @@ public class Main {
 
 
 
-        System.out.println("Chess");
+        System.out.println("---------------------------------------  CHESS  ----------------------------------------");
         System.out.println(chessBoard); // prints the chessboard
 
         // here, we get the first move, white's move. we do this here because of our implementation of switching
@@ -107,11 +186,11 @@ public class Main {
 
             // setting players turn
             if (white.getTurn()) {
-                // its whites turn so we switch to blacks turn
+                // its white's turn, so we switch to black's turn
                 white.setMyTurn(false);
                 black.setMyTurn(true);
             } else {
-                // its blacks turn so we switch back to whites turn
+                // its black's turn, so we switch back to white's turn
                 white.setMyTurn(true);
                 black.setMyTurn(false);
             }
@@ -140,8 +219,8 @@ public class Main {
         Scanner userInput = new Scanner(System.in); // the input reader
 
         // displays whose turn it is
-        if(white.getTurn()) System.out.println("Whites turn, enter your move: ");
-        else System.out.println("Blacks turn, enter your move: ");
+        if(white.getTurn()) System.out.println("White's turn, enter your move: ");
+        else System.out.println("Black's turn, enter your move: ");
 
         String move = userInput.next(); // stores the entered move
         boolean validMove = validMoveTest(move, board); // checks if the entered move is valid
@@ -150,8 +229,8 @@ public class Main {
             while(!validMove){
                 System.out.println("Invalid entry, try again");
 
-                if(white.getTurn()) System.out.println("Whites turn, enter your move: ");
-                else System.out.println("Blacks turn, enter your move: ");
+                if(white.getTurn()) System.out.println("White's turn, enter your move: ");
+                else System.out.println("Black's turn, enter your move: ");
 
                 move = userInput.next(); // gets the new entered move
                 validMove = validMoveTest(move, board); // checks if the new move entered is valid
