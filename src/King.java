@@ -6,6 +6,7 @@ public class King implements Piece{
     private final String color;
     private final String[] kingMoves = new String[8];
     private final ArrayList<Piece> allOtherPieces = new ArrayList<>();
+    private boolean hasMoved=false;
 
 
     /**
@@ -20,6 +21,11 @@ public class King implements Piece{
         this.color = color;
     }
 
+    /**
+     * this method checks if the king has moved or not
+     * @return if this king has moved or not
+     */
+    public boolean getHasMoved() { return this.hasMoved; }
 
     /**
      *  This method sets all possible moves for the king based on its current position
@@ -74,6 +80,19 @@ public class King implements Piece{
     @Override
     public int getYPos() { return this.yPos; }
 
+    /**
+     * this method sets the new x and y coordinate of the king -- used only after castling
+     * @param xPos The x-position of the king on a-f scale
+     * @param yPos the y-position of the king on 1-8 scale
+     */
+    public void setCoordinate(int xPos, int yPos, Board board){
+
+        board.editBoard(this, this.xPos, this.yPos, xPos, yPos);
+
+        this.xPos = xPos;
+        this.yPos = yPos;
+
+    }
 
     /**
      * This method determines if the king can move to the specified position on the board
@@ -106,10 +125,11 @@ public class King implements Piece{
         // checks if the king can move to that position
         // checks if the square is attacked (king can't move to protected square)
         if(board.getBoard()[yPos-1][xPos-1] == null && canMove(xPos, yPos, board)
-                && !squareProtected(board, xPos, yPos)) {
+                && squareNotProtected(board, xPos, yPos)) {
             board.editBoard(this, this.xPos, this.yPos, xPos, yPos);
             this.yPos = yPos;
             this.xPos = xPos;
+            this.hasMoved = true;
         } else{
             throw new IllegalArgumentException("Can't move there, invalid move -- King class");
         }
@@ -135,10 +155,11 @@ public class King implements Piece{
         // checks if the piece on that square is not the same color as the king ( cannot capture your own pieces )
         // checks if the piece is protected ( can't capture protected pieces )
         if(canMove(xPos,yPos,board)  && currPiece != null && !(currPiece instanceof King)
-                && !currPiece.getColor().equals(this.color)  && !squareProtected(board, xPos, yPos)){
+                && !currPiece.getColor().equals(this.color)  && squareNotProtected(board, xPos, yPos)){
             board.editBoard(this, this.xPos, this.yPos, xPos, yPos);
             this.yPos = yPos;
             this.xPos = xPos;
+            this.hasMoved = true;
             return true;
         } else {
             throw new IllegalArgumentException("Can't capture. No piece there or square protected or piece is not a threat.");
@@ -153,16 +174,24 @@ public class King implements Piece{
      * @param moveY the 1-8 position of the square the king wants to move to / capture on.
      * @param board the board where the pieces are.
      */
-    public boolean squareProtected(Board board, int moveX, int moveY){
-        opponentsPieces(board);
-        Piece pieceOnSquare = board.getBoard()[moveY-1][moveX-1];
-        if(pieceOnSquare != null) this.allOtherPieces.remove(pieceOnSquare);
+    public boolean squareNotProtected(Board board, int moveX, int moveY){
+        opponentsPieces(board); // updates opponents pieces
+        Piece pieceOnSquare = board.getBoard()[moveY-1][moveX-1]; // gets the piece on this square
+
+        if(pieceOnSquare != null){
+            this.allOtherPieces.remove(pieceOnSquare); // removes the piece on the square from opponents piece list
+
+            // minor change for the castling method
+            if(pieceOnSquare.getColor().equals(this.getColor())) return true; // square not protected but our piece is on it
+        }
+
+        // checks if any of the opponents piece is attacking the square we want to move to/ through
         for(Piece piece: this.allOtherPieces){
             if(UniversalMethods.isAttackingSquare(piece, board, moveX, moveY)){
-                return true;
+                return false;
             }
         }
-        return false;
+        return true; // square is not attacked
     }
 
 
@@ -209,6 +238,8 @@ public class King implements Piece{
      * @return if there's a discovery check or not
      */
     public boolean discoveryCheck(Board board){
+
+        opponentsPieces(board); // updates opponents pieces
 
         for(Piece opponentsPiece: this.allOtherPieces){ // loops through opponents pieces
             try {

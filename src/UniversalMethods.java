@@ -1,5 +1,4 @@
 
-
 public class UniversalMethods {
 
 
@@ -266,8 +265,8 @@ public class UniversalMethods {
      */
     public static boolean canMoveBishop(int thisxPos, int thisyPos, int xPos, int yPos, Board board){
         // pre-conditions
-        assert  (Math.abs(thisxPos - xPos) > 0 && Math.abs(thisyPos - yPos) > 0);
-        assert  (Math.abs(thisxPos - xPos) < 8 && Math.abs(thisyPos - yPos) < 8);
+        assert (Math.abs(thisxPos - xPos) > 0 && Math.abs(thisyPos - yPos) > 0);
+        assert (Math.abs(thisxPos - xPos) < 8 && Math.abs(thisyPos - yPos) < 8);
         if(Math.abs(thisxPos - xPos) - Math.abs(thisyPos - yPos) != 0) return false;
         if(xPos < 0 || yPos < 0 || yPos > 8 || xPos > 8) return false;
         // end of pre-conditions
@@ -320,6 +319,135 @@ public class UniversalMethods {
      */
     public static boolean isAttackingSquare(Piece piece, Board board, int xPos, int yPos){
         return piece.canMove(xPos, yPos, board);
+    }
+
+    /**
+     * this method determines if a player can castle or not.
+     * @param board  the chessboard
+     * @param player the current player
+     * @param move   the castle move
+     */
+    public static void castle(Board board, Player player, String move){
+
+        if(move.length() < 3 || move.length() > 6) throw new IllegalArgumentException("Invalid castle move"); // invalid move
+
+        boolean isCheck = false;
+
+        if(move.contains("+")){ // if we castle into a check on the opponents king, need to keep track of it
+            isCheck = true;
+            move = move.replace("+", "");
+        }
+
+        King king = player.getMyking(); // gets this players king
+        Rook rook;
+
+        if(move.equals("o-o-o")){ // queen side castle
+
+            // getting the right rook
+            if(player.getColor().equals("White")) rook = (Rook) board.getBoard()[0][0];
+            else rook = (Rook) board.getBoard()[7][0];
+
+            // if there's no king or rook or king has moved or rook has moved, it's an invalid castle
+            if(rook == null || king == null || king.getHasMoved() || rook.getHasMoved()) throw new IllegalArgumentException("Invalid castling");
+
+            if(isCheck) {
+                if (queenSideCastle(king, rook, board)) {
+                    king.discoveryCheck(board);
+                }
+            } else {
+                queenSideCastle(king, rook, board);
+            }
+        }
+        else if(move.equals("o-o")){ // king side castle
+
+            // getting the right rook
+            if(player.getColor().equals("White")) rook = (Rook) board.getBoard()[0][7];
+            else rook = (Rook) board.getBoard()[7][7];
+
+            // if there's no king or rook or king has moved or rook has moved, it's an invalid castle
+            if(rook == null || king == null || king.getHasMoved() || rook.getHasMoved()) throw new IllegalArgumentException("Invalid castling");
+
+            if(isCheck) {
+                if (kingSideCastle(king, rook, board)) {
+                    king.discoveryCheck(board);
+                }
+                return;
+            }
+            kingSideCastle(king, rook, board);
+        }
+        else throw new IllegalArgumentException("Invalid castle move");
+    }
+
+    /**
+     * this method determines if a player can perform a queen side castle
+     * @param king the current player's king
+     * @param rook the current player's rook
+     * @param board the chessboard
+     * @return if we made a successful castle, throws exception otherwise
+     */
+    public static boolean queenSideCastle(King king, Rook rook, Board board){
+
+        // adds the castling move to the set of previous moves
+        Object[] castle = new Object[] {null, "o-o-o"};
+        board.setPreviousMoves(castle);
+
+        if(king.getColor().equals("White")){ // checks if squares in-between king and rook are being attacked
+            if(king.squareNotProtected(board, 2, 1) && king.squareNotProtected(board, 3, 1)
+                    && king.squareNotProtected(board, 4, 1)){
+
+                rook.move(4,1,board); // move the rook then jump the king
+                king.setCoordinate(3,1, board);
+
+            }
+        } else if(king.getColor().equals("Black")){ // checks if squares in-between king and rook are being attacked
+            if(king.squareNotProtected(board, 2, 8) && king.squareNotProtected(board, 3, 8)
+                    && king.squareNotProtected(board, 4, 8)){
+
+                rook.move(4,8,board); // move the rook then jump the king
+                king.setCoordinate(3, 8, board);
+
+            }
+        } else{
+            board.getPreviousMoves().remove(castle); // if we can't castle, remove the castling move from the list of previous moves
+            throw new IllegalArgumentException("Can't castle, square protected");
+        }
+
+        return true;
+    }
+
+    /**
+     * this method determines if a player can perform a king side castle
+     * @param king the current player's king
+     * @param rook the current player's rook
+     * @param board the chessboard
+     * @return if we made a successful castle, throws exception otherwise
+     */
+    public static boolean kingSideCastle(King king, Rook rook, Board board){
+
+        // adds the castling move to the set of previous moves
+        Object[] castle = new Object[] {null, "o-o"};
+        board.setPreviousMoves(castle);
+
+        if(king.getColor().equals("White")){ // checks if squares in-between king and rook are being attacked
+            if(king.squareNotProtected(board, 6, 1) && king.squareNotProtected(board, 7, 1)){
+
+                rook.move(6,1,board); // move the rook then jump the king
+                king.setCoordinate(7,1, board);
+
+            }
+        } else if(king.getColor().equals("Black")){ // checks if squares in-between king and rook are being attacked
+            if(king.squareNotProtected(board, 6, 8) && king.squareNotProtected(board, 7, 8)){
+
+                rook.move(6,8,board); // move the rook then jump the king
+                king.setCoordinate(7, 8, board);
+
+            }
+        } else {
+            board.getPreviousMoves().remove(castle); // if we can't castle, remove the castling move from the list of previous moves
+            throw new IllegalArgumentException("Can't castle, square protected");
+        }
+
+        return true;
     }
 
 

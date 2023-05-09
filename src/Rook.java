@@ -34,7 +34,7 @@ public class Rook implements Piece {
     public int getYPos() { return this.yPos; }
 
     /**
-     *
+     * this method checks if the rook has moved or not
      * @return if this rook has moved or not
      */
     public boolean getHasMoved() { return this.hasMoved; }
@@ -95,6 +95,7 @@ public class Rook implements Piece {
             board.editBoard(this, this.xPos, this.yPos, xPos, yPos);
             this.yPos = yPos;
             this.xPos = xPos;
+            this.hasMoved = true;
             return true;
         } else {
             throw new IllegalArgumentException("Can't capture. No piece there or square protected or piece is not a threat.");

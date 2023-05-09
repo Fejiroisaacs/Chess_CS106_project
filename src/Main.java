@@ -71,9 +71,15 @@ public class Main {
                 int currentSize = chessBoard.getPreviousMoves().size(); // getting the initial size of the previous
 
                 try {
-                    String move = someHelperFunction(white, chessBoard);
+                    String move = someHelperFunction(white, chessBoard); // gets a valid move
 
-                    UniversalMethods.move(white.getTurn() ? white : black, white.getTurn() ? black : white, chessBoard, move);
+                    // checks if the move is a castle
+                    if(move.contains("o-o")){
+                        UniversalMethods.castle(chessBoard, white.getTurn() ? white : black, move); // try to castle
+                    } else{
+                        // moves the piece
+                        UniversalMethods.move(white.getTurn() ? white : black, white.getTurn() ? black : white, chessBoard, move);
+                    }
 
                 } catch (Exception exception) {
                     String error = exception.toString().substring(35);
@@ -84,8 +90,8 @@ public class Main {
                 // previous moves
                 // the second condition checks if the previous moves list was updated since the loop started.
                 // if it was, then the board changed and either user made a valid move.
-                if (lastMovedPiece.getColor().equals(white.getTurn() ? white.getColor() : black.getColor())
-                        || chessBoard.getPreviousMoves().size() > currentSize ){
+                if (lastMovedPiece != null && (lastMovedPiece.getColor().equals(white.getTurn() ? white.getColor() : black.getColor())
+                        || chessBoard.getPreviousMoves().size() > currentSize) ){
 
                     success = true;
 
@@ -157,7 +163,7 @@ public class Main {
     private static boolean validMoveTest(String move, Board board){
         move = move.toLowerCase();
 
-        if(move.length() < 5 || move.length() > 9) return false;
+        if(move.length() < 3 || move.length() > 9) return false;
 
         if(move.contains("x")){ // captures take precedence
             if(move.indexOf("x") != 3) return false; // always appears in the 4th position of the string. If not, it's an invalid move
@@ -167,6 +173,10 @@ public class Main {
         if(move.contains("+")){ // checks for checks symbol
             if(move.indexOf("+") != move.length()-1) return false; // if the check symbol isn't at the end, it's an invalid move
             move = move.replace("+", ""); // removes the check sign
+        }
+
+        if(!move.contains("x") && move.contains("o-o")){ // can't castle and capture at the same time
+            return move.equals("o-o") || move.equals("o-o-o"); // check if it's a queen or king side castle
         }
 
         if(move.contains("#")){ // checks for the checkmate symbol
