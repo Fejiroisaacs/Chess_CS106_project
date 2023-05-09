@@ -96,21 +96,23 @@ public class Player {
      */
     public boolean isCheckmated(Piece piece) {
         King king = getMyking(); // gets my king
-        return piece.isAttacking(king, board) && king.checkmated(board) && cantCaptureAttackingPiece(piece);
+        return piece.isAttacking(king, board) && king.checkmated(board) && !canCaptureAttackingPiece(piece);
     }
 
     /**
-     *
+     * this method checks if our piece can capture the piece threatening mate
      * @param piece the piece we are trying to capture
      * @return if we can capture a piece that is threatening to mate or not
      */
-    public boolean cantCaptureAttackingPiece(Piece piece){
+    public boolean canCaptureAttackingPiece(Piece piece){
         for(Piece myPiece: this.myPieces){
-            try {
-                if (myPiece.canCapture(piece.getYPos(), piece.getXPos(), board)) return true;
-            } catch (Exception ignored){ }
+            try { // if our piece can capture the piece threatening mate, return true
+                if (myPiece.canCapture(piece.getXPos(), piece.getYPos(), board) && !(myPiece instanceof King)){
+                    return true;
+                }
+            } catch (Exception ignored){ } // ignore any errors thrown
         }
-        return false;
+        return false; // no piece can capture attacking piece
     }
 
 
