@@ -74,13 +74,15 @@ The Player class represents a chess player in a game and includes methods for up
 
 - **`updatePieces()`**: Updates the player's list of owned pieces based on the current state of the board
 
-- **`getMyking()`**: Returns the king owned by the player
+- **`getMyking()`**: Returns the king owned by this player
 
 - **`isCheckmated(Piece piece)`**: Returns whether the player is checkmated by the given attacking piece or not
 
 - **`isChecked(Piece piece)`**: Determines whether a player's king is in check or not
 
 - **`getColor()`**: Returns the color of the player "Black" or "White"
+
+- **`canCaptureAttackingPiece(Piece piece)`**: Returns if any of this players piece can capture an attacking piece (used to determine invalid checkmate)
 
 
 
