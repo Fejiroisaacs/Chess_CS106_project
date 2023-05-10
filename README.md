@@ -105,23 +105,25 @@ The following methods are available in the **UniversalMethods** class:
 
 - **`changeLetCord(String cord)`**: This method takes a string value of a chessboard coordinate (a-h) and returns the corresponding integer position value.
 
-- **`validMove(Board board, Piece piece, int x_cord, int y_cord)`**: This method takes a Board object, a Piece object, and the x and y coordinates of the destination position. It returns a boolean value indicating whether the move is valid or not.
-
-- **`validCapture(Board board, Piece piece, int x_cord, int y_cord)`**: This method takes a Board object, a Piece object, and the x and y coordinates of the destination position. It returns a boolean value indicating whether the move results in a valid capture or not.
-
 - **`getPiece(String move)`**: This method takes a string value of a move (e.g., "q", "k", "b", or "n") and returns the name of the piece being moved (e.g., "pawn", "knight", "bishop", "rook", "queen", or "king").
 
 - **`getCord(String move)`**: This method takes a string value of a move and returns the x and y coordinates of the destination position.
 
-- **`isAttackingSquare(Piece piece, Board board, int xPos, int yPos)`**: 
+- **`isAttackingSquare(Piece piece, Board board, int xPos, int yPos)`**: This method determines if a piece is attacking a square.
 
-- **`canMoveBishop(int thisxPos, int thisyPos, int xPos, int yPos, Board board)`**:
+- **`canMoveBishop(int thisxPos, int thisyPos, int xPos, int yPos, Board board)`**: This method determines if a bishop can move to a given xPos and yPos.
 
-- **`canMoveRook(int thisxPos, int thisyPos, int xPos, int yPos, Board board)`**:
+- **`canMoveRook(int thisxPos, int thisyPos, int xPos, int yPos, Board board)`**: This method determines if a rook can move to a given xPos and yPos.
 
-- **`getMoveSequence(String move)`**:
+- **`getMoveSequence(String move)`**: This method takes in a move and returns an Object array of the piece name, its initial position (square), and the position (square) we are trying to move to.
 
-- **`move(Player player, Board board, String move)`**:
+- **`move(Player player, Board board, String move)`**: This method takes a player, a chessboard, and a move, then makes the move if possible.
+
+- **`kingSideCastle(King king, Rook rook, Board board)`**: This method determines if a player can perform a king side (short) castle.
+
+- **`queenSideCastle(King king, Rook rook, Board board)`**: This method determines if a player can perform a queen side (long) castle.
+
+- **`castle(Board board, Player player, String move)`**: This method determines if a player can castle or not.
 
 
 
@@ -187,17 +189,29 @@ Methods
 
 ### Methods
 
+- **`getHasMoved()`**: This method returns if the king has moved or not
+
 - **`setKingMoves()`**: This method that sets all possible moves for the king based on its current position.
+
+- **`pieceNotOnSquare(int xPos, int yPos, Board board)`**: This method returns if a piece is on a given square or not
 
 - **`getXPos()`**: This method that returns the xPos of the king on a-f scale.
 
 - **`getYPos()`**: This method that returns the yPos of the king on 1-8 scale.
+
+- **`setCoordinate(int xPos, int yPos, Board board)`**: This method changes the position of the king 
 
 - **`canMove(int xPos, int yPos, Board board)`**: This method that determines if the king can move to the specified position on the board.
 
 - **`move(int xPos, int yPos, Board board)`**: This method that moves the king to the specified coordinates on the board.
 
 - **`canCapture(int xPos, int yPos, Board board)`**: This method that checks if the king can capture a piece at the specified coordinates on the board.
+
+- **`squareNotProtected(Board board, int moveX, int moveY)`**: This method checks if a given square is protected by an opponent's piece
+
+- **`isAttacking(Piece piece, Board board)`**: This method determines if this King is attacking a given piece on the given chessboard.
+
+- **`opponentsPieces(Board board)`**: This method updates all the opponents pieces, so we can check if those pieces are attacking the king / attacking
 
 - **`setKingMoves()`**: This method sets all possible moves for the king based on its current position.
 
@@ -211,9 +225,11 @@ Methods
 
 - **`canCapture(int xPos, int yPos, Board board)`**: This method checks if the king can capture a piece at the specified coordinates on the board. 
 
-- **`isChecked(Board board, Piece piece)`**:
+- **`isChecked(Board board, Piece piece)`**: This method determines if the given piece can move to the square occupied by the king on the board (its checked)
 
-- **`checkmated(Board board)`**:
+- **`checkmated(Board board)`**: This method checks if the king is checkmated on the given chessboard
+
+- **`discoveryCheck(Board board)`**: This method checks if the player made a discovery check, or if the king is in check but wasn't specified
 
 
 
