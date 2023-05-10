@@ -231,6 +231,9 @@ Methods
 
 - **`discoveryCheck(Board board)`**: This method checks if the player made a discovery check, or if the king is in check but wasn't specified
 
+- **`getColor()`**: This method returns the color of the King.
+
+- **`toString()`**: This method returns a unique display of this King, including its color and position on the board.
 
 
 <br/>
@@ -263,6 +266,12 @@ The Knight implements the Piece interface and represents a knight on a chess boa
 
 - **`canCapture(int xPos, int yPos, Board board)`**: This method checks if the knight can capture a piece at the specified coordinates on the board.
 
+- **`isAttacking(Piece piece, Board board)`**: This method determines if this Knight is attacking a given piece on the given chessboard.
+
+- **`getColor()`**: This method returns the color of the Knight.
+
+- **`toString()`**: This method returns a unique display of this Knight, including its color and position on the board.
+
 
 
 
@@ -293,7 +302,13 @@ The Pawn class represents a pawn piece in a chess board and includes methods for
 
 - **`canMove(int xPos, int yPos, Board board)`**: A method that determines if the Pawn can move to the specified position on the board.
 
+- **`moveHelper(int xPos, int yPos, Board board)`**: This method changes the position of the pawn on the board.
+
 - **`move(int xPos, int yPos, Board board)`**: A method that moves the Pawn to the specified coordinates on the board.
+
+- **`canPromote(Board board)`**: This method checks if a pawn can be promoted after a move (in case the user doesn't specify a promotion) then promotes the pawn to a queen
+
+- **`promote(String pieceName, int xPos, int yPos, Board board)`**: This method promotes a pawn to a specified piece name -- default promotion is a queen
 
 - **`enPassant(int xPos, int yPos, Board board)`**: A method that determines whether the en passant move is valid for the given Pawn piece at the specified position on the board.
 
@@ -372,6 +387,8 @@ The Rook class implements the Piece interface, representing the Rook chess piece
 - **`getXPos()`**: Returns the x-coordinate of the Rook on a-f scale.
 
 - **`getYPos()`**: Returns the y-coordinate of the Rook on 1-8 scale.
+
+- **`getHasMoved()`**: This method checks if the rook has moved or not
 
 - **`canMove(int xPos, int yPos, Board board)`**: Determines if the Rook can move to the specified position on the board.
 
