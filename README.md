@@ -406,25 +406,9 @@ The Rook class implements the Piece interface, representing the Rook chess piece
 
 
 
-<br/>
-<br/>
-
-
-
-
-
-....
-....
-
-
-
-
-
 
 <br/>
 <br/>
-
-
 
 
 
@@ -432,4 +416,26 @@ The Rook class implements the Piece interface, representing the Rook chess piece
 
 
 ## Class Main: 
+
 Creates the game, and brings all methods together. 
+
+
+### Method
+
+
+- **`howToUse()`**: This method explains how to use this program
+
+- **`playChess()`**: This method creates the chessboard, both players, and starts the game
+
+- **`gameInProgress(Board chessBoard, Player white, Player black)`**: This method keeps the game playing
+
+- **`someHelperFunction(Player white, Board board)`**: This method gets the users move returns if it is a valid move. uses another method to determine validity of the move
+
+- **`validMoveTest(String move, Board board)`**: This method checks the entered move and determines if it is valid or not
+
+- **`pieceOnSpecifiedPos(String cord, Board board)`**: This method returns if there's a piece on a given coordinate or not
+
+- **`kingInCheck(Board board, Player white, Player black, String move)`**: This method determines if a king is in check or not
+
+- **`test()`**: This method runs some tests, used for debugging
+
