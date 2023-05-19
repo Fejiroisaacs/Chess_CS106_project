@@ -56,6 +56,44 @@ public class King implements Piece{
         }
     }
 
+    /**
+     * this method checks if the king has valid moves (would be inverted because used for checking stalemate)
+     * @param board the chessboard
+     * @return if the king has a valid move or not
+     */
+    public boolean kingHasMoves(Board board){
+        setKingMoves(board);
+        for(String moves: this.kingMoves){
+            if(moves != null) {
+                if (squareNotProtected(board, Integer.parseInt(moves) / 10, Integer.parseInt(moves) & 10)){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * this method checks if our king is not attacked by any piece
+     * @param board the chessboard
+     * @return if this king is not attacked by any of the opponents pieces
+     */
+    public boolean notAttacked(Board board){
+        opponentsPieces(board); // updates opponents pieces
+
+        for(Piece piece: this.allOtherPieces){ // checks if any of the opponents piece is attacking this king
+            if(piece.isAttacking(this, board)) return false;
+        }
+        return true;
+    }
+
+    /**
+     * this method checks if there is no piece on a specified square
+     * @param xPos The x-position of the square we want to check
+     * @param yPos the y-position of the square we want to check
+     * @param board the chessboard
+     * @return if there's a piece on a specified square
+     */
     private boolean pieceNotOnSquare(int xPos, int yPos, Board board){
         Piece piece = null;
         try {

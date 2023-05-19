@@ -101,6 +101,16 @@ public class Player {
     }
 
     /**
+     * this method checks for basic stalemate, where there is only a king
+     * (more advanced stalemate would have to check if other pieces can't make a valid move and king can't move but is not attacked )
+     * @return if there's a stalemate or not
+     */
+    public boolean isStalemated(){
+        King king = getMyking(); // gets my king
+        return this.myPieces.size() == 1 && !king.kingHasMoves(board) && !king.notAttacked(board) ;
+    }
+
+    /**
      * this method checks if our piece can capture the piece threatening mate
      * @param piece the piece we are trying to capture
      * @return if we can capture a piece that is threatening to mate or not

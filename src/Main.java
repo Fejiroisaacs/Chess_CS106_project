@@ -195,12 +195,18 @@ public class Main {
                 black.setMyTurn(false);
             }
 
-            // checking if either player was mated.
+            // checking if either player was mated or stalemated.
             if(white.getIsMated()){
                 System.out.println("Black wins");
                 hasEnded = true;
             } else if(black.getIsMated()){
                 System.out.println("White wins");
+                hasEnded = true;
+            } else if (white.getTurn() && white.isStalemated()) {
+                System.out.println("Game over, a draw, black stalemated");
+                hasEnded = true;
+            } else if(black.getTurn() && black.isStalemated()){
+                System.out.println("Game over, a draw, white stalemated");
                 hasEnded = true;
             }
 
