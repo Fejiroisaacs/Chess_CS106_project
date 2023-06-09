@@ -1,11 +1,10 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 
 
 public class Board {
     private final Piece[][] board;                                              // 2D Array representing a piece
-    private ArrayList<Object[]> previousMoves = new ArrayList<>();              // An ArrayList containing previous moves made on the board
-
+    private final ArrayList<Object[]> previousMoves = new ArrayList<>();              // An ArrayList containing previous moves made on the board
+    private final ArrayList<Piece[][]> previousBoardPositions = new ArrayList<>(); // an Arraylist containing all previous board positions
 
     /**
      * This is a constructor for the Board class. This method creates a 2D 8x8 chess
@@ -55,6 +54,8 @@ public class Board {
 
         //Adding the white queen
         board[0][3] = new Queen(4, 1, "White");
+
+        this.setPreviousBoardPositions(); // add initial position to the previous board positions
     }
 
 
@@ -91,6 +92,20 @@ public class Board {
         this.previousMoves.add(prevMove);
     }
 
+    /**
+     * This method updates the previous board positions
+     */
+    public void setPreviousBoardPositions() {
+
+        this.previousBoardPositions.add(copyBoard());
+    }
+
+
+    /**
+     * @return an ArrayList of previous board positions
+     */
+    public ArrayList<Piece[][]> getPreviousBoardPositions(){ return this.previousBoardPositions; }
+
 
     /**
      * This method returns the 2D array representing the chess board
@@ -99,6 +114,20 @@ public class Board {
     public Piece[][] getBoard() {
         return board;
     }
+
+    /**
+     * this method returns a duplicate of
+     * @return a new 2d list of the chessboard
+     */
+    public Piece[][] copyBoard(){
+
+        Piece[][] newChessBoard = new Piece[8][8];
+        for(int i = 0; i < newChessBoard.length; i++){
+            System.arraycopy(this.board[i], 0, newChessBoard[i], 0, newChessBoard.length);
+        }
+        return newChessBoard;
+    }
+
 
 
     /**

@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -8,14 +10,12 @@ public class Main {
 
         howToUse();
 
-        playChess();
-
         // run tests some errors would happen, ignore them
         try {
             test();
         } catch (Exception ignored){ }
 
-
+        playChess();
 
     }
 
@@ -140,6 +140,7 @@ public class Main {
      */
     public static void gameInProgress(Board chessBoard, Player white, Player black){
         boolean hasEnded = false;
+        ArrayList<Piece[][]> check = new ArrayList<>();
         // loop until game ends. Game ends after either player has been checkmated
         while(!hasEnded) {
 
@@ -193,6 +194,7 @@ public class Main {
                 // its black's turn, so we switch back to white's turn
                 white.setMyTurn(true);
                 black.setMyTurn(false);
+                chessBoard.setPreviousBoardPositions(); // set the previous board positions after black plays
             }
 
             // checking if either player was mated or stalemated.
@@ -207,6 +209,9 @@ public class Main {
                 hasEnded = true;
             } else if(black.getTurn() && black.isStalemated()){
                 System.out.println("Game over, a draw, white stalemated");
+                hasEnded = true;
+            } else if (DrawChecks.threefoldDraw(chessBoard)) {
+                System.out.println("A draw, threefold repetition");
                 hasEnded = true;
             }
 

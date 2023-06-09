@@ -19,6 +19,13 @@ public class Player {
         if(color.equals("White")) myTurn = true;
     }
 
+    /**
+     * This method returns an arrayList of this players pieces
+     * @return the pieces that this player owns
+     */
+    public ArrayList<Piece> getMyPieces(){
+        return this.myPieces;
+    }
 
     /**
      * This method returns whether the player is checkmated or not
@@ -107,7 +114,8 @@ public class Player {
      */
     public boolean isStalemated(){
         King king = getMyking(); // gets my king
-        return this.myPieces.size() == 1 && !king.kingHasMoves(board) && !king.notAttacked(board) ;
+        return this.myPieces.size() == 1 && !king.kingHasMoves(board) &&
+                !king.notAttacked(board) && DrawChecks.stalemateCheck(this, board);
     }
 
     /**
