@@ -102,6 +102,7 @@ public class Board {
 
 
     /**
+     * This method gets the previous board positions
      * @return an ArrayList of previous board positions
      */
     public ArrayList<Piece[][]> getPreviousBoardPositions(){ return this.previousBoardPositions; }
@@ -116,7 +117,7 @@ public class Board {
     }
 
     /**
-     * this method returns a duplicate of
+     * this method returns a duplicate of this board
      * @return a new 2d list of the chessboard
      */
     public Piece[][] copyBoard(){

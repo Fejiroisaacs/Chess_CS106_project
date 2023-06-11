@@ -43,7 +43,13 @@ The Board class represents a chess board with the ability to add and move pieces
 
 - **`setPreviousMoves(Object[] prevMove)`**: Adds an Object array to the ArrayList of a piece and its previous moves made on the board.
 
+- **`setPreviousBoardPositions()`**: This method updates the previous board positions
+
+- **`getPreviousBoardPositions()`**: This method gets the previous board positions
+
 - **`getBoard()`**: Returns the 2D array representing the chess board.
+
+- **`copyBoard()`**: This method returns a duplicate of this board
 
 - **`toString()`**: Overrides the built-in toString() method and returns a unique String representation of the chess board for display purposes.
 
@@ -106,8 +112,6 @@ The following methods are available in the **UniversalMethods** class:
 - **`changeLetCord(String cord)`**: This method takes a string value of a chessboard coordinate (a-h) and returns the corresponding integer position value.
 
 - **`getPiece(String move)`**: This method takes a string value of a move (e.g., "q", "k", "b", or "n") and returns the name of the piece being moved (e.g., "pawn", "knight", "bishop", "rook", "queen", or "king").
-
-- **`getCord(String move)`**: This method takes a string value of a move and returns the x and y coordinates of the destination position.
 
 - **`isAttackingSquare(Piece piece, Board board, int xPos, int yPos)`**: This method determines if a piece is attacking a square.
 
@@ -192,6 +196,10 @@ Methods
 - **`getHasMoved()`**: This method returns if the king has moved or not
 
 - **`setKingMoves()`**: This method that sets all possible moves for the king based on its current position.
+
+- **`kingHasMoves(Board board)`**: This method checks if the king has valid moves 
+
+- **`notAttacked(Board board)`**: This method checks if our king is not attacked by any piece
 
 - **`pieceNotOnSquare(int xPos, int yPos, Board board)`**: This method returns if a piece is on a given square or not
 
