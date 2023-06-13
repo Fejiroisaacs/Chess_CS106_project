@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 
 public class Main {
@@ -140,7 +138,7 @@ public class Main {
      */
     public static void gameInProgress(Board chessBoard, Player white, Player black){
         boolean hasEnded = false;
-        ArrayList<Piece[][]> check = new ArrayList<>();
+
         // loop until game ends. Game ends after either player has been checkmated
         while(!hasEnded) {
 
@@ -212,6 +210,9 @@ public class Main {
                 hasEnded = true;
             } else if (DrawChecks.threefoldDraw(chessBoard)) {
                 System.out.println("A draw, threefold repetition");
+                hasEnded = true;
+            } else if (DrawChecks.fiftyMove(chessBoard)) {
+                System.out.println("A draw, fifty move rule");
                 hasEnded = true;
             }
 

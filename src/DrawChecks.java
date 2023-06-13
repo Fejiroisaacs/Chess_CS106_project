@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class DrawChecks {
 
@@ -155,5 +154,28 @@ public class DrawChecks {
         }
 
         return true; // boards are equal
+    }
+
+    /**
+     * this method implements the fifty move draw rule. checking if
+     * there was no pawn move or no capture in the last fifty moves
+     * @param board the chessboard
+     * @return if there's a fifty move draw
+     */
+    public static boolean fiftyMove(Board board){
+        ArrayList<Object[]> previousMoves = board.getPreviousMoves(); // gets all previous moves
+
+        if(previousMoves.size() < 50) return false; // less than 50 moves played
+
+        for(int i = previousMoves.size()-50; i < previousMoves.size(); i++ ){
+
+            Object[] move = previousMoves.get(i); // gets the move sequence
+
+            if(move[0] instanceof Pawn) return false; // a pawn moves, no draw
+            if((boolean)move[2]) return false; // a capture, no draw
+
+        }
+
+        return true; // a fifty move draw
     }
 }

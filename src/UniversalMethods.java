@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.Arrays;
+
 
 public class UniversalMethods {
 
@@ -146,7 +145,7 @@ public class UniversalMethods {
                 }
 
                 thisPawn.promote(pieceName, (int) pieceMove[2][0], (int) pieceMove[2][1], board);
-                board.setPreviousMoves(new Object[]{thisPawn, move});
+                board.setPreviousMoves(new Object[]{thisPawn, move, isCapture});
             }
 
             return;
@@ -177,7 +176,7 @@ public class UniversalMethods {
                 else System.out.println("king is not checkmated");
             }
 
-            board.setPreviousMoves(new Object[]{thisPiece, move});
+            board.setPreviousMoves(new Object[]{thisPiece, move, isCapture});
 
         } else {
             throw new IllegalArgumentException("Move sequence entered is invalid. Contains illegal characters or too many characters");
